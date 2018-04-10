@@ -1,0 +1,103 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    ext.versions = [
+            'kotlin'          : '1.2.31',
+            'supportLibrary'  : '27.1.1',
+            'constraintLayout': '1.0.2',
+//            'firebase'        : '12.0.1',
+            'testRunner'      : '1.0.1',
+            'espressoCore'    : '3.0.1'
+    ]
+
+
+    ext.buildConfig = [
+            'compileSdk': 27,
+            'targetSdk' : 27,
+            'minSdk'    : 15,
+            'isSnapshot': false,
+
+            'version'   : [
+                    'major'     : 1,
+                    'minor'     : 0,
+                    'patch'     : 0,
+                    'classifier': null, // dev, beta, alpha etc.
+            ]
+    ]
+
+    String versionName = "${buildConfig.version.major}.${buildConfig.version.minor}.${buildConfig.version.patch}"
+
+    if (buildConfig.version.classifier == null) {
+        if (buildConfig.isSnapshot) {
+            buildConfig.version.classifier = 'SNAPSHOT'
+        }
+    }
+
+    if (buildConfig.version.classifier != null) {
+        versionName += "-" + buildConfig.version.classifier
+    }
+
+    ext.buildConfig.version['name'] = versionName
+    ext.buildConfig.version['code'] = buildConfig.version.major * 100000 + buildConfig.version.minor * 10000 + buildConfig.version.patch * 100
+
+
+    ext.deps = [
+            'kotlin' : [
+                    'stdlib': [
+                            'jre7': "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}",
+                    ],
+            ],
+            'android': [
+                    'support': [
+                            'appcompatV7'     : "com.android.support:appcompat-v7:${versions.supportLibrary}",
+                            'annotations'     : "com.android.support:support-annotations:${versions.supportLibrary}",
+                            'constraintLayout': "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
+                            'test'            : [
+                                    'runner'      : "com.android.support.test:runner:${versions.testRunner}",
+                                    'espressoCore': "com.android.support.test.espresso:espresso-core:${versions.espressoCore}"
+                            ]
+                    ],
+            ],
+
+//            'google' : [
+//                    'firebase': [
+//                            'core': "com.google.firebase:firebase-core:${versions.firebase}"
+//                    ]
+//            ],
+
+            'junit'  : 'junit:junit:4.12'
+    ]
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    // Force all of the primary support libraries to use the same version.
+    configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'com.android.support') {
+                details.useVersion versions.supportLibrary
+            }
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
