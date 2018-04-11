@@ -1,25 +1,36 @@
-> **Blood Donation App**
+# **Blood Donation App**
 
 Hello Everyone,
 
-This application is a ongoing collaborative project made by the `Google Udacity Android Developer Scholarship Recepients`.
+This application is an ongoing collaborative project made by the `Google Udacity Android Developer Scholarship Recipients`.
 
 ---
 
-## how the app will work?
- * First of all, the one(Voluntary Donor) firstly makes an account on our app with general information(e.g. name, age) + his Blood Group + his live location(As per his permission) or City name.
- * On the second side, the one who needs blood,will create a request for blood unit with his Location and all person near him(Our Voluntary Donors) will receive notification.(For example, `XYZ` needs blood at `XYZ hospital` or `123.456.789` location)
+## How the app will work?
+ * This app keeps a list of voluntary donors.
+ * A Voluntary Donor has to make an account on our app with some general information like:
+    - Name
+    - Age
+    - Blood Group
+    - City name [Can also provide access to his live location].
+    
+ * On the other side, the one who needs blood, will create a request for blood unit with his blood group and location.
+
+### On Creating a Blood Request 
+All persons near him i.e. *our voluntary donors* will receive notification for such request. (e.g. `Person A` needs blood at `XYZ hospital` or `123.456.789` location)
  
    **OR**
    
-   We can show him all the blood donors with that particular blood group with the live location on the map. (Consider an example when we search for cab on `Ola` or `Uber` app
+   The requester is shown a map of all the blood donors with the requested blood group with their live location near him. (Consider an example when we search for cab on `Ola` or `Uber` app)
 
 ---
 
 ## Benefits of the Project 
 
-1) Reduce the wastage of blood. Usually Blood banks store more blood so that they full fill every requirement because the demand for blood is undefined.
-2) Sometimes people don't find blood at the correct time.This app can help there.
+1) Connecting Blood Donors and Recipients.
+   - Sometimes people don't find blood at the correct time. This app can help there by connecting donors and recipients.
+2) Reduce the wastage of blood. 
+   - Usually Blood banks store more blood so that they fulfil every requirement because the demand for blood is undefined.
 
 ---
 
@@ -39,4 +50,4 @@ Pull requests are welcome for minor bug fixes or for a feature you are working o
 
 ---
 
-[0]: https://github.com/UdacityAndroidDevScholarship/blood-donation/issues
+[0]: https://github.com/UdacityAndroidDevScholarship/blood-donation/issues 
