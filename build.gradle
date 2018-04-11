@@ -6,9 +6,10 @@ buildscript {
             'kotlin'          : '1.2.31',
             'supportLibrary'  : '27.1.1',
             'constraintLayout': '1.0.2',
-//            'firebase'        : '12.0.1',
+            'firebase'        : '12.0.1',
             'testRunner'      : '1.0.1',
-            'espressoCore'    : '3.0.1'
+            'espressoCore'    : '3.0.1',
+            'leak_canary'     :  '1.5.4'
     ]
 
 
@@ -60,11 +61,18 @@ buildscript {
                     ],
             ],
 
-//            'google' : [
-//                    'firebase': [
-//                            'core': "com.google.firebase:firebase-core:${versions.firebase}"
-//                    ]
-//            ],
+            'google' : [
+                    'firebase': [
+                            'auth': "com.google.firebase:firebase-auth:${versions.firebase}"
+                    ]
+            ],
+
+            'square':[
+                'leackcanary':[
+                    'debug':"com.squareup.leakcanary:leakcanary-android:${versions.leak_canary}",
+                    'release':"com.squareup.leakcanary:leakcanary-android-no-op:${versions.leak_canary}"
+                ]
+            ],
 
             'junit'  : 'junit:junit:4.12'
     ]

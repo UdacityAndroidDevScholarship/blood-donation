@@ -25,11 +25,21 @@ android {
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+  // Kotlin
   implementation deps.kotlin.stdlib.jre7
 
+  // Support lib
   implementation deps.android.support.appcompatV7
 
+  // Constraint layout
   implementation deps.android.support.constraintLayout
+
+  // Firebase Auth
+  implementation deps.google.firebase.auth
+
+  // Lear canary
+  debugImplementation deps.square.leackcanary.debug
+  releaseImplementation deps.square.leackcanary.release
 
   testImplementation deps.junit
 
