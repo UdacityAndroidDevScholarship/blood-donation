@@ -20,6 +20,7 @@ public class SplashScreenActivity extends BaseActivity {
       if (!isFinishing()) {
         Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
         startActivity(intent);
+        finish();
       }
     }
   };
