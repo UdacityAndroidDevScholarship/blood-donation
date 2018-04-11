@@ -3,7 +3,6 @@
 buildscript {
 
     ext.versions = [
-            'kotlin'          : '1.2.31',
             'supportLibrary'  : '27.1.1',
             'constraintLayout': '1.0.2',
             'firebase'        : '12.0.1',
@@ -44,11 +43,6 @@ buildscript {
 
 
     ext.deps = [
-            'kotlin' : [
-                    'stdlib': [
-                            'jre7': "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}",
-                    ],
-            ],
             'android': [
                     'support': [
                             'appcompatV7'     : "com.android.support:appcompat-v7:${versions.supportLibrary}",
@@ -83,7 +77,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

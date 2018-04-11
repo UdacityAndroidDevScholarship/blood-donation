@@ -1,9 +1,5 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
 android {
   compileSdkVersion buildConfig.compileSdk
   defaultConfig {
@@ -24,9 +20,6 @@ android {
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-  // Kotlin
-  implementation deps.kotlin.stdlib.jre7
 
   // Support lib
   implementation deps.android.support.appcompatV7
