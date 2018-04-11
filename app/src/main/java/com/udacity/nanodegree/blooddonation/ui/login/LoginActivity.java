@@ -1,20 +1,31 @@
 package com.udacity.nanodegree.blooddonation.ui.login;
 
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
-import com.udacity.nanodegree.blooddonation.ui.login.presenter.LoginActivityPresenter;
 
 /**
  * Created by riteshksingh on Apr, 2018
  */
-public class LoginActivity extends BaseActivity {
-  private LoginActivityPresenter loginActivityPresenter;
+public class LoginActivity extends BaseActivity<LoginContract.Presenter, ViewDataBinding> implements LoginContract.View {
 
-  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_login);
-    loginActivityPresenter = new LoginActivityPresenter();
-  }
+
+    @Override
+    protected int getContentResource() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    protected void init(@Nullable Bundle savedInstanceState) {
+
+    }
+
+
+    @Override
+    protected void beforeView(@Nullable Bundle savedInstanceState) {
+
+    }
 }
