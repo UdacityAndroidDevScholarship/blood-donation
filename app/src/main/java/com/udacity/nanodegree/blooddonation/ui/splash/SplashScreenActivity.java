@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
-import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
+import com.udacity.nanodegree.blooddonation.ui.login.LoginActivity;
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -18,7 +18,7 @@ public class SplashScreenActivity extends BaseActivity {
   private Runnable runnable = new Runnable() {
     @Override public void run() {
       if (!isFinishing()) {
-        Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
+        Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
         startActivity(intent);
       }
     }
