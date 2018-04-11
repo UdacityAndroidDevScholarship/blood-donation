@@ -23,6 +23,16 @@ This application is an ongoing collaborative project made by the `Google Udacity
 
 ---
 
+## Use the project with your own Firebase instance
+
+* Create a new project in the [Firebase console][1].
+* Click Add Firebase to your Android app
+   * use the `applicationId` value specified in the `app/build.gradle` file of the app as the Android package name
+   * insert SHA-1 fingerprint of your debug certificate
+* Download the generated `google-services.json` file, and copy it to the `app/` directory of your project.
+* You should be able to successfully sync the project now.
+---
+
 ## Contributing
 
 We welcome your contributions to this project. There are various ways to contribute:
@@ -40,3 +50,5 @@ Pull requests are welcome for minor bug fixes or for a feature you are working o
 ---
 
 [0]: https://github.com/UdacityAndroidDevScholarship/blood-donation/issues
+[1]: https://console.firebase.google.com
+
