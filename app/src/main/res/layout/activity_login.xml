@@ -1,7 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/dp_8"
+    >
+  <ImageView
+      android:id="@+id/iv_logo"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_centerHorizontal="true"
+      android:src="@mipmap/ic_launcher"
+      />
+  <TextView
+      android:id="@+id/tv_login_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/iv_logo"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="@dimen/dp_16"
+      android:text="@string/log_in_label"
+      />
 
-</android.support.constraint.ConstraintLayout>
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_above="@+id/ll_signup"
+      android:layout_below="@+id/tv_login_text"
+      android:layout_marginLeft="16dp"
+      android:layout_marginRight="16dp"
+      android:layout_marginTop="@dimen/dp_8"
+      android:fillViewport="true"
+      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          >
+        <EditText
+            android:id="@+id/et_email_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:hint="@string/email_or_phone_number"
+            />
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:hint="@string/password"
+            />
+      </LinearLayout>
+
+
+      <TextView
+          android:id="@+id/tv_or_label"
+          android:layout_width="wrap_content"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:text="@string/or_text"
+          android:textAllCaps="true"
+          />
+
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center_horizontal"
+          android:orientation="vertical"
+          >
+        <Button
+            android:id="@+id/bv_fb_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_with_facebook"
+            />
+
+        <Button
+            android:id="@+id/bv_google_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_with_google"
+            />
+      </LinearLayout>
+
+
+    </LinearLayout>
+
+  </ScrollView>
+
+
+  <LinearLayout
+      android:id="@+id/ll_signup"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:gravity="center"
+      android:orientation="vertical"
+      >
+    <TextView
+        android:id="@+id/tv_need_account_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/need_account"
+        />
+    <Button
+        android:id="@+id/bv_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="@string/sing_up_text"
+        android:textAllCaps="true"
+        />
+  </LinearLayout>
+</RelativeLayout>
