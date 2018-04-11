@@ -2,7 +2,7 @@
 
 Hello Everyone,
 
-This application is an ongoing collaborative project made by the `Google Udacity Android Developer Scholarship Recipients`.
+This application is an ongoing collaborative project made by the `Google Udacity Android Developer Scholarship Recepients`.
 
 ---
 
