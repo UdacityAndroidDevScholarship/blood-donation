@@ -32,7 +32,8 @@ public class SplashScreenActivity extends BaseActivity {
     }
 
     private Runnable runnable = new Runnable() {
-        @Override public void run() {
+        @Override
+        public void run() {
             if (!isFinishing()) {
                 Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
                 startActivity(intent);
@@ -42,9 +43,8 @@ public class SplashScreenActivity extends BaseActivity {
     };
 
 
-
-
-    @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
@@ -59,7 +59,7 @@ public class SplashScreenActivity extends BaseActivity {
     private void StartAnimations() {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
         anim.reset();
-        mlayoutMain=(LinearLayout) findViewById(R.id.lin_lay);
+        mlayoutMain = (LinearLayout) findViewById(R.id.lin_lay);
         mlayoutMain.clearAnimation();
         mlayoutMain.startAnimation(anim);
 
@@ -72,8 +72,8 @@ public class SplashScreenActivity extends BaseActivity {
     }
 
 
-
-    @Override protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
         mDelayHandler.removeCallbacks(runnable);
     }
