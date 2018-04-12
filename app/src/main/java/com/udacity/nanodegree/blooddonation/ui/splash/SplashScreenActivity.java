@@ -13,6 +13,7 @@ import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
  * Created by riteshksingh on Apr, 2018
  */
 public class SplashScreenActivity extends BaseActivity {
+
     private Long SPLASH_DELAY = 1000L;
     private Handler mDelayHandler = null;
 
@@ -22,6 +23,7 @@ public class SplashScreenActivity extends BaseActivity {
             if (!isFinishing()) {
                 Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
                 startActivity(intent);
+                finish();
             }
         }
     };
