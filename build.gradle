@@ -8,9 +8,10 @@ buildscript {
             'firebase'        : '12.0.1',
             'testRunner'      : '1.0.1',
             'espressoCore'    : '3.0.1',
-            'leak_canary'     :  '1.5.4'
+            'leak_canary'     : '1.5.4',
+            'dataBinding'     : '3.1.0',
+            'butterKnife'     : '8.8.1'
     ]
-
 
     ext.buildConfig = [
             'compileSdk': 27,
@@ -43,8 +44,8 @@ buildscript {
 
 
     ext.deps = [
-            'android': [
-                    'support': [
+            'android'    : [
+                    'support'    : [
                             'appcompatV7'     : "com.android.support:appcompat-v7:${versions.supportLibrary}",
                             'annotations'     : "com.android.support:support-annotations:${versions.supportLibrary}",
                             'constraintLayout': "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
@@ -53,22 +54,32 @@ buildscript {
                                     'espressoCore': "com.android.support.test.espresso:espresso-core:${versions.espressoCore}"
                             ]
                     ],
+                    'databinding': [
+                            'processor': "com.android.databinding:compiler:${versions.dataBinding}",
+
+                    ]
+            ],
+            'viewBinding': [
+                    'butterKnife': [
+                            'lib'      : "com.jakewharton:butterknife:${versions.butterKnife}",
+                            'processor': "com.jakewharton:butterknife-compiler:${versions.butterKnife}"
+                    ]
             ],
 
-            'google' : [
+            'google'     : [
                     'firebase': [
                             'auth': "com.google.firebase:firebase-auth:${versions.firebase}"
                     ]
             ],
 
-            'square':[
-                'leackcanary':[
-                    'debug':"com.squareup.leakcanary:leakcanary-android:${versions.leak_canary}",
-                    'release':"com.squareup.leakcanary:leakcanary-android-no-op:${versions.leak_canary}"
-                ]
+            'square'     : [
+                    'leackcanary': [
+                            'debug'  : "com.squareup.leakcanary:leakcanary-android:${versions.leak_canary}",
+                            'release': "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leak_canary}"
+                    ]
             ],
 
-            'junit'  : 'junit:junit:4.12'
+            'junit'      : 'junit:junit:4.12'
     ]
 
     repositories {

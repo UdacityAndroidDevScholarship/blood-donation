@@ -1,41 +1,50 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion buildConfig.compileSdk
-  defaultConfig {
-    applicationId "com.udacity.nanodegree.blooddonation"
-    minSdkVersion buildConfig.minSdk
-    targetSdkVersion buildConfig.targetSdk
-    versionCode buildConfig.version.code
-    versionName buildConfig.version.name
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-  }
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    compileSdkVersion buildConfig.compileSdk
+    defaultConfig {
+        applicationId "com.udacity.nanodegree.blooddonation"
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
+        versionCode buildConfig.version.code
+        versionName buildConfig.version.name
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-  }
+    dataBinding {
+        enabled = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-  // Support lib
-  implementation deps.android.support.appcompatV7
+    //ButterKnife
+    implementation deps.viewBinding.butterKnife.lib
+    annotationProcessor deps.viewBinding.butterKnife.processor
 
-  // Constraint layout
-  implementation deps.android.support.constraintLayout
 
-  // Firebase Auth
-  implementation deps.google.firebase.auth
 
-  // Lear canary
-  debugImplementation deps.square.leackcanary.debug
-  releaseImplementation deps.square.leackcanary.release
+    // Support lib
+    implementation deps.android.support.appcompatV7
 
-  testImplementation deps.junit
+    // Constraint layout
+    implementation deps.android.support.constraintLayout
 
-  androidTestImplementation deps.android.support.test.runner
-  androidTestImplementation deps.android.support.test.espressoCore
+    // Firebase Auth
+    implementation deps.google.firebase.auth
+
+    // Lear canary
+    debugImplementation deps.square.leackcanary.debug
+    releaseImplementation deps.square.leackcanary.release
+
+    testImplementation deps.junit
+
+    androidTestImplementation deps.android.support.test.runner
+    androidTestImplementation deps.android.support.test.espressoCore
 }

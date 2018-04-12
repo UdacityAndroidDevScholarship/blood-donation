@@ -1,6 +1,7 @@
 package com.udacity.nanodegree.blooddonation.ui.splash;
 
 import android.content.Intent;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,7 +13,7 @@ import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
 /**
  * Created by riteshksingh on Apr, 2018
  */
-public class SplashScreenActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity<SplashContract.Presenter, ViewDataBinding> implements SplashContract.View {
     private Long SPLASH_DELAY = 1000L;
     private Handler mDelayHandler = null;
 
@@ -20,25 +21,35 @@ public class SplashScreenActivity extends BaseActivity {
         @Override
         public void run() {
             if (!isFinishing()) {
-                Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
+                Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         }
     };
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+    protected void onDestroy() {
+        super.onDestroy();
+        mDelayHandler.removeCallbacks(runnable);
+    }
+
+    @Override
+    protected int getContentResource() {
+        return R.layout.activity_splash_screen;
+    }
+
+    @Override
+    protected void init(@Nullable Bundle savedInstanceState) {
 
         mDelayHandler = new Handler();
 
         mDelayHandler.postDelayed(runnable, SPLASH_DELAY);
     }
 
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mDelayHandler.removeCallbacks(runnable);
+    protected void beforeView(@Nullable Bundle savedInstanceState) {
+
     }
 }
