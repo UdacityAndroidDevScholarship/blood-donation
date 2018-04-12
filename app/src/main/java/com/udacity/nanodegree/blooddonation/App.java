@@ -1,6 +1,7 @@
 package com.udacity.nanodegree.blooddonation;
 
 import android.app.Application;
+
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -8,22 +9,23 @@ import com.squareup.leakcanary.LeakCanary;
  */
 public class App extends Application {
 
-  private static App INSTANCE;
+    private static App INSTANCE;
 
-  @Override public void onCreate() {
-    super.onCreate();
+    public static App getInstance() {
+        return INSTANCE;
+    }
 
-    INSTANCE = this;
-    initLeakCanary();
-  }
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
-  private void initLeakCanary() {
-    if (LeakCanary.isInAnalyzerProcess(this)) return;
+        INSTANCE = this;
+        initLeakCanary();
+    }
 
-    LeakCanary.install(this);
-  }
+    private void initLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) return;
 
-  public static App getInstance() {
-    return INSTANCE;
-  }
+        LeakCanary.install(this);
+    }
 }
