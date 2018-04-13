@@ -19,4 +19,5 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         loginActivityPresenter = new LoginActivityPresenter();
     }
+
 }
