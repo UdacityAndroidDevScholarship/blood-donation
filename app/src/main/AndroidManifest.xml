@@ -16,6 +16,7 @@
         <activity android:name="com.udacity.nanodegree.blooddonation.ui.home.HomeActivity">
 
         </activity>
+
         <activity
             android:name="com.udacity.nanodegree.blooddonation.ui.splash.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -25,10 +26,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity android:name="com.udacity.nanodegree.blooddonation.ui.login.view.LoginActivity"
                   android:theme="@style/AppTheme.NoTitleBar">
-
         </activity>
+
+        <activity android:name="com.udacity.nanodegree.blooddonation.ui.signup.view.SignUpActivity">
+        </activity>
+
     </application>
 
 </manifest>
