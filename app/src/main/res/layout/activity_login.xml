@@ -7,6 +7,9 @@
 
         <variable name="presenter"
                   type="com.udacity.nanodegree.blooddonation.ui.login.LoginActivityContract.Presenter"/>
+
+        <variable name="listener"
+                  type="android.view.View.OnClickListener"/>
     </data>
 
     <RelativeLayout
@@ -69,8 +72,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="@string/log_in_label"
                     android:onClick="@{()->presenter.onLoginClick(loginInfo)}"
+                    android:text="@string/log_in_label"
                 />
             </LinearLayout>
 
@@ -95,8 +98,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
+                android:onClick="@{(view)->listener.onClick(view)}"
                 android:text="@string/sing_up_text"
-                android:textAllCaps="true"/>
+                android:textAllCaps="true"
+            />
 
         </LinearLayout>
     </RelativeLayout>
