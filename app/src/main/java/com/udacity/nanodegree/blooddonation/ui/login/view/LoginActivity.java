@@ -1,12 +1,16 @@
 package com.udacity.nanodegree.blooddonation.ui.login.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
+import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityLoginBinding;
+import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.login.LoginActivityContract;
 import com.udacity.nanodegree.blooddonation.ui.login.LoginInfo;
 import com.udacity.nanodegree.blooddonation.ui.login.presenter.LoginActivityPresenter;
@@ -25,7 +29,8 @@ public class LoginActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
-        loginActivityPresenter = new LoginActivityPresenter(this);
+        loginActivityPresenter = new LoginActivityPresenter(this,
+                Injection.getFirebaseAuth());
         ((ActivityLoginBinding) mBinding).setPresenter(loginActivityPresenter);
         ((ActivityLoginBinding) mBinding).setLoginInfo(new LoginInfo());
 
@@ -51,4 +56,18 @@ public class LoginActivity extends BaseActivity implements
         loginActivityPresenter.onDestroy();
     }
 
+    private void launchHomeActivity() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void loginSuccess() {
+        launchHomeActivity();
+    }
+
+    @Override
+    public void loginFailed() {
+        Toast.makeText(this, "Autentication failed", Toast.LENGTH_SHORT).show();
+    }
 }
