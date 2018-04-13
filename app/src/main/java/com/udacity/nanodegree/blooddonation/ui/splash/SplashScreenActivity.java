@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
-import com.udacity.nanodegree.blooddonation.ui.login.LoginActivity;
+import com.udacity.nanodegree.blooddonation.ui.login.view.LoginActivity;
 
 /**
  * Created by riteshksingh on Apr, 2018
