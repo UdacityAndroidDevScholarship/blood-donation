@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/et_first_name"
@@ -20,8 +17,7 @@
         app:layout_constraintEnd_toStartOf="@+id/et_last_name"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="@string/hint_first_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/et_last_name"
@@ -35,8 +31,7 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/et_first_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/et_first_name"
-        android:autofillHints="@string/hint_last_name"/>
+        app:layout_constraintStart_toEndOf="@+id/et_first_name" />
 
     <Spinner
         android:id="@+id/blood_group_drop_down"
@@ -61,8 +56,7 @@
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="@+id/et_location"
         app:layout_constraintStart_toStartOf="@+id/et_location"
-        app:layout_constraintTop_toBottomOf="@+id/et_location"
-        android:autofillHints="@string/hint_birth_date"/>
+        app:layout_constraintTop_toBottomOf="@+id/et_location" />
 
     <EditText
         android:id="@+id/et_location"
@@ -77,9 +71,7 @@
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="@+id/et_email"
         app:layout_constraintStart_toStartOf="@+id/et_email"
-        app:layout_constraintTop_toBottomOf="@+id/et_email"
-        android:drawableRight="@drawable/ic_location_on_red_24dp"
-        android:autofillHints="@string/hint_location"/>
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
     <EditText
         android:id="@+id/et_email"
@@ -91,7 +83,6 @@
         android:hint="@string/hint_email"
         android:inputType="textEmailAddress"
         android:padding="8dp"
-        android:autofillHints="@string/hint_email"
         app:layout_constraintEnd_toEndOf="@+id/blood_group_drop_down"
         app:layout_constraintStart_toStartOf="@+id/blood_group_drop_down"
         app:layout_constraintTop_toBottomOf="@+id/blood_group_drop_down" />
@@ -146,4 +137,3 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </RadioGroup>
 </android.support.constraint.ConstraintLayout>
-</ScrollView>
