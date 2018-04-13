@@ -1,3 +1,13 @@
 <resources>
   <string name="app_name">Blood Donation</string>
+    <string name="hint_first_name">First Name</string>
+  <string name="hint_last_name">Last Name</string>
+  <string name="hint_birth_date">Birth Date</string>
+  <string name="hint_location">Select Your Location</string>
+  <string name="hint_referral_code">Referral Code</string>
+  <string name="create_now">Create Now</string>
+    <string name="hint_email">Email</string>
+  <string name="gender_male">Male</string>
+  <string name="gender">Gender</string>
+  <string name="gender_female">Female</string>
 </resources>
