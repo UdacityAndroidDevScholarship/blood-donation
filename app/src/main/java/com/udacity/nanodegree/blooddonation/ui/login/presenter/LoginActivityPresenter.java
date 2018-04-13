@@ -6,6 +6,7 @@ import com.udacity.nanodegree.blooddonation.base.BasePresenter;
  * Created by riteshksingh on Apr, 2018
  */
 public class LoginActivityPresenter implements BasePresenter {
+
     @Override
     public void onCreate() {
 
@@ -15,6 +16,7 @@ public class LoginActivityPresenter implements BasePresenter {
     public void onStart() {
 
     }
+
 
     @Override
     public void onStop() {
