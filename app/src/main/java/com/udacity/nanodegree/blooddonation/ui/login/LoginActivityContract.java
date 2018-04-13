@@ -10,7 +10,9 @@ public interface LoginActivityContract {
         void onLoginClick(LoginInfo loginInfo);
     }
 
-    interface View{
+    interface View {
+        void loginSuccess();
 
+        void loginFailed();
     }
 }
