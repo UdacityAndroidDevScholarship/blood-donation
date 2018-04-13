@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
-import com.udacity.nanodegree.blooddonation.ui.login.view.LoginActivity;
+import com.udacity.nanodegree.blooddonation.ui.registration.view.UserRegistrationActivity;
 import com.udacity.nanodegree.blooddonation.util.AppVersionUtil;
 
 /**
@@ -33,7 +33,7 @@ public class SplashScreenActivity extends BaseActivity {
 
                 // TODO -> check if logged, naviagte user to homescreen or if not then on logoin screen
 
-                Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, UserRegistrationActivity.class);
                 finish();
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 startActivity(intent);

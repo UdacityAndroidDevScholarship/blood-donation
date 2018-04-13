@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <data>
+    <variable
+        name="regisInfo"
+        type="com.udacity.nanodegree.blooddonation.ui.registration.UserRegistrationInfo"
+        />
+
+    <variable
+        name="presenter"
+        type="com.udacity.nanodegree.blooddonation.ui.registration.UserRegistrationContract.Presenter"
+        />
+  </data>
+
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="@dimen/dp_8"
+      >
+
+    <EditText
+        android:id="@+id/et_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:addTextChangedListener="@{regisInfo.phoneNumberWatcher}"
+        android:hint="@string/enter_phone_number"
+        android:text="@{regisInfo.phoneNumber}"
+        />
+
+    <Button
+        android:id="@+id/bv_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_phone_number"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_8"
+        android:onClick="@{()->presenter.onIamInButtonClick(regisInfo)}"
+        android:text="@string/iam_in"
+        android:textAllCaps="true"
+        />
+  </RelativeLayout>
+
+</layout>

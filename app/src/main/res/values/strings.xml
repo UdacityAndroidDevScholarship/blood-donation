@@ -1,11 +1,5 @@
 <resources>
     <string name="app_name">Blood Donation</string>
-    <string name="log_in_label">Log in</string>
-    <string name="need_account">Need an account</string>
-    <string name="sing_up_text">Sign up now</string>
-    <string name="or_text">or</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="login_with_facebook">Login with Facebook</string>
-    <string name="login_with_google">Login with Google</string>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="iam_in">I am in</string>
 </resources>
