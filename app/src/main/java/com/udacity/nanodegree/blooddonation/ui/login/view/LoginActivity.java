@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Toast;
 
 import com.udacity.nanodegree.blooddonation.injection.Injection;
@@ -14,12 +15,13 @@ import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.login.LoginActivityContract;
 import com.udacity.nanodegree.blooddonation.ui.login.LoginInfo;
 import com.udacity.nanodegree.blooddonation.ui.login.presenter.LoginActivityPresenter;
+import com.udacity.nanodegree.blooddonation.ui.signup.view.SignUpActivity;
 
 /**
  * Created by riteshksingh on Apr, 2018
  */
 public class LoginActivity extends BaseActivity implements
-        LoginActivityContract.View {
+        LoginActivityContract.View,View.OnClickListener{
 
     private LoginActivityContract.Presenter loginActivityPresenter;
 
@@ -33,7 +35,7 @@ public class LoginActivity extends BaseActivity implements
                 Injection.getFirebaseAuth());
         ((ActivityLoginBinding) mBinding).setPresenter(loginActivityPresenter);
         ((ActivityLoginBinding) mBinding).setLoginInfo(new LoginInfo());
-
+        ((ActivityLoginBinding) mBinding).setListener(this);
         loginActivityPresenter.onCreate();
     }
 
@@ -69,5 +71,19 @@ public class LoginActivity extends BaseActivity implements
     @Override
     public void loginFailed() {
         Toast.makeText(this, "Autentication failed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.bv_sign_up:
+                launchSignUpActivity();
+                break;
+        }
+    }
+
+    private void launchSignUpActivity() {
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
     }
 }
