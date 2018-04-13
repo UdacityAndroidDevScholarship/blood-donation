@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
@@ -23,6 +24,7 @@ public class SplashScreenActivity extends BaseActivity {
     private Handler mDelayHandler = null;
     LinearLayout mlayoutMain;
     ImageView mImgViewLogo;
+    TextView mTextViewAppName;
 
 
     public void onAttachedToWindow() {
@@ -68,6 +70,13 @@ public class SplashScreenActivity extends BaseActivity {
         mImgViewLogo = (ImageView) findViewById(R.id.image_view_logo);
         mImgViewLogo.clearAnimation();
         mImgViewLogo.startAnimation(anim);
+
+
+        anim = AnimationUtils.loadAnimation(this, R.anim.trans_anim);
+        anim.reset();
+        mTextViewAppName = (TextView) findViewById(R.id.text_view_app_name);
+        mTextViewAppName.clearAnimation();
+        mTextViewAppName.startAnimation(anim);
 
     }
 
