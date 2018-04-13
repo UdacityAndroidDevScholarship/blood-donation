@@ -71,7 +71,8 @@
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="@+id/et_email"
         app:layout_constraintStart_toStartOf="@+id/et_email"
-        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+        app:layout_constraintTop_toBottomOf="@+id/et_email"
+        android:drawableRight="@drawable/ic_location_on_red_24dp" />
 
     <EditText
         android:id="@+id/et_email"
