@@ -2,7 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <variable name="loginInfo"
+                  type="com.udacity.nanodegree.blooddonation.ui.login.LoginInfo"/>
 
+        <variable name="presenter"
+                  type="com.udacity.nanodegree.blooddonation.ui.login.LoginActivityContract.Presenter"/>
     </data>
 
     <RelativeLayout
@@ -46,13 +50,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:hint="@string/email_or_phone_number"/>
+                    android:addTextChangedListener="@{loginInfo.emailWatcher}"
+                    android:hint="@string/email"
+                    android:text="@{loginInfo.email}"
+                />
                 <EditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
-                    android:hint="@string/password"/>
+                    android:addTextChangedListener="@{loginInfo.passwordWatcher}"
+                    android:hint="@string/password"
+                    android:text="@{loginInfo.password}"/>
 
                 <Button
                     android:id="@+id/bv_sign_in"
@@ -60,7 +69,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="@string/log_in_label"/>
+                    android:text="@string/log_in_label"
+                    android:onClick="@{()->presenter.onLoginClick(loginInfo)}"
+                />
             </LinearLayout>
 
         </LinearLayout>

@@ -16,6 +16,7 @@ public class HomeAcitivityPresenter implements BasePresenter {
 
     }
 
+
     @Override
     public void onStop() {
 
