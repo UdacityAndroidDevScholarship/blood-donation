@@ -25,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.udacity.nanodegree.blooddonation.ui.login.LoginActivity"
+        <activity android:name="com.udacity.nanodegree.blooddonation.ui.login.view.LoginActivity"
                   android:theme="@style/AppTheme.NoTitleBar">
 
         </activity>
