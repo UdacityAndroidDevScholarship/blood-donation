@@ -8,7 +8,7 @@ This application is an ongoing collaborative project made by the `Google Udacity
 
 ## how the app will work?
  * First of all, the one(Voluntary Donor) firstly makes an account on our app with general information(e.g. name, age) + his Blood Group + his live location(As per his permission) or City name.
- * On the second side, the one who needs blood will create a request for blood unit with his Location and all person near him(Our Voluntary Donors) will receive notification.(For example, `XYZ` needs blood at `XYZ hospital` or `123.456.789` location)
+ * On the second side, the one who needs blood will create a request for blood unit with his Location and all people near him(Our Voluntary Donors) will receive notification.(For example, `XYZ` needs blood at `XYZ hospital` or `123.456.789` location)
  
    **OR**
    
@@ -18,8 +18,8 @@ This application is an ongoing collaborative project made by the `Google Udacity
 
 ## Benefits of the Project 
 
-1) Reduce the wastage of blood. Usually, Blood banks store more blood so that they full fill every requirement because the demand for blood is undefined.
-2) Sometimes people don't find blood at the correct time.This app can help there.
+1) Reduce the wastage of blood. Usually, Blood banks store more blood so that they fulfill every requirement because the demand for blood is undefined.
+2) Sometimes people don't find blood at the correct time.This app can help them there.
 
 ---
 
