@@ -13,6 +13,13 @@ public class UserRegistrationInfo {
     public ObservableField<String> phoneNumber =
             new ObservableField<>();
 
+    public ObservableField<String> otp =
+        new ObservableField<>();
+
+
+    public ObservableField<Boolean> isCodeSent =
+        new ObservableField<>();
+
     public TextWatcher phoneNumberWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -31,4 +38,23 @@ public class UserRegistrationInfo {
             }
         }
     };
+
+  public TextWatcher otpWatcher = new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+      if (!TextUtils.equals(otp.get(), s)) {
+        otp.set(s.toString());
+      }
+    }
+  };
 }
