@@ -10,12 +10,12 @@
 
     <variable
         name="regisInfo"
-        type="com.udacity.nanodegree.blooddonation.ui.registration.UserRegistrationInfo"
+        type="com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo"
         />
 
     <variable
         name="presenter"
-        type="com.udacity.nanodegree.blooddonation.ui.registration.UserRegistrationContract.Presenter"
+        type="com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract.Presenter"
         />
   </data>
 

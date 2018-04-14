@@ -1,4 +1,4 @@
-package com.udacity.nanodegree.blooddonation.ui.registration.presenter;
+package com.udacity.nanodegree.blooddonation.ui.login.presenter;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -12,16 +12,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.udacity.nanodegree.blooddonation.ui.registration.UserRegistrationContract;
+import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
 import com.udacity.nanodegree.blooddonation.util.Util;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by riteshksingh on Apr, 2018
  */
-public class UserRegistrationPresenter implements UserRegistrationContract.Presenter {
+public class UserLoginPresenter implements UserLoginContract.Presenter {
 
-  private UserRegistrationContract.View mView;
+  private UserLoginContract.View mView;
   private String mVerificationId;
 
   private boolean isVerificationInProgress = false;
@@ -29,7 +29,7 @@ public class UserRegistrationPresenter implements UserRegistrationContract.Prese
 
   private FirebaseAuth mFireBaseAuth;
 
-  public UserRegistrationPresenter(FirebaseAuth firebaseAuth, UserRegistrationContract.View view) {
+  public UserLoginPresenter(FirebaseAuth firebaseAuth, UserLoginContract.View view) {
     mView = view;
     mFireBaseAuth = firebaseAuth;
   }

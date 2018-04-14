@@ -1,4 +1,4 @@
-package com.udacity.nanodegree.blooddonation.ui.registration;
+package com.udacity.nanodegree.blooddonation.ui.login;
 
 import android.databinding.ObservableField;
 import android.text.Editable;
@@ -8,7 +8,7 @@ import android.text.TextWatcher;
 /**
  * Created by riteshksingh on Apr, 2018
  */
-public class UserRegistrationInfo {
+public class UserLoginInfo {
   public ObservableField<String> phoneNumber = new ObservableField<>();
 
   public ObservableField<String> otp = new ObservableField<>();
@@ -17,7 +17,7 @@ public class UserRegistrationInfo {
 
   public ObservableField<String> phoneCode = new ObservableField<>();
 
-  public UserRegistrationInfo() {
+  public UserLoginInfo() {
     isCodeSent.set(false);
     phoneNumber.set("");
     otp.set("");
