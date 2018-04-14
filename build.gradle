@@ -4,7 +4,7 @@ buildscript {
 
     ext.versions = [
             'supportLibrary'  : '27.1.1',
-            'constraintLayout': '1.0.2',
+            'constraintLayout': '1.1.0',
             'firebase'        : '12.0.1',
             'testRunner'      : '1.0.1',
             'espressoCore'    : '3.0.1',
@@ -76,15 +76,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-<<<<<<< HEAD
-        classpath 'com.android.tools.build:gradle:3.1.0'
-        classpath 'com.google.gms:google-services:3.2.0'
 
-=======
         classpath 'com.android.tools.build:gradle:3.1.1'
         classpath 'com.google.gms:google-services:3.2.0'
-        
->>>>>>> 7bb6bd3e9b48d502584e714e9015ba2b4c9b3c39
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 

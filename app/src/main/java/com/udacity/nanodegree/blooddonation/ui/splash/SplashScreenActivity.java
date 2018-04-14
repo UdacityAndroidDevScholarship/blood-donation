@@ -13,13 +13,10 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
-<<<<<<< HEAD
-import com.udacity.nanodegree.blooddonation.ui.login.view.LoginActivity;
-=======
+
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.registration.view.UserRegistrationActivity;
 import com.udacity.nanodegree.blooddonation.util.AppVersionUtil;
->>>>>>> 7bb6bd3e9b48d502584e714e9015ba2b4c9b3c39
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -35,10 +32,6 @@ public class SplashScreenActivity extends BaseActivity {
   private Runnable runnable = new Runnable() {
     @Override public void run() {
       if (!isFinishing()) {
-<<<<<<< HEAD
-        Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
-=======
-
         Intent intent;
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
           intent = new Intent(SplashScreenActivity.this, UserRegistrationActivity.class);
@@ -47,7 +40,6 @@ public class SplashScreenActivity extends BaseActivity {
         }
         finish();
         overridePendingTransition(R.anim.enter, R.anim.exit);
->>>>>>> 7bb6bd3e9b48d502584e714e9015ba2b4c9b3c39
         startActivity(intent);
       }
     }
