@@ -50,4 +50,4 @@ Pull requests are welcome for minor bug fixes or for a feature you are working o
 
 ---
 
-[0]: https://github.com/UdacityAndroidDevScholarship/blood-donation/issues 
+[0]: https://github.com/UdacityAndroidDevScholarship/blood-donation/issues

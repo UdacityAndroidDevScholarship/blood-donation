@@ -16,6 +16,7 @@ public class HomeAcitivityPresenter implements BasePresenter {
 
     }
 
+<<<<<<< HEAD
 
     @Override
     public void onStop() {
@@ -25,5 +26,15 @@ public class HomeAcitivityPresenter implements BasePresenter {
     @Override
     public void onDestroy() {
 
+=======
+    @Override
+    public void onStop() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+>>>>>>> 808d9ad6e4a040bb61097fe3f9848d5f378101b4
     }
 }
