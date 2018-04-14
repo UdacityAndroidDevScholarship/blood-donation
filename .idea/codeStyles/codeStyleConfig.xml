@@ -1,9 +1,6 @@
 <component name="ProjectCodeStyleConfiguration">
   <state>
-    <option name="PREFERRED_PROJECT_CODE_STYLE" value="SquareAndroid" />
-<<<<<<< HEAD
     <option name="USE_PER_PROJECT_SETTINGS" value="true" />
-=======
->>>>>>> 808d9ad6e4a040bb61097fe3f9848d5f378101b4
+    <option name="PREFERRED_PROJECT_CODE_STYLE" value="SquareAndroid" />
   </state>
 </component>
