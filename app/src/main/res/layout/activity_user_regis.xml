@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+  <data>
+
+    <import type="android.view.View"/>
+
+    <variable
+        name="regisInfo"
+        type="com.udacity.nanodegree.blooddonation.ui.registration.UserRegistrationInfo"
+        />
+
+    <variable
+        name="presenter"
+        type="com.udacity.nanodegree.blooddonation.ui.registration.UserRegistrationContract.Presenter"
+        />
+  </data>
+
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="@dimen/dp_8"
+      >
+
+
+    <!--Registration-->
+
+    <LinearLayout
+        android:id="@+id/ll_regis"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:orientation="vertical"
+        android:visibility="@{!regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
+        >
+      <EditText
+          android:id="@+id/et_phone_number"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:addTextChangedListener="@{regisInfo.phoneNumberWatcher}"
+          android:hint="@string/enter_phone_number"
+          android:inputType="number"
+          android:text="@{regisInfo.phoneNumber}"
+          />
+
+      <Button
+          android:id="@+id/bv_in"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/et_phone_number"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="@dimen/dp_8"
+          android:onClick="@{() -> presenter.onIamInButtonClick(regisInfo.phoneNumber)}"
+          android:text="@string/iam_in"
+          android:textAllCaps="true"
+          />
+    </LinearLayout>
+
+    <!--Verification-->
+
+    <LinearLayout
+        android:id="@+id/ll_verify"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="@{regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
+        tools:visibility="gone"
+        >
+
+      <TextView
+          android:id="@+id/tv_verify_label"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/verify_mobile_number"
+          />
+
+      <EditText
+          android:id="@+id/et_otp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_8"
+          android:addTextChangedListener="@{regisInfo.otpWatcher}"
+          android:text="@{regisInfo.otp}"
+          />
+
+      <Button
+          android:id="@+id/bv_verify"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_8"
+          android:text="@string/verify"
+          android:onClick="@{() -> presenter.onVerifyOtpButtonClick(regisInfo.phoneNumber)}"
+          />
+
+    </LinearLayout>
+
+
+  </RelativeLayout>
+
+</layout>
