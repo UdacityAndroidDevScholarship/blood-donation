@@ -20,4 +20,16 @@
     </style>
 
 
+  <style name="AppTheme.NoTitleBar" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+
+    <style name="AppTheme.NoTitleBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
 </resources>

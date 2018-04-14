@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
+
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.registration.view.UserRegistrationActivity;
 import com.udacity.nanodegree.blooddonation.util.AppVersionUtil;
@@ -31,7 +32,6 @@ public class SplashScreenActivity extends BaseActivity {
   private Runnable runnable = new Runnable() {
     @Override public void run() {
       if (!isFinishing()) {
-
         Intent intent;
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
           intent = new Intent(SplashScreenActivity.this, UserRegistrationActivity.class);
