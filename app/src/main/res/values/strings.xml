@@ -1,6 +1,5 @@
 <resources>
   <string name="app_name">Blood Donation</string>
-
   <string name="hint_first_name">First Name</string>
   <string name="hint_last_name">Last Name</string>
   <string name="hint_birth_date">Birth Date</string>
