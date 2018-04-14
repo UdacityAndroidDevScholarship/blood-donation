@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
@@ -13,7 +14,6 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.udacity.nanodegree.blooddonation.ui.registration.UserRegistrationContract;
 import com.udacity.nanodegree.blooddonation.util.Util;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -105,7 +105,7 @@ public class UserRegistrationPresenter implements UserRegistrationContract.Prese
     if (!isVerificationInProgress) {
       mView.showHideLoader(true);
       PhoneAuthProvider.getInstance()
-          .verifyPhoneNumber("+91"+phoneNumber, 60, TimeUnit.SECONDS, Executors.newCachedThreadPool(),
+          .verifyPhoneNumber("+91"+phoneNumber, 60, TimeUnit.SECONDS, TaskExecutors.MAIN_THREAD,
               mCallbacks);
 
       isVerificationInProgress = true;
