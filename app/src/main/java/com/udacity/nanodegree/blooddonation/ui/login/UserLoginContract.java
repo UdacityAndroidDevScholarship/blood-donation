@@ -1,11 +1,11 @@
-package com.udacity.nanodegree.blooddonation.ui.registration;
+package com.udacity.nanodegree.blooddonation.ui.login;
 
 import com.udacity.nanodegree.blooddonation.base.BasePresenter;
 
 /**
  * Created by riteshksingh on Apr, 2018
  */
-public interface UserRegistrationContract {
+public interface UserLoginContract {
   interface Presenter extends BasePresenter {
     void onIamInButtonClick(String phoneNumber,String phoneCode);
 

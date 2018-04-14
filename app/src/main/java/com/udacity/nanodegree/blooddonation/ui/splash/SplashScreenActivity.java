@@ -15,7 +15,7 @@ import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
-import com.udacity.nanodegree.blooddonation.ui.registration.view.UserRegistrationActivity;
+import com.udacity.nanodegree.blooddonation.ui.login.view.UserLoginActivity;
 import com.udacity.nanodegree.blooddonation.util.AppVersionUtil;
 
 /**
@@ -34,7 +34,7 @@ public class SplashScreenActivity extends BaseActivity {
       if (!isFinishing()) {
         Intent intent;
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-          intent = new Intent(SplashScreenActivity.this, UserRegistrationActivity.class);
+          intent = new Intent(SplashScreenActivity.this, UserLoginActivity.class);
         } else {
           intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
         }
