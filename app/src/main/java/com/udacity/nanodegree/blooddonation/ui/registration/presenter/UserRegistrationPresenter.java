@@ -35,7 +35,7 @@ public class UserRegistrationPresenter implements UserRegistrationContract.Prese
   }
 
   @Override public void onCreate() {
-      createCallBack();
+    createCallBack();
   }
 
   @Override public void onStart() {
@@ -105,23 +105,23 @@ public class UserRegistrationPresenter implements UserRegistrationContract.Prese
     if (!isVerificationInProgress) {
       mView.showHideLoader(true);
       PhoneAuthProvider.getInstance()
-          .verifyPhoneNumber("+91"+phoneNumber, 60, TimeUnit.SECONDS, TaskExecutors.MAIN_THREAD,
+          .verifyPhoneNumber(phoneNumber, 60, TimeUnit.SECONDS, TaskExecutors.MAIN_THREAD,
               mCallbacks);
 
       isVerificationInProgress = true;
     }
   }
 
-  @Override public void onIamInButtonClick(String phoneNumber) {
-    if (phoneNumber != null && Util.isValidPhoneNumber(phoneNumber)) {
-      verifyPhoneNumber(phoneNumber);
+  @Override public void onIamInButtonClick(String phoneNumber, String phoneCode) {
+    if (Util.isValidPhoneNumber(phoneNumber) && !TextUtils.isEmpty(phoneCode)) {
+      verifyPhoneNumber(Util.getPhoneNumberWithPlus(phoneNumber,phoneCode));
     } else {
       mView.showNotValidPhoneNumberMessage();
     }
   }
 
   @Override public void onVerifyOtpButtonClick(String otp) {
-    if (otp != null && !TextUtils.isEmpty(otp)) {
+    if (!TextUtils.isEmpty(otp)) {
       signIn(otp);
     }
   }

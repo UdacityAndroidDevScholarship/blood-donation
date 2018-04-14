@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -37,7 +38,14 @@
         android:orientation="vertical"
         android:visibility="@{!regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
         >
-      <EditText
+      <com.rilixtech.CountryCodePicker
+          android:id="@+id/cc_country_code"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:ccp_defaultNameCode="IN"
+          />
+
+      <android.support.v7.widget.AppCompatEditText
           android:id="@+id/et_phone_number"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -55,7 +63,7 @@
           android:layout_below="@+id/et_phone_number"
           android:layout_gravity="center_horizontal"
           android:layout_marginTop="@dimen/dp_8"
-          android:onClick="@{() -> presenter.onIamInButtonClick(regisInfo.phoneNumber)}"
+          android:onClick="@{() -> presenter.onIamInButtonClick(regisInfo.phoneNumber,regisInfo.phoneCode)}"
           android:text="@string/iam_in"
           android:textAllCaps="true"
           />
@@ -96,8 +104,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/dp_8"
-          android:text="@string/verify"
           android:onClick="@{() -> presenter.onVerifyOtpButtonClick(regisInfo.phoneNumber)}"
+          android:text="@string/verify"
           />
 
     </LinearLayout>

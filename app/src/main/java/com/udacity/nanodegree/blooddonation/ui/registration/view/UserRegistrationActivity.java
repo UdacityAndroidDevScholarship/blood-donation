@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.rilixtech.Country;
+import com.rilixtech.CountryCodePicker;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityUserRegisBinding;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
@@ -51,6 +53,18 @@ public class UserRegistrationActivity extends BaseActivity
 
     ((ActivityUserRegisBinding) mBinding).setRegisInfo(userRegistrationInfo);
     ((ActivityUserRegisBinding) mBinding).setPresenter(mPresenter);
+
+    ((ActivityUserRegisBinding) mBinding).ccCountryCode.registerPhoneNumberTextView(
+        ((ActivityUserRegisBinding) mBinding).etPhoneNumber);
+
+    userRegistrationInfo.phoneCode.set("91");
+
+    ((ActivityUserRegisBinding) mBinding).ccCountryCode.setOnCountryChangeListener(
+        new CountryCodePicker.OnCountryChangeListener() {
+          @Override public void onCountrySelected(Country country) {
+            userRegistrationInfo.phoneCode.set(country.getPhoneCode());
+          }
+        });
 
     mPresenter.onCreate();
   }

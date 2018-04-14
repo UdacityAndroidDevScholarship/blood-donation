@@ -36,6 +36,10 @@ dependencies {
   // Firebase Auth
   implementation deps.google.firebase.auth
 
+  //Country code picker
+  // https://android-arsenal.com/details/1/5753
+  implementation 'com.github.joielechong:countrycodepicker:2.1.5'
+
   // Leak canary
   debugImplementation deps.square.leackcanary.debug
   releaseImplementation deps.square.leackcanary.release

@@ -15,10 +15,13 @@ public class UserRegistrationInfo {
 
   public ObservableField<Boolean> isCodeSent = new ObservableField<>();
 
+  public ObservableField<String> phoneCode = new ObservableField<>();
+
   public UserRegistrationInfo() {
     isCodeSent.set(false);
     phoneNumber.set("");
     otp.set("");
+    phoneCode.set("");
   }
 
   public TextWatcher phoneNumberWatcher = new TextWatcher() {

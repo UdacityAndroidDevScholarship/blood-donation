@@ -7,7 +7,7 @@ import com.udacity.nanodegree.blooddonation.base.BasePresenter;
  */
 public interface UserRegistrationContract {
   interface Presenter extends BasePresenter {
-    void onIamInButtonClick(String phoneNumber);
+    void onIamInButtonClick(String phoneNumber,String phoneCode);
 
     void onVerifyOtpButtonClick(String otp);
   }

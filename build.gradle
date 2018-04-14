@@ -89,6 +89,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 
     // Force all of the primary support libraries to use the same version.

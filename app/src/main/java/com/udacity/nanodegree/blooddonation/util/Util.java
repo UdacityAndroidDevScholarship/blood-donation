@@ -18,4 +18,8 @@ final public class Util {
   public static boolean isValidPhoneNumber(CharSequence phoneNumber) {
     return !TextUtils.isEmpty(phoneNumber) && Patterns.PHONE.matcher(phoneNumber).matches();
   }
+
+  public static String getPhoneNumberWithPlus(String phoneNumber, String phoneCode) {
+    return "+".concat(phoneCode).concat(phoneNumber).trim();
+  }
 }
