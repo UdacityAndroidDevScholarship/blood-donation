@@ -32,6 +32,8 @@ public class SplashScreenActivity extends BaseActivity {
     @Override public void run() {
       if (!isFinishing()) {
 
+        FirebaseAuth.getInstance().signOut();
+
         Intent intent;
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
           intent = new Intent(SplashScreenActivity.this, UserRegistrationActivity.class);

@@ -13,11 +13,18 @@ public interface UserRegistrationContract {
   }
 
   interface View {
-    void verifyPhoneNumber();
-
     void showNotValidPhoneNumberMessage();
 
-    void signIn();
+    void showLimitExceededMessage();
 
+    void onSignInSuccess();
+
+    void showInvalidVerificationCodeMessage();
+
+    void showHideLoader(boolean isActive);
+
+    void setVerificationTitleBar();
+
+    void setUserRegisInfoIsCodeFlag(boolean b);
   }
 }
