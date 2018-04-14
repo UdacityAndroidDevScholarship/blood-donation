@@ -15,8 +15,4 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 808d9ad6e4a040bb61097fe3f9848d5f378101b4
 }
