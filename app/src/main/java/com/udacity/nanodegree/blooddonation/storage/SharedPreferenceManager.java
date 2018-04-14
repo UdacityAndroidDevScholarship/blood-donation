@@ -10,36 +10,53 @@ import com.udacity.nanodegree.blooddonation.App;
  */
 public final class SharedPreferenceManager {
 
-    private static SharedPreferences mSharedPreferences;
     private final String NAME = "com.udacity.nanodegree.blooddonation";
+
+    private static SharedPreferenceManager INSTANCE;
+
+    private SharedPreferences mSharedPreferences;
 
     private SharedPreferenceManager() {
         mSharedPreferences =
                 App.getInstance().getApplicationContext().getSharedPreferences(NAME,
                         Context.MODE_PRIVATE);
+
+        INSTANCE = this;
     }
 
-    public static void put(String key, String value) {
+    public static SharedPreferenceManager getInstance() {
+        if (INSTANCE == null) {
+            synchronized (SharedPreferenceManager.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new SharedPreferenceManager();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+
+    public void put(String key, String value) {
         mSharedPreferences.edit().putString(key, value).apply();
     }
 
-    public static void put(String key, int value) {
+    public void put(String key, int value) {
         mSharedPreferences.edit().putInt(key, value).apply();
     }
 
-    public static void put(String key, boolean value) {
+    public void put(String key, boolean value) {
         mSharedPreferences.edit().putBoolean(key, value).apply();
     }
 
-    public static String getString(String key) {
+    public String getString(String key) {
         return mSharedPreferences.getString(key, "");
     }
 
-    public static int getInt(String key) {
+    public int getInt(String key) {
         return mSharedPreferences.getInt(key, -1);
     }
 
-    public static Boolean getBoolean(String key) {
+    public Boolean getBoolean(String key) {
         return mSharedPreferences.getBoolean(key, false);
     }
 }
