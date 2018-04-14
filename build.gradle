@@ -4,8 +4,8 @@ buildscript {
 
     ext.versions = [
             'supportLibrary'  : '27.1.1',
-            'constraintLayout': '1.0.2',
-            'firebase'        : '12.0.1',
+            'constraintLayout': '1.1.0',
+            'firebase'        : '15.0.0',
             'testRunner'      : '1.0.1',
             'espressoCore'    : '3.0.1',
             'leak_canary'     :  '1.5.4'
@@ -76,10 +76,13 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
+
+        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.google.gms:google-services:3.2.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
     }
 }
 
@@ -87,6 +90,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 
     // Force all of the primary support libraries to use the same version.

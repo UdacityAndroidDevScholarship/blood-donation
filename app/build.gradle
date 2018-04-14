@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
   compileSdkVersion buildConfig.compileSdk
+
   defaultConfig {
     applicationId "com.udacity.nanodegree.blooddonation"
     minSdkVersion buildConfig.minSdk
@@ -10,11 +11,16 @@ android {
     versionName buildConfig.version.name
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+  }
+
+  dataBinding {
+    enabled = true
   }
 }
 
@@ -30,7 +36,11 @@ dependencies {
   // Firebase Auth
   implementation deps.google.firebase.auth
 
-  // Lear canary
+  //Country code picker
+  // https://android-arsenal.com/details/1/5753
+  implementation 'com.github.joielechong:countrycodepicker:2.1.5'
+
+  // Leak canary
   debugImplementation deps.square.leackcanary.debug
   releaseImplementation deps.square.leackcanary.release
 
@@ -39,3 +49,5 @@ dependencies {
   androidTestImplementation deps.android.support.test.runner
   androidTestImplementation deps.android.support.test.espressoCore
 }
+
+apply plugin: 'com.google.gms.google-services'
