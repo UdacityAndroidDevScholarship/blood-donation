@@ -17,7 +17,9 @@ public interface UserLoginContract {
 
     void showLimitExceededMessage();
 
-    void onSignInSuccess();
+    void launchHomeScreen();
+
+    void launchUserDetailsScreen();
 
     void showInvalidVerificationCodeMessage();
 

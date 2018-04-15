@@ -12,8 +12,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.udacity.nanodegree.blooddonation.constants.SharedPrefConstants;
+import com.udacity.nanodegree.blooddonation.storage.SharedPreferenceManager;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
 import com.udacity.nanodegree.blooddonation.util.Util;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,108 +24,131 @@ import java.util.concurrent.TimeUnit;
  */
 public class UserLoginPresenter implements UserLoginContract.Presenter {
 
-  private UserLoginContract.View mView;
-  private String mVerificationId;
+    private UserLoginContract.View mView;
+    private String mVerificationId;
 
-  private boolean isVerificationInProgress = false;
-  private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+    private boolean isVerificationInProgress = false;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
-  private FirebaseAuth mFireBaseAuth;
+    private FirebaseAuth mFireBaseAuth;
 
-  public UserLoginPresenter(FirebaseAuth firebaseAuth, UserLoginContract.View view) {
-    mView = view;
-    mFireBaseAuth = firebaseAuth;
-  }
+    private SharedPreferenceManager mSharedPreferenceManager;
 
-  @Override public void onCreate() {
-    createCallBack();
-  }
+    public UserLoginPresenter(FirebaseAuth firebaseAuth,
+                              SharedPreferenceManager sharedPreferenceManager,
+                              UserLoginContract.View view) {
+        mView = view;
+        mFireBaseAuth = firebaseAuth;
+        mSharedPreferenceManager = sharedPreferenceManager;
+    }
 
-  @Override public void onStart() {
+    @Override
+    public void onCreate() {
+        createCallBack();
+    }
 
-  }
+    @Override
+    public void onStart() {
 
-  @Override public void onStop() {
+    }
 
-  }
+    @Override
+    public void onStop() {
 
-  @Override public void onDestroy() {
+    }
 
-  }
+    @Override
+    public void onDestroy() {
 
-  private void createCallBack() {
-    mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-      @Override public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-        isVerificationInProgress = false;
-        signInWithPhoneAuthCredential(phoneAuthCredential);
-      }
+    }
 
-      @Override public void onVerificationFailed(FirebaseException e) {
-        isVerificationInProgress = false;
-        mView.showHideLoader(false);
-        if (e instanceof FirebaseAuthInvalidCredentialsException) {
-          mView.showNotValidPhoneNumberMessage();
-        } else if (e instanceof FirebaseTooManyRequestsException) {
-          mView.showLimitExceededMessage();
-        }
-      }
-
-      @Override public void onCodeSent(String verificationId,
-          PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-        super.onCodeSent(verificationId, forceResendingToken);
-        mView.setVerificationTitleBar();
-        mView.setUserRegisInfoIsCodeFlag(true);
-        mVerificationId = verificationId;
-        mView.showHideLoader(false);
-      }
-    };
-  }
-
-  private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-    mFireBaseAuth.signInWithCredential(credential)
-        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-          @Override public void onComplete(@NonNull Task<AuthResult> task) {
-            if (task.isSuccessful()) {
-              mView.showHideLoader(false);
-              mView.onSignInSuccess();
-            } else {
-              mView.showHideLoader(false);
-              if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                mView.showInvalidVerificationCodeMessage();
-              }
+    private void createCallBack() {
+        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+                isVerificationInProgress = false;
+                signInWithPhoneAuthCredential(phoneAuthCredential);
             }
-          }
-        });
-  }
 
-  public void signIn(String otp) {
-    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, otp);
-    mView.showHideLoader(true);
-    signInWithPhoneAuthCredential(credential);
-  }
+            @Override
+            public void onVerificationFailed(FirebaseException e) {
+                isVerificationInProgress = false;
+                mView.showHideLoader(false);
+                if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                    mView.showNotValidPhoneNumberMessage();
+                } else if (e instanceof FirebaseTooManyRequestsException) {
+                    mView.showLimitExceededMessage();
+                }
+            }
 
-  public void verifyPhoneNumber(String phoneNumber) {
-    if (!isVerificationInProgress) {
-      mView.showHideLoader(true);
-      PhoneAuthProvider.getInstance()
-          .verifyPhoneNumber(phoneNumber, 60, TimeUnit.SECONDS, TaskExecutors.MAIN_THREAD,
-              mCallbacks);
-
-      isVerificationInProgress = true;
+            @Override
+            public void onCodeSent(String verificationId,
+                                   PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                super.onCodeSent(verificationId, forceResendingToken);
+                mView.setVerificationTitleBar();
+                mView.setUserRegisInfoIsCodeFlag(true);
+                mVerificationId = verificationId;
+                mView.showHideLoader(false);
+            }
+        };
     }
-  }
 
-  @Override public void onIamInButtonClick(String phoneNumber, String phoneCode) {
-    if (Util.isValidPhoneNumber(phoneNumber) && !TextUtils.isEmpty(phoneCode)) {
-      verifyPhoneNumber(Util.getPhoneNumberWithPlus(phoneNumber,phoneCode));
-    } else {
-      mView.showNotValidPhoneNumberMessage();
+    private void onSignInSuccess(){
+        if (mSharedPreferenceManager.getBoolean(SharedPrefConstants.IS_USER_DETAILS_ENTERED)){
+            mView.launchHomeScreen();
+        }else{
+            mView.launchUserDetailsScreen();
+        }
     }
-  }
 
-  @Override public void onVerifyOtpButtonClick(String otp) {
-    if (!TextUtils.isEmpty(otp)) {
-      signIn(otp);
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mFireBaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            mView.showHideLoader(false);
+                            onSignInSuccess();
+                        } else {
+                            mView.showHideLoader(false);
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                mView.showInvalidVerificationCodeMessage();
+                            }
+                        }
+                    }
+                });
     }
-  }
+
+    public void signIn(String otp) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, otp);
+        mView.showHideLoader(true);
+        signInWithPhoneAuthCredential(credential);
+    }
+
+    public void verifyPhoneNumber(String phoneNumber) {
+        if (!isVerificationInProgress) {
+            mView.showHideLoader(true);
+            PhoneAuthProvider.getInstance()
+                    .verifyPhoneNumber(phoneNumber, 60, TimeUnit.SECONDS, TaskExecutors.MAIN_THREAD,
+                            mCallbacks);
+
+            isVerificationInProgress = true;
+        }
+    }
+
+    @Override
+    public void onIamInButtonClick(String phoneNumber, String phoneCode) {
+        if (Util.isValidPhoneNumber(phoneNumber) && !TextUtils.isEmpty(phoneCode)) {
+            verifyPhoneNumber(Util.getPhoneNumberWithPlus(phoneNumber, phoneCode));
+        } else {
+            mView.showNotValidPhoneNumberMessage();
+        }
+    }
+
+    @Override
+    public void onVerifyOtpButtonClick(String otp) {
+        if (!TextUtils.isEmpty(otp)) {
+            signIn(otp);
+        }
+    }
 }

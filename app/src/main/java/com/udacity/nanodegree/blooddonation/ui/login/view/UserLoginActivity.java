@@ -18,6 +18,7 @@ import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo;
 import com.udacity.nanodegree.blooddonation.ui.login.presenter.UserLoginPresenter;
+import com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity;
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -35,7 +36,7 @@ public class UserLoginActivity extends BaseActivity
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
 
-    mPresenter = new UserLoginPresenter(Injection.getFirebaseAuth(), this);
+    mPresenter = new UserLoginPresenter(Injection.getFirebaseAuth(),Injection.getSharedPreference(), this);
 
     userLoginInfo = new UserLoginInfo();
 
@@ -65,8 +66,17 @@ public class UserLoginActivity extends BaseActivity
     Toast.makeText(this, "Limit Exceeded", Toast.LENGTH_SHORT).show();
   }
 
-  @Override public void onSignInSuccess() {
+
+  @Override
+  public void launchHomeScreen() {
     Intent intent = new Intent(this, HomeActivity.class);
+    finish();
+    startActivity(intent);
+  }
+
+  @Override
+  public void launchUserDetailsScreen() {
+    Intent intent = new Intent(this, UserDetailActivity.class);
     finish();
     startActivity(intent);
   }
