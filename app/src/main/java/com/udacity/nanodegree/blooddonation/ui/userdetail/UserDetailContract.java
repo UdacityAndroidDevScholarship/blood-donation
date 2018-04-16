@@ -9,9 +9,10 @@ import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
 public interface UserDetailContract {
     interface Presenter extends BasePresenter {
       void onCreateNowClick(UserDetail userDetail);
+      void onDobButtonClick();
     }
 
     interface View {
-
+      void showDatePickerDialog();
     }
 }

@@ -1,4 +1,4 @@
-package com.udacity.nanodegree.blooddonation.util.binding;
+package com.udacity.nanodegree.blooddonation.common.binding;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
@@ -70,6 +70,7 @@ public class BindingAdapters {
       });
     }
   }
+
 
   @BindingAdapter({ "app:onClick" })
   public static void bindOnClick(View view, final Runnable runnable) {

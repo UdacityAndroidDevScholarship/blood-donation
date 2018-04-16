@@ -3,9 +3,12 @@ package com.udacity.nanodegree.blooddonation.ui.userdetail.view;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
+import com.udacity.nanodegree.blooddonation.common.picker.DatePickerFragment;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityUserDetailsBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.UserDetailContract;
@@ -20,17 +23,21 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
   private UserDetailContract.Presenter mPresenter;
   private ActivityUserDetailsBinding mActivityUserDetailsBinding;
 
+  private UserDetail mUserDetail;
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     mPresenter =
-        new UserDetailPresenter(Injection.getFirebaseAuth(), Injection.getSharedPreference());
+        new UserDetailPresenter(this,Injection.getFirebaseAuth(), Injection.getSharedPreference());
 
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_details);
     mActivityUserDetailsBinding = (ActivityUserDetailsBinding) mBinding;
 
+    mUserDetail = new UserDetail();
+
     mActivityUserDetailsBinding.setPresenter(mPresenter);
-    mActivityUserDetailsBinding.setUserdetail(new UserDetail());
+    mActivityUserDetailsBinding.setUserdetail(mUserDetail);
 
     getSupportActionBar().setTitle(R.string.user_profile);
 
@@ -42,5 +49,10 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
         R.array.blood_group, android.R.layout.simple_spinner_item);
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     mActivityUserDetailsBinding.bloodGroupDropDown.setAdapter(adapter);
+  }
+
+  @Override public void showDatePickerDialog() {
+    DialogFragment dialogFragment = DatePickerFragment.newInstance(mUserDetail.dob);
+    dialogFragment.show(getSupportFragmentManager(),"datefragment");
   }
 }

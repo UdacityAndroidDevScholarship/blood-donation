@@ -5,6 +5,8 @@ import android.util.Patterns;
 
 import com.udacity.nanodegree.blooddonation.constants.RegexConst;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,5 +23,24 @@ final public class Util {
 
   public static String getPhoneNumberWithPlus(String phoneNumber, String phoneCode) {
     return "+".concat(phoneCode).concat(phoneNumber).trim();
+  }
+
+  public static boolean isValidEmail(CharSequence email) {
+    return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+  }
+
+  public static String convertDateToDobFormat(String time) {
+    StringBuilder stringBuilder = new StringBuilder();
+    try {
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTimeInMillis(Long.valueOf(time));
+      stringBuilder.append(calendar.get(Calendar.DAY_OF_MONTH))
+          .append("/")
+          .append(calendar.get(Calendar.MONTH) + 1)
+          .append("/")
+          .append(calendar.get(Calendar.YEAR));
+    } catch (NumberFormatException ex) { }
+
+    return stringBuilder.toString();
   }
 }

@@ -1,4 +1,4 @@
-package com.udacity.nanodegree.blooddonation.util.binding;
+package com.udacity.nanodegree.blooddonation.common.binding;
 
 import android.text.Editable;
 import android.text.TextWatcher;

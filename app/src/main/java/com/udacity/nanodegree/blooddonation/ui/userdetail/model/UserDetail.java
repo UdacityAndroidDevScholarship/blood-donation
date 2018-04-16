@@ -1,7 +1,7 @@
 package com.udacity.nanodegree.blooddonation.ui.userdetail.model;
 
 import android.databinding.ObservableBoolean;
-import com.udacity.nanodegree.blooddonation.util.binding.ObservableString;
+import com.udacity.nanodegree.blooddonation.common.binding.ObservableString;
 
 /**
  * Created by riteshksingh on Apr, 2018

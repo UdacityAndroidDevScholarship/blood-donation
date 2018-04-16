@@ -11,12 +11,15 @@ import timber.log.Timber;
  */
 public class UserDetailPresenter implements UserDetailContract.Presenter {
 
-  private FirebaseAuth mFirebaseAuth;
-  private SharedPreferenceManager mSharedPreferenceManager;
+  private final UserDetailContract.View mView;
+  private final FirebaseAuth mFirebaseAuth;
+  private final SharedPreferenceManager mSharedPreferenceManager;
 
-  public UserDetailPresenter(FirebaseAuth firebaseAuth, SharedPreferenceManager sharedPreference) {
+  public UserDetailPresenter(UserDetailContract.View view, FirebaseAuth firebaseAuth,
+      SharedPreferenceManager sharedPreference) {
     mFirebaseAuth = firebaseAuth;
     mSharedPreferenceManager = sharedPreference;
+    mView = view;
   }
 
   @Override public void onCreate() {
@@ -41,5 +44,9 @@ public class UserDetailPresenter implements UserDetailContract.Presenter {
     Timber.d(userDetail.email.get());
     Timber.d(String.valueOf(userDetail.isMale.get()));
     Timber.d(userDetail.bloodGroup.get());
+  }
+
+  @Override public void onDobButtonClick() {
+      mView.showDatePickerDialog();
   }
 }
