@@ -56,14 +56,19 @@ public class BindingAdapters {
 
   @BindingAdapter({ "app:binding" })
   public static void bindSpinner(Spinner view, final ObservableString observableString) {
-    //if (view.getTag(R.id.bound_observable) != observableString) {
-    //  view.setTag(R.id.bound_observable, observableString);
-    //  view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-    //    @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    //      observableString.set(parent.getItemAtPosition(position).toString());
-    //    }
-    //  });
-    //}
+    if (view.getTag(R.id.bound_observable) != observableString) {
+      view.setTag(R.id.bound_observable, observableString);
+      view.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+          observableString.set(parent.getItemAtPosition(position).toString());
+        }
+
+        @Override public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+      });
+    }
   }
 
   @BindingAdapter({ "app:onClick" })
