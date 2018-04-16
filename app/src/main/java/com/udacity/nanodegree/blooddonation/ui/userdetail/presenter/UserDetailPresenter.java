@@ -44,6 +44,7 @@ public class UserDetailPresenter implements UserDetailContract.Presenter {
     Timber.d(userDetail.email.get());
     Timber.d(String.valueOf(userDetail.isMale.get()));
     Timber.d(userDetail.bloodGroup.get());
+    Timber.d(userDetail.dob.get());
   }
 
   @Override public void onDobButtonClick() {
