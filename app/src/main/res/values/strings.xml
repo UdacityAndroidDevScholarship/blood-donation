@@ -5,7 +5,6 @@
     <!--LoginScreen Activity-->
     <string name="enter_phone_number">Enter phone number</string>
     <string name="iam_in">I am in</string>
-    <string name="verify_mobile_number">Verify mobile number.OTP has been sent"</string>
     <string name="verify">Verify</string>
     <string name="verification">Verification</string>
 
@@ -16,12 +15,15 @@
     <string name="hint_last_name">Last Name</string>
     <string name="hint_birth_date">Birth Date</string>
     <string name="hint_location">Select Your Location</string>
-    <string name="countdown" translatable="false">%d seconds left!</string>
+    <string name="countdown">%1$d seconds left!</string>
+    <string name="otp_sent_text">OTP has been sent to %1$s.</string>
     <string name="create_now">Create Now</string>
     <string name="hint_email">Email</string>
     <string name="gender_male">Male</string>
     <string name="gender">Gender</string>
     <string name="gender_female">Female</string>
     <string name="resend_code">Resend Code</string>
+    <string name="verify_phone_number">VERIFY PHONE NUMBER</string>
+    <string name="hint_otp">OTP</string>
 
 </resources>

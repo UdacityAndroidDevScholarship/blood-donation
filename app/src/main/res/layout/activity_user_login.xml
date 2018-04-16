@@ -30,7 +30,7 @@
     <!--Registration-->
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/ll_regis"
+        android:id="@+id/layout_registration"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
@@ -40,6 +40,9 @@
 
       <com.rilixtech.CountryCodePicker
           android:id="@+id/cc_country_code"
+          app:ccp_defaultNameCode="IN"
+          app:ccp_showFullName="true"
+          app:ccp_enableHint="false"
           android:layout_width="@dimen/dp_0"
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/dp_8"
@@ -48,8 +51,6 @@
           android:layout_marginRight="@dimen/dp_16"
           android:layout_marginStart="@dimen/dp_16"
           android:layout_marginTop="@dimen/dp_8"
-          app:ccp_defaultNameCode="IN"
-          app:ccp_showFullName="true"
           app:layout_constraintBottom_toTopOf="@+id/et_phone_number"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.5"
@@ -67,10 +68,10 @@
           android:layout_marginRight="@dimen/dp_16"
           android:layout_marginStart="@dimen/dp_16"
           android:layout_marginTop="@dimen/dp_16"
-          android:addTextChangedListener="@{regisInfo.phoneNumberWatcher}"
           android:hint="@string/enter_phone_number"
           android:inputType="number"
           android:text="@{regisInfo.phoneNumber}"
+          android:addTextChangedListener="@{regisInfo.phoneNumberWatcher}"
           app:layout_constraintBottom_toTopOf="@+id/bv_in"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.5"
@@ -101,7 +102,7 @@
     <!--Verification-->
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/ll_verify"
+        android:id="@+id/layout_verification"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/dp_16"
@@ -111,23 +112,42 @@
         >
 
       <TextView
+          android:id="@+id/textView2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/dp_8"
+          android:layout_marginLeft="@dimen/dp_8"
+          android:layout_marginRight="@dimen/dp_8"
+          android:layout_marginStart="@dimen/dp_8"
+          android:layout_marginTop="@dimen/dp_8"
+          android:text="@string/verify_phone_number"
+          android:textStyle="bold"
+          android:textSize="@dimen/sp_20"
+          app:layout_constraintBottom_toTopOf="@+id/tv_verify_label"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
           android:id="@+id/tv_verify_label"
-          android:layout_width="@dimen/dp_0"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/dp_16"
           android:layout_marginLeft="@dimen/dp_16"
           android:layout_marginRight="@dimen/dp_16"
           android:layout_marginStart="@dimen/dp_16"
           android:layout_marginTop="@dimen/dp_16"
-          android:text="@string/verify_mobile_number"
+          android:text="@string/otp_sent_text"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.503"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+          app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
       <EditText
           android:id="@+id/et_otp"
           android:layout_width="@dimen/dp_0"
           android:layout_height="wrap_content"
+          android:inputType="number"
           android:layout_marginEnd="@dimen/dp_16"
           android:layout_marginLeft="@dimen/dp_16"
           android:layout_marginRight="@dimen/dp_16"
@@ -135,9 +155,21 @@
           android:layout_marginTop="@dimen/dp_16"
           android:addTextChangedListener="@{regisInfo.otpWatcher}"
           android:text="@{regisInfo.otp}"
+          android:hint="@string/hint_otp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/tv_verify_label" />
+
+      <TextView
+          android:id="@+id/tv_countdown"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/dp_16"
+          android:layout_marginRight="@dimen/dp_16"
+          android:layout_marginTop="@dimen/dp_16"
+          android:text="@string/countdown"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/et_otp" />
 
       <Button
           android:id="@+id/bv_verify"
@@ -148,7 +180,7 @@
           android:layout_marginRight="@dimen/dp_16"
           android:layout_marginStart="@dimen/dp_16"
           android:layout_marginTop="@dimen/dp_16"
-          android:onClick="@{() -> presenter.onVerifyOtpButtonClick(regisInfo.phoneNumber)}"
+          android:onClick="@{() -> presenter.onVerifyOtpButtonClick(regisInfo.otp)}"
           android:text="@string/verify"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -163,22 +195,14 @@
           android:layout_marginRight="@dimen/dp_16"
           android:layout_marginStart="@dimen/dp_16"
           android:text="@string/resend_code"
+          android:visibility="gone"
           android:onClick="@{() -> presenter.onResendCodeButtonClick()}"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bv_verify" />
 
-      <TextView
-          android:id="@+id/tv_countdown"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/dp_16"
-          android:layout_marginRight="@dimen/dp_16"
-          android:layout_marginTop="@dimen/dp_16"
-          android:text="@string/countdown"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/et_otp" />
+
 
     </android.support.constraint.ConstraintLayout>
 

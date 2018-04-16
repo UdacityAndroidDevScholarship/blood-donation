@@ -10,6 +10,8 @@ public interface UserLoginContract {
     void onIamInButtonClick(String phoneNumber,String phoneCode);
 
     void onVerifyOtpButtonClick(String otp);
+
+    void onResendCodeButtonClick();
   }
 
   interface View {
@@ -28,5 +30,15 @@ public interface UserLoginContract {
     void setVerificationTitleBar();
 
     void setUserRegisInfoIsCodeFlag(boolean b);
+
+    void setTimerCount(long seconds);
+
+    void setPhoneNumber(String phoneNumber);
+
+    void showCountdown(boolean visible);
+
+    void hidePhoneNumberScreen();
+
+    void showVerificationScreen(boolean visible);
   }
 }

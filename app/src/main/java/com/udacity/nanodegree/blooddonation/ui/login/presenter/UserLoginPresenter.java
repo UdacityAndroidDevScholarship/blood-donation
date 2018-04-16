@@ -1,7 +1,10 @@
 package com.udacity.nanodegree.blooddonation.ui.login.presenter;
 
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -26,6 +29,8 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
 
     private UserLoginContract.View mView;
     private String mVerificationId;
+    private PhoneAuthProvider.ForceResendingToken mResendToken;
+    private String mPhoneNumber;
 
     private boolean isVerificationInProgress = false;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -33,6 +38,7 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
     private FirebaseAuth mFireBaseAuth;
 
     private SharedPreferenceManager mSharedPreferenceManager;
+    private CountDownTimer countdownTimer;
 
     public UserLoginPresenter(FirebaseAuth firebaseAuth,
                               SharedPreferenceManager sharedPreferenceManager,
@@ -59,7 +65,10 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
 
     @Override
     public void onDestroy() {
-
+        if (countdownTimer != null) {
+            countdownTimer.cancel();
+            Log.d("onDestroy: ","Timer Cancelled");
+        }
     }
 
     private void createCallBack() {
@@ -83,14 +92,43 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
 
             @Override
             public void onCodeSent(String verificationId,
-                                   PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                super.onCodeSent(verificationId, forceResendingToken);
+                                   PhoneAuthProvider.ForceResendingToken token) {
+                //super.onCodeSent(verificationId, token);
+                Log.d("CodeSent","Yes");
+                if (mResendToken != null) {
+                    mView.showVerificationScreen(true);
+                }
                 mView.setVerificationTitleBar();
                 mView.setUserRegisInfoIsCodeFlag(true);
                 mVerificationId = verificationId;
+                mResendToken = token;
                 mView.showHideLoader(false);
+
+                startCountdown();
+            }
+
+            @Override
+            public void onCodeAutoRetrievalTimeOut(String s) {
+                super.onCodeAutoRetrievalTimeOut(s);
+                isVerificationInProgress = false;
             }
         };
+    }
+
+    private void startCountdown() {
+        mView.setPhoneNumber(mPhoneNumber);
+        mView.showCountdown(true);
+        countdownTimer = new CountDownTimer(60000,1000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mView.setTimerCount(millisUntilFinished/1000);
+            }
+
+            @Override
+            public void onFinish() {
+                mView.showCountdown(false);
+            }
+        }.start();
     }
 
     private void onSignInSuccess(){
@@ -127,7 +165,10 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
 
     public void verifyPhoneNumber(String phoneNumber) {
         if (!isVerificationInProgress) {
+            mView.hidePhoneNumberScreen();
             mView.showHideLoader(true);
+            mPhoneNumber = phoneNumber;
+
             PhoneAuthProvider.getInstance()
                     .verifyPhoneNumber(phoneNumber, 60, TimeUnit.SECONDS, TaskExecutors.MAIN_THREAD,
                             mCallbacks);
@@ -150,5 +191,15 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
         if (!TextUtils.isEmpty(otp)) {
             signIn(otp);
         }
+    }
+
+    @Override
+    public void onResendCodeButtonClick() {
+        PhoneAuthProvider.getInstance()
+                .verifyPhoneNumber(
+                    mPhoneNumber,60,TimeUnit.SECONDS, TaskExecutors.MAIN_THREAD, mCallbacks, mResendToken);
+        mView.showVerificationScreen(false);
+        mView.showHideLoader(true);
+        isVerificationInProgress = true;
     }
 }
