@@ -16,10 +16,12 @@
     <string name="hint_last_name">Last Name</string>
     <string name="hint_birth_date">Birth Date</string>
     <string name="hint_location">Select Your Location</string>
+    <string name="countdown" translatable="false">%d seconds left!</string>
     <string name="create_now">Create Now</string>
     <string name="hint_email">Email</string>
     <string name="gender_male">Male</string>
     <string name="gender">Gender</string>
     <string name="gender_female">Female</string>
+    <string name="resend_code">Resend Code</string>
 
 </resources>

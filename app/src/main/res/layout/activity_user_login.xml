@@ -29,86 +29,156 @@
 
     <!--Registration-->
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/ll_regis"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/dp_16"
-        android:layout_marginRight="@dimen/dp_16"
-        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:visibility="@{!regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
-        >
+        tools:visibility="gone">
+
       <com.rilixtech.CountryCodePicker
           android:id="@+id/cc_country_code"
-          android:layout_width="wrap_content"
+          android:layout_width="@dimen/dp_0"
           android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/dp_8"
+          android:layout_marginEnd="@dimen/dp_16"
+          android:layout_marginLeft="@dimen/dp_16"
+          android:layout_marginRight="@dimen/dp_16"
+          android:layout_marginStart="@dimen/dp_16"
+          android:layout_marginTop="@dimen/dp_8"
           app:ccp_defaultNameCode="IN"
-          />
+          app:layout_constraintBottom_toTopOf="@+id/et_phone_number"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.5"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_chainStyle="packed" />
 
       <android.support.v7.widget.AppCompatEditText
           android:id="@+id/et_phone_number"
-          android:layout_width="match_parent"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
+          android:layout_marginEnd="@dimen/dp_16"
+          android:layout_marginLeft="@dimen/dp_16"
+          android:layout_marginRight="@dimen/dp_16"
+          android:layout_marginStart="@dimen/dp_16"
+          android:layout_marginTop="@dimen/dp_16"
           android:addTextChangedListener="@{regisInfo.phoneNumberWatcher}"
           android:hint="@string/enter_phone_number"
           android:inputType="number"
           android:text="@{regisInfo.phoneNumber}"
-          />
+          app:layout_constraintBottom_toTopOf="@+id/bv_in"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.5"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/cc_country_code" />
 
       <Button
           android:id="@+id/bv_in"
-          android:layout_width="wrap_content"
+          android:layout_width="@dimen/dp_0"
           android:layout_height="wrap_content"
-          android:layout_below="@+id/et_phone_number"
           android:layout_gravity="center_horizontal"
+          android:layout_marginBottom="@dimen/dp_16"
+          android:layout_marginEnd="@dimen/dp_16"
+          android:layout_marginLeft="@dimen/dp_16"
+          android:layout_marginRight="@dimen/dp_16"
+          android:layout_marginStart="@dimen/dp_16"
           android:layout_marginTop="@dimen/dp_8"
           android:onClick="@{() -> presenter.onIamInButtonClick(regisInfo.phoneNumber,regisInfo.phoneCode)}"
           android:text="@string/iam_in"
           android:textAllCaps="true"
-          />
-    </LinearLayout>
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.5"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
 
+    </android.support.constraint.ConstraintLayout>
     <!--Verification-->
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/ll_verify"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginRight="@dimen/dp_16"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
         android:visibility="@{regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
-        tools:visibility="gone"
+        tools:visibility="v"
         >
 
       <TextView
           android:id="@+id/tv_verify_label"
-          android:layout_width="wrap_content"
+          android:layout_width="@dimen/dp_0"
           android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/dp_16"
+          android:layout_marginLeft="@dimen/dp_16"
+          android:layout_marginRight="@dimen/dp_16"
+          android:layout_marginStart="@dimen/dp_16"
+          android:layout_marginTop="@dimen/dp_16"
           android:text="@string/verify_mobile_number"
-          />
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
 
       <EditText
           android:id="@+id/et_otp"
-          android:layout_width="match_parent"
+          android:layout_width="@dimen/dp_0"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/dp_8"
+          android:layout_marginEnd="@dimen/dp_16"
+          android:layout_marginLeft="@dimen/dp_16"
+          android:layout_marginRight="@dimen/dp_16"
+          android:layout_marginStart="@dimen/dp_16"
+          android:layout_marginTop="@dimen/dp_16"
           android:addTextChangedListener="@{regisInfo.otpWatcher}"
           android:text="@{regisInfo.otp}"
-          />
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/tv_verify_label" />
 
       <Button
           android:id="@+id/bv_verify"
-          android:layout_width="wrap_content"
+          android:layout_width="@dimen/dp_0"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/dp_8"
+          android:layout_marginEnd="@dimen/dp_16"
+          android:layout_marginLeft="@dimen/dp_16"
+          android:layout_marginRight="@dimen/dp_16"
+          android:layout_marginStart="@dimen/dp_16"
+          android:layout_marginTop="@dimen/dp_16"
           android:onClick="@{() -> presenter.onVerifyOtpButtonClick(regisInfo.phoneNumber)}"
           android:text="@string/verify"
-          />
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/tv_countdown" />
 
-    </LinearLayout>
+      <Button
+          android:id="@+id/btn_resend_code"
+          android:layout_width="@dimen/dp_0"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/dp_16"
+          android:layout_marginLeft="@dimen/dp_16"
+          android:layout_marginRight="@dimen/dp_16"
+          android:layout_marginStart="@dimen/dp_16"
+          android:text="@string/resend_code"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bv_verify" />
+
+      <TextView
+          android:id="@+id/tv_countdown"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/dp_16"
+          android:layout_marginRight="@dimen/dp_16"
+          android:layout_marginTop="@dimen/dp_16"
+          android:text="@string/countdown"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/et_otp" />
+
+    </android.support.constraint.ConstraintLayout>
 
 
     <ProgressBar
@@ -117,7 +187,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        tools:visibility="visible"
+        tools:visibility="gone"
         />
 
   </RelativeLayout>
