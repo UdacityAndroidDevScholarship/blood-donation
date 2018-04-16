@@ -44,6 +44,9 @@ dependencies {
   debugImplementation deps.square.leackcanary.debug
   releaseImplementation deps.square.leackcanary.release
 
+  // Timber - Logging library
+  implementation deps.other.timber
+
   testImplementation deps.junit
 
   androidTestImplementation deps.android.support.test.runner

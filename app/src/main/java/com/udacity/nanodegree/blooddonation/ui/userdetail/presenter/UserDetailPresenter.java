@@ -35,6 +35,6 @@ public class UserDetailPresenter implements UserDetailContract.Presenter {
   }
 
   @Override public void onCreateNowClick(UserDetail userDetail) {
-    System.out.println("onCreateNowClick - " + userDetail.isMale.get());
+    
   }
 }

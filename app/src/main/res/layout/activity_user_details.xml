@@ -69,6 +69,7 @@
           app:layout_constraintEnd_toEndOf="@+id/et_last_name"
           app:layout_constraintStart_toStartOf="@+id/et_first_name"
           app:layout_constraintTop_toBottomOf="@+id/et_first_name"
+          app:binding="@{userdetail.bloodGroup}"
           />
 
       <android.support.v7.widget.AppCompatEditText
