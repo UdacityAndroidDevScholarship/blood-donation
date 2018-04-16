@@ -36,7 +36,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:visibility="@{!regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
       <com.rilixtech.CountryCodePicker
           android:id="@+id/cc_country_code"
@@ -49,6 +49,7 @@
           android:layout_marginStart="@dimen/dp_16"
           android:layout_marginTop="@dimen/dp_8"
           app:ccp_defaultNameCode="IN"
+          app:ccp_showFullName="true"
           app:layout_constraintBottom_toTopOf="@+id/et_phone_number"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.5"
@@ -106,7 +107,7 @@
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginRight="@dimen/dp_16"
         android:visibility="@{regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
-        tools:visibility="v"
+        tools:visibility="gone"
         >
 
       <TextView
@@ -162,6 +163,7 @@
           android:layout_marginRight="@dimen/dp_16"
           android:layout_marginStart="@dimen/dp_16"
           android:text="@string/resend_code"
+          android:onClick="@{() -> presenter.onResendCodeButtonClick()}"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toStartOf="parent"
