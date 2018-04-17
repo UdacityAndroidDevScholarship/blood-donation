@@ -1,20 +1,15 @@
 package com.udacity.nanodegree.blooddonation.ui.home;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
-import com.udacity.nanodegree.blooddonation.ui.login.view.UserLoginActivity;
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -67,26 +62,6 @@ public class HomeActivity extends BaseActivity {
                 Log.v("Permission", "Permission: " + permissions[0] + "was " + grantResults[0]);
             } else { }
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main , menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        switch(itemId){
-            case R.id.menu_sign_out :
-                FirebaseAuth.getInstance().signOut();
-                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-                    Intent intent = new Intent(HomeActivity.this, UserLoginActivity.class);
-                    startActivity(intent);
-                }
-        }
-        return true;
     }
 
 }
