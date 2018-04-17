@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <!--User Details-->
   <string-array name="blood_group">
     <item>O+</item>
     <item>O-</item>

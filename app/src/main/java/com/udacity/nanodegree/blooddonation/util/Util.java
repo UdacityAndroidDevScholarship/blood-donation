@@ -43,4 +43,13 @@ final public class Util {
 
     return stringBuilder.toString();
   }
+
+  // TODO -> Use google reverse api, to get address
+  public static String convertLatLongToAddress(double latitude, double longitiude){
+    if (latitude == 0.0 || longitiude == 0.0){
+      return null;
+    }
+    return String.valueOf(latitude).concat("      ")
+        .concat(String.valueOf(longitiude));
+  }
 }

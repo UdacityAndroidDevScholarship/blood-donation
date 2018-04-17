@@ -20,15 +20,16 @@
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:padding="@dimen/dp_8"
       android:fillViewport="true"
+      android:padding="@dimen/dp_8"
       >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
       <!--first name and last name-->
       <LinearLayout
@@ -106,6 +107,17 @@
           android:text="@{Util.convertDateToDobFormat(userdetail.dob.get())}"
           />
 
+
+      <android.support.v7.widget.AppCompatTextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_8"
+          android:hint="@string/hint_location"
+          android:padding="@dimen/dp_30"
+          android:onClick="@{()->presenter.onLocationClick()}"
+          android:text="@{Util.convertLatLongToAddress(userdetail.latitiude,userdetail.longitude)}"
+          />
+
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -115,8 +127,8 @@
           >
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/gender"
             />
 
@@ -150,6 +162,8 @@
               />
 
         </RadioGroup>
+
+
       </LinearLayout>
 
 

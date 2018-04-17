@@ -10,9 +10,12 @@ public interface UserDetailContract {
     interface Presenter extends BasePresenter {
       void onCreateNowClick(UserDetail userDetail);
       void onDobButtonClick();
+      void onLocationClick();
     }
 
     interface View {
       void showDatePickerDialog();
+
+      void getLastLocation();
     }
 }

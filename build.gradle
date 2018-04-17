@@ -9,7 +9,8 @@ buildscript {
             'testRunner'      : '1.0.1',
             'espressoCore'    : '3.0.1',
             'leak_canary'     :  '1.5.4',
-            'timber' : '4.7.0'
+            'timber'          : '4.7.0',
+            'play_service_location' : '15.0.0'
     ]
 
 
@@ -59,6 +60,9 @@ buildscript {
             'google' : [
                     'firebase': [
                             'auth': "com.google.firebase:firebase-auth:${versions.firebase}"
+                    ],
+                    'play_services':[
+                        'location':"com.google.android.gms:play-services-location:${versions.play_service_location}"
                     ]
             ],
 

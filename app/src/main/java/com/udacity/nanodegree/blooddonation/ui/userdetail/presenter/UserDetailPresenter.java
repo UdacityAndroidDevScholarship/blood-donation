@@ -50,4 +50,8 @@ public class UserDetailPresenter implements UserDetailContract.Presenter {
   @Override public void onDobButtonClick() {
       mView.showDatePickerDialog();
   }
+
+  @Override public void onLocationClick() {
+    mView.getLastLocation();
+  }
 }

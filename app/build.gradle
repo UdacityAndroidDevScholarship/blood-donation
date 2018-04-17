@@ -47,10 +47,14 @@ dependencies {
   // Timber - Logging library
   implementation deps.other.timber
 
+  // Fused location
+  implementation deps.google.play_services.location
+
   testImplementation deps.junit
 
   androidTestImplementation deps.android.support.test.runner
   androidTestImplementation deps.android.support.test.espressoCore
+
 }
 
 apply plugin: 'com.google.gms.google-services'
