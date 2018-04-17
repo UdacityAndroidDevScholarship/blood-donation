@@ -59,7 +59,8 @@ buildscript {
 
             'google' : [
                     'firebase': [
-                            'auth': "com.google.firebase:firebase-auth:${versions.firebase}"
+                            'auth': "com.google.firebase:firebase-auth:${versions.firebase}",
+                            'database':"com.google.firebase:firebase-database:${versions.firebase}"
                     ],
                     'play_services':[
                         'location':"com.google.android.gms:play-services-location:${versions.play_service_location}"

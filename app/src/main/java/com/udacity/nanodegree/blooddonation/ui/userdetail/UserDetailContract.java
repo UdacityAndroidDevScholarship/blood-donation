@@ -17,5 +17,9 @@ public interface UserDetailContract {
       void showDatePickerDialog();
 
       void getLastLocation();
+
+      void launchHomeScreen();
+
+
     }
 }

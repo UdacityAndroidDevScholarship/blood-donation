@@ -20,8 +20,6 @@ public final class SharedPreferenceManager {
         mSharedPreferences =
                 App.getInstance().getApplicationContext().getSharedPreferences(NAME,
                         Context.MODE_PRIVATE);
-
-        INSTANCE = this;
     }
 
     public static SharedPreferenceManager getInstance() {

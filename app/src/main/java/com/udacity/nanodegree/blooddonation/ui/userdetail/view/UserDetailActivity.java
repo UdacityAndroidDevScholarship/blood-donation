@@ -1,6 +1,7 @@
 package com.udacity.nanodegree.blooddonation.ui.userdetail.view;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -17,6 +19,7 @@ import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.common.picker.DatePickerFragment;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityUserDetailsBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
+import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.UserDetailContract;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.presenter.UserDetailPresenter;
@@ -38,7 +41,8 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
     super.onCreate(savedInstanceState);
 
     mPresenter =
-        new UserDetailPresenter(this, Injection.getFirebaseAuth(), Injection.getSharedPreference());
+        new UserDetailPresenter(this, Injection.getFirebaseAuth(), Injection.getSharedPreference(),
+            Injection.providesDataRepo());
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_details);
     mActivityUserDetailsBinding = (ActivityUserDetailsBinding) mBinding;
     mUserDetail = new UserDetail();
@@ -48,6 +52,22 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
     initSpinner();
 
     mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+    mPresenter.onCreate();
+  }
+
+  @Override protected void onStart() {
+    super.onStart();
+    mPresenter.onStart();
+  }
+
+  @Override protected void onStop() {
+    super.onStop();
+    mPresenter.onStop();
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    mPresenter.onDestroy();
   }
 
   private void initSpinner() {
@@ -86,5 +106,12 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
             }
           }
         });
+  }
+  
+  @Override
+  public void launchHomeScreen() {
+    Intent intent = new Intent(this, HomeActivity.class);
+    finish();
+    startActivity(intent);
   }
 }

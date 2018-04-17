@@ -10,8 +10,8 @@ import com.udacity.nanodegree.blooddonation.common.binding.ObservableString;
 public class UserDetail {
   public ObservableString firstName = new ObservableString();
   public ObservableString lastName = new ObservableString();
-  public ObservableString bloodGroup = new ObservableString();
   public ObservableString email = new ObservableString();
+  public ObservableString bloodGroup = new ObservableString();
   public ObservableString dob = new ObservableString();
   public ObservableBoolean isMale = new ObservableBoolean(true);
   public ObservableDouble latitiude = new ObservableDouble();

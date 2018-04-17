@@ -3,8 +3,11 @@ package com.udacity.nanodegree.blooddonation.util;
 import android.text.TextUtils;
 import android.util.Patterns;
 
+import com.udacity.nanodegree.blooddonation.constants.Constants;
 import com.udacity.nanodegree.blooddonation.constants.RegexConst;
 
+import com.udacity.nanodegree.blooddonation.data.model.User;
+import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -51,5 +54,20 @@ final public class Util {
     }
     return String.valueOf(latitude).concat("      ")
         .concat(String.valueOf(longitiude));
+  }
+
+  public static User getPreparedUser(UserDetail userDetail){
+    User user = new User();
+    user.fName = userDetail.firstName.get();
+    user.lName = userDetail.lastName.get();
+    user.email = userDetail.email.get();
+    user.bloodGroup = userDetail.bloodGroup.get();
+    user.dob = userDetail.dob.get();
+    boolean isMale = userDetail.isMale.get();
+    user.gender = isMale ? Constants.MALE : Constants.FEMALE;
+    user.latitude = userDetail.latitiude.get();
+    user.longitude = userDetail.longitude.get();
+
+    return user;
   }
 }
