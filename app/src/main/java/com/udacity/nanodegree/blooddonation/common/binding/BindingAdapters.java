@@ -1,12 +1,14 @@
-package com.udacity.nanodegree.blooddonation.util.binding;
+package com.udacity.nanodegree.blooddonation.common.binding;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
 import android.support.v4.util.Pair;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import com.udacity.nanodegree.blooddonation.R;
 
 /**
@@ -51,6 +53,24 @@ public class BindingAdapters {
     Boolean newValue = bindableBoolean.get();
     ((RadioButton) view.getChildAt(newValue ? 0 : 1)).setChecked(true);
   }
+
+  @BindingAdapter({ "app:binding" })
+  public static void bindSpinner(Spinner view, final ObservableString observableString) {
+    if (view.getTag(R.id.bound_observable) != observableString) {
+      view.setTag(R.id.bound_observable, observableString);
+      view.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+          observableString.set(parent.getItemAtPosition(position).toString());
+        }
+
+        @Override public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+      });
+    }
+  }
+
 
   @BindingAdapter({ "app:onClick" })
   public static void bindOnClick(View view, final Runnable runnable) {
