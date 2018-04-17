@@ -1,26 +1,27 @@
 <resources>
-    <string name="app_name">Blood Donation</string>
+  <string name="app_name">Blood Donation</string>
 
 
-    <!--LoginScreen Activity-->
-    <string name="enter_phone_number">Enter phone number</string>
-    <string name="iam_in">I am in</string>
-    <string name="verify_mobile_number">Verify mobile number.OTP has been sent"</string>
-    <string name="verify">Verify</string>
-    <string name="verification">Verification</string>
+  <!--LoginScreen Activity-->
+  <string name="enter_phone_number">Enter phone number</string>
+  <string name="iam_in">I am in</string>
+  <string name="verify_mobile_number">Verify mobile number.OTP has been sent"</string>
+  <string name="verify">Verify</string>
+  <string name="verification">Verification</string>
 
 
-    <!--UserDetailActivity-->
-    <string name="user_profile">Profile</string>
-    <string name="hint_first_name">First Name</string>
-    <string name="hint_last_name">Last Name</string>
-    <string name="hint_birth_date">Birth Date</string>
-    <string name="hint_location">Select Your Location</string>
-    <string name="create_now">Create Now</string>
-    <string name="hint_email">Email</string>
-    <string name="gender_male">Male</string>
-    <string name="gender">Gender</string>
-    <string name="gender_female">Female</string>
+  <!--UserDetailActivity-->
+  <string name="user_profile">Profile</string>
+  <string name="hint_first_name">First Name</string>
+  <string name="hint_last_name">Last Name</string>
+  <string name="hint_birth_date">Birth Date</string>
+  <string name="hint_location">Select Your Location</string>
+  <string name="create_now">Create Now</string>
+  <string name="hint_email">Email</string>
+  <string name="gender_male">Male</string>
+  <string name="gender">Gender</string>
+  <string name="gender_female">Female</string>
+  <string name="date_hint">Select date</string>
 
 
 </resources>
