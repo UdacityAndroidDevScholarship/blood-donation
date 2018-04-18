@@ -24,51 +24,49 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
       <!--first name and last name-->
       <android.support.v7.widget.AppCompatEditText
-          android:id="@+id/appCompatEditText3"
-          android:layout_width="0dp"
+          android:id="@+id/et_first_name"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
-          android:layout_weight="1"
           android:autofillHints="@string/hint_first_name"
           android:background="@drawable/edit_text_border"
-          android:ems="7"
+          android:ems="8"
           android:gravity="start"
           android:hint="@string/hint_first_name"
           android:inputType="textPersonName"
           android:padding="8dp"
           app:binding="@{userdetail.firstName}"
-          app:layout_constraintEnd_toStartOf="@+id/appCompatEditText2"
+          app:layout_constraintEnd_toStartOf="@+id/et_last_name"
           app:layout_constraintHorizontal_bias="0.5"
+          app:layout_constraintHorizontal_chainStyle="spread"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
 
       <android.support.v7.widget.AppCompatEditText
-          android:id="@+id/appCompatEditText2"
-          android:layout_width="0dp"
+          android:id="@+id/et_last_name"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_weight="1"
           android:autofillHints="@string/hint_last_name"
           android:background="@drawable/edit_text_border"
-          android:ems="7"
+          android:ems="8"
           android:gravity="start"
           android:hint="@string/hint_last_name"
           android:inputType="textPersonName"
           android:padding="8dp"
           app:binding="@{userdetail.lastName}"
-          app:layout_constraintBaseline_toBaselineOf="@+id/appCompatEditText3"
+          app:layout_constraintBaseline_toBaselineOf="@+id/et_first_name"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.5"
-          app:layout_constraintStart_toEndOf="@+id/appCompatEditText3" />
+          app:layout_constraintStart_toEndOf="@+id/et_first_name" />
 
       <!--Email-->
       <android.support.v7.widget.AppCompatEditText
-          android:id="@+id/appCompatEditText"
-          android:layout_width="match_parent"
+          android:id="@+id/et_email"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
           android:autofillHints="@string/hint_email"
@@ -79,51 +77,61 @@
           android:inputType="textEmailAddress"
           android:padding="@dimen/dp_8"
           app:binding="@{userdetail.email}"
-          app:layout_constraintStart_toStartOf="@+id/appCompatEditText3"
-          app:layout_constraintTop_toBottomOf="@+id/appCompatEditText3" />
+          app:layout_constraintEnd_toEndOf="@+id/et_last_name"
+          app:layout_constraintStart_toStartOf="@+id/et_first_name"
+          app:layout_constraintTop_toBottomOf="@+id/et_first_name" />
 
 
       <!--Blood group-->
       <Spinner
           android:id="@+id/blood_group_drop_down"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
           style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
           android:background="@drawable/edit_text_border"
           android:gravity="center"
           android:padding="@dimen/dp_16"
           app:binding="@{userdetail.bloodGroup}"
-          app:layout_constraintStart_toStartOf="@+id/appCompatEditText"
-          app:layout_constraintTop_toBottomOf="@+id/appCompatEditText" />
+          app:layout_constraintEnd_toEndOf="@+id/et_email"
+          app:layout_constraintStart_toStartOf="@+id/et_email"
+          app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
-      <Button
-          android:id="@+id/button3"
-          style="@style/Widget.AppCompat.Button"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="16dp"
-          android:hint="@string/date_hint"
-          android:onClick="@{()->presenter.onDobButtonClick()}"
-          android:text="@{Util.convertDateToDobFormat(userdetail.dob.get())}"
-          app:layout_constraintStart_toStartOf="@+id/blood_group_drop_down"
-          app:layout_constraintTop_toBottomOf="@+id/blood_group_drop_down" />
+        <Button
+            android:id="@+id/select_birth_date_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawableEnd="@drawable/ic_date_range_black_24dp"
+            android:drawableRight="@drawable/ic_date_range_black_24dp"
+            android:hint="@string/hint_birth_date"
+            android:onClick="@{()->presenter.onDobButtonClick()}"
+            android:text="@{Util.convertDateToDobFormat(userdetail.dob.get())}"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@+id/blood_group_drop_down"
+            app:layout_constraintStart_toStartOf="@+id/blood_group_drop_down"
+            app:layout_constraintTop_toBottomOf="@+id/blood_group_drop_down" />
 
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_location_picker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edit_text_border"
+            android:drawableEnd="@drawable/ic_location_on_red_24dp"
+            android:drawableRight="@drawable/ic_location_on_red_24dp"
+            android:hint="@string/hint_location"
+            android:onClick="@{()->presenter.onLocationClick()}"
+            android:padding="@dimen/dp_30"
+            android:text="@{Util.convertLatLongToAddress(userdetail.latitiude,userdetail.longitude)}"
+            app:layout_constraintEnd_toEndOf="@+id/select_birth_date_button"
+            app:layout_constraintStart_toStartOf="@+id/select_birth_date_button"
+            app:layout_constraintTop_toBottomOf="@+id/select_birth_date_button" />
 
       <android.support.v7.widget.AppCompatTextView
-          android:id="@+id/tv_location_picker"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="16dp"
-          android:hint="@string/hint_location"
-          android:onClick="@{()->presenter.onLocationClick()}"
-          android:padding="@dimen/dp_30"
-          android:text="@{Util.convertLatLongToAddress(userdetail.latitiude,userdetail.longitude)}"
-          app:layout_constraintStart_toStartOf="@+id/button3"
-          app:layout_constraintTop_toBottomOf="@+id/button3" />
-
-      <android.support.v7.widget.AppCompatTextView
-          android:id="@+id/appCompatTextView"
+          android:id="@+id/tv_gender_label"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
@@ -134,17 +142,17 @@
 
 
       <RadioGroup
-          android:id="@+id/radioGroup"
+          android:id="@+id/gender_radio_group"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="8dp"
           android:layout_marginLeft="8dp"
+          android:layout_marginStart="8dp"
           android:orientation="horizontal"
           android:title="@string/gender"
           app:binding="@{userdetail.isMale}"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@+id/appCompatTextView"
-          app:layout_constraintTop_toTopOf="@+id/appCompatTextView">
+          app:layout_constraintEnd_toEndOf="@+id/tv_location_picker"
+          app:layout_constraintStart_toEndOf="@+id/tv_gender_label"
+          app:layout_constraintTop_toTopOf="@+id/tv_gender_label">
 
         <RadioButton
             android:id="@+id/rb_male"
@@ -167,16 +175,22 @@
 
       </RadioGroup>
 
-      <Button
-          android:id="@+id/button2"
-          style="@style/Widget.AppCompat.Button.Colored"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="16dp"
-          android:onClick="@{()->presenter.onCreateNowClick(userdetail)}"
-          android:text="@string/create_now"
-          app:layout_constraintStart_toStartOf="@+id/radioGroup"
-          app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        <Button
+            android:id="@+id/create_profile_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->presenter.onCreateNowClick(userdetail)}"
+            android:text="@string/create_now"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/gender_radio_group"
+            app:layout_constraintStart_toStartOf="@+id/tv_gender_label"
+            app:layout_constraintTop_toBottomOf="@+id/gender_radio_group"
+            app:layout_constraintVertical_bias="0.13999999" />
+
+
 
     </android.support.constraint.ConstraintLayout>
 

@@ -14,7 +14,7 @@
   <string name="user_profile">Profile</string>
   <string name="hint_first_name">First Name</string>
   <string name="hint_last_name">Last Name</string>
-  <string name="hint_birth_date">Birth Date</string>
+  <string name="hint_birth_date">Select Birth Date</string>
   <string name="hint_location">Select Your Location</string>
   <string name="create_now">Create Now</string>
   <string name="hint_email">Email</string>
