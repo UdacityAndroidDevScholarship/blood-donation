@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <data>
     <import type="com.udacity.nanodegree.blooddonation.util.Util"/>
@@ -55,6 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginStart="@dimen/dp_16"
             android:layout_weight="1"
             android:autofillHints="@string/hint_last_name"
             android:background="@drawable/edit_text_border"
