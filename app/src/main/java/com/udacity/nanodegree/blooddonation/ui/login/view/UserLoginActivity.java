@@ -105,7 +105,7 @@ public class UserLoginActivity extends BaseActivity
     if (seconds>0) {
       String secondsLeft = getString(R.string.countdown, (int) seconds);
 
-      if (((ActivityUserLoginBinding) mBinding) != null) {
+      if (mBinding != null) {
         ((ActivityUserLoginBinding) mBinding).tvCountdown.setText(secondsLeft);
       }
 
@@ -130,7 +130,7 @@ public class UserLoginActivity extends BaseActivity
 
   @Override
   public void showCountdown(boolean visible) {
-    if (((ActivityUserLoginBinding)mBinding)!= null) {
+    if (mBinding != null) {
       ((ActivityUserLoginBinding) mBinding).tvCountdown.setVisibility(visible ? View.VISIBLE : View.GONE);
       ((ActivityUserLoginBinding) mBinding).btnResendCode.setVisibility(visible ? View.GONE : View.VISIBLE);
     }
