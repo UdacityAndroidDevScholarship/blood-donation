@@ -1,15 +1,14 @@
 package com.udacity.nanodegree.blooddonation.ui.userdetail.view;
 
-import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -23,18 +22,19 @@ import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.UserDetailContract;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.presenter.UserDetailPresenter;
-import timber.log.Timber;
+import com.udacity.nanodegree.blooddonation.util.permission.AppPermissionsUtil;
+
 
 /**
  * Created by riteshksingh on Apr, 2018
  */
 public class UserDetailActivity extends BaseActivity implements UserDetailContract.View {
 
+  private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 100;
+
   private UserDetailContract.Presenter mPresenter;
   private ActivityUserDetailsBinding mActivityUserDetailsBinding;
-
   private UserDetail mUserDetail;
-
   private FusedLocationProviderClient mFusedLocationClient;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,20 +82,7 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
     dialogFragment.show(getSupportFragmentManager(), "datefragment");
   }
 
-  @Override public void getLastLocation() {
-    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-        != PackageManager.PERMISSION_GRANTED
-        && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-        != PackageManager.PERMISSION_GRANTED) {
-      // TODO: Consider calling
-      //    ActivityCompat#requestPermissions
-      // here to request the missing permissions, and then overriding
-      //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-      //                                          int[] grantResults)
-      // to handle the case where the user grants the permission. See the documentation
-      // for ActivityCompat#requestPermissions for more details.
-      return;
-    }
+  @SuppressLint("MissingPermission") private void getLocation() {
     mFusedLocationClient.getLastLocation()
         .addOnSuccessListener(this, new OnSuccessListener<Location>() {
           @Override public void onSuccess(Location location) {
@@ -107,9 +94,29 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
           }
         });
   }
-  
-  @Override
-  public void launchHomeScreen() {
+
+  @Override public void getLastLocation() {
+    if (AppPermissionsUtil.checkIfLocationPermissionIsGiven(this)) {
+      getLocation();
+    } else {
+      AppPermissionsUtil.requestForLocationPermission(this, MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+    }
+  }
+
+  @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+      @NonNull int[] grantResults) {
+    switch (requestCode) {
+      case MY_PERMISSIONS_REQUEST_FINE_LOCATION:
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+          getLocation();
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  @Override public void launchHomeScreen() {
     Intent intent = new Intent(this, HomeActivity.class);
     finish();
     startActivity(intent);
