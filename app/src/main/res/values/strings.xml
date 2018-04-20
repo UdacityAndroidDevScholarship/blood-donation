@@ -1,18 +1,18 @@
 <resources>
-    <string name="app_name">Blood Donation</string>
+  <string name="app_name">Blood Donation</string>
 
 
-    <!--LoginScreen Activity-->
-    <string name="enter_phone_number">Enter phone number</string>
-    <string name="iam_in">I am in</string>
-    <string name="verify">Verify</string>
-    <string name="verification">Verification</string>
-    <string name="countdown">%1$d seconds left!</string>
-    <string name="otp_sent_text">OTP has been sent to %1$s.</string>
-    <string name="resend_code">Resend Code</string>
-    <string name="verify_phone_number">VERIFY PHONE NUMBER</string>
-    <string name="hint_otp">OTP</string>
-
+  <!--LoginScreen Activity-->
+  <string name="enter_phone_number">Enter phone number</string>
+  <string name="iam_in">I am in</string>
+  <string name="verify_mobile_number">Verify mobile number.OTP has been sent"</string>
+  <string name="verify">Verify</string>
+  <string name="verification">Verification</string>
+  <string name="verify_phone_number">VERIFY PHONE NUMBER</string>
+  <string name="otp_sent_text">OTP has been sent to %1$s.</string>
+  <string name="hint_otp">OTP</string>
+  <string name="countdown">%1$d seconds left!</string>
+  <string name="resend_code">Resend Code</string>
 
 
   <!--UserDetailActivity-->
