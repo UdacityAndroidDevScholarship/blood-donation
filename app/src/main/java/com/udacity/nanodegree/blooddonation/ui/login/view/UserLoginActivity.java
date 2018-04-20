@@ -20,6 +20,7 @@ import com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo;
 import com.udacity.nanodegree.blooddonation.ui.login.presenter.UserLoginPresenter;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity;
 
+
 /**
  * Created by riteshksingh on Apr, 2018
  */
@@ -59,7 +60,7 @@ public class UserLoginActivity extends BaseActivity
   }
 
   @Override public void showNotValidPhoneNumberMessage() {
-    Toast.makeText(this, "No a valid phone number", Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, "Not a valid phone number", Toast.LENGTH_SHORT).show();
   }
 
   @Override public void showLimitExceededMessage() {
@@ -99,7 +100,49 @@ public class UserLoginActivity extends BaseActivity
     getSupportActionBar().setTitle(R.string.verification);
   }
 
+  @Override
+  public void setTimerCount(long seconds) {
+    if (seconds>0) {
+      String secondsLeft = getString(R.string.countdown, (int) seconds);
+
+      if (((ActivityUserLoginBinding) mBinding) != null) {
+        ((ActivityUserLoginBinding) mBinding).tvCountdown.setText(secondsLeft);
+      }
+
+    }
+  }
+
+  @Override
+  public void hidePhoneNumberScreen() {
+    ((ActivityUserLoginBinding)mBinding).layoutRegistration.setVisibility(View.GONE);
+  }
+
+  @Override
+  public void showVerificationScreen(boolean visible) {
+    ((ActivityUserLoginBinding)mBinding).layoutVerification.setVisibility(visible ? View.VISIBLE : View.GONE);
+  }
+
+  @Override
+  public void setPhoneNumber(String phoneNumber) {
+    String otpSentText = getString(R.string.otp_sent_text,phoneNumber);
+    ((ActivityUserLoginBinding) mBinding).tvVerifyLabel.setText(otpSentText);
+  }
+
+  @Override
+  public void showCountdown(boolean visible) {
+    if (((ActivityUserLoginBinding)mBinding)!= null) {
+      ((ActivityUserLoginBinding) mBinding).tvCountdown.setVisibility(visible ? View.VISIBLE : View.GONE);
+      ((ActivityUserLoginBinding) mBinding).btnResendCode.setVisibility(visible ? View.GONE : View.VISIBLE);
+    }
+  }
+
   @Override public void setUserRegisInfoIsCodeFlag(boolean b) {
     userLoginInfo.isCodeSent.set(true);
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    mPresenter.onDestroy();
   }
 }
