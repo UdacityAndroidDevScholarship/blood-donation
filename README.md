@@ -47,6 +47,8 @@ You can also add feature suggestions by filing a new issue at the [Blood Donatio
 
 Pull requests are welcome for minor bug fixes or for a feature you are working on.
 
+Note : Development requires Android Studio 3.0+
+
 ---
 
 [0]: https://github.com/UdacityAndroidDevScholarship/blood-donation/issues
