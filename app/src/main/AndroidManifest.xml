@@ -23,6 +23,7 @@
 
     </activity>
 
+
     <activity
         android:name="com.udacity.nanodegree.blooddonation.ui.splash.SplashScreenActivity"
         android:screenOrientation="portrait"
