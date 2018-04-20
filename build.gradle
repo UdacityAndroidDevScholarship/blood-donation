@@ -8,7 +8,9 @@ buildscript {
             'firebase'        : '15.0.0',
             'testRunner'      : '1.0.1',
             'espressoCore'    : '3.0.1',
-            'leak_canary'     :  '1.5.4'
+            'leak_canary'     :  '1.5.4',
+            'timber'          : '4.7.0',
+            'play_service_location' : '15.0.0'
     ]
 
 
@@ -57,7 +59,11 @@ buildscript {
 
             'google' : [
                     'firebase': [
-                            'auth': "com.google.firebase:firebase-auth:${versions.firebase}"
+                            'auth': "com.google.firebase:firebase-auth:${versions.firebase}",
+                            'database':"com.google.firebase:firebase-database:${versions.firebase}"
+                    ],
+                    'play_services':[
+                        'location':"com.google.android.gms:play-services-location:${versions.play_service_location}"
                     ]
             ],
 
@@ -66,6 +72,10 @@ buildscript {
                     'debug':"com.squareup.leakcanary:leakcanary-android:${versions.leak_canary}",
                     'release':"com.squareup.leakcanary:leakcanary-android-no-op:${versions.leak_canary}"
                 ]
+            ],
+
+            'other':[
+                'timber':"com.jakewharton.timber:timber:${versions.timber}"
             ],
 
             'junit'  : 'junit:junit:4.12'

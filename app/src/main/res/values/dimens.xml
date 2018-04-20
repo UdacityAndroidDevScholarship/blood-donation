@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--Dp-->
+    <dimen name="dp_0">0dp</dimen>
     <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_16">16dp</dimen>
-    <dimen name="splash_icon_height_width">100dp</dimen>
-    <dimen name="splash_icon_margin_top">150dp</dimen>
-    <dimen name="splash_app_version_text_size">15sp</dimen>
-    <dimen name="splash_app_version_margin_bottom">30dp</dimen>
-    <dimen name="splash_app_name_text_size">20sp</dimen>
+    <dimen name="dp_100">100dp</dimen>
+    <dimen name="dp_150dp">150dp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+
+
+    <!--Sp-->
+    <dimen name="sp_15">15sp</dimen>
+    <dimen name="sp_20">20sp</dimen>
+
+    <!--Splash screen-->
+    <dimen name="splash_icon_height_width">@dimen/dp_100</dimen>
+    <dimen name="splash_icon_margin_top">@dimen/dp_150dp</dimen>
+    <dimen name="splash_app_version_text_size">@dimen/sp_15</dimen>
+    <dimen name="splash_app_version_margin_bottom">@dimen/dp_30</dimen>
+    <dimen name="splash_app_name_text_size">@dimen/sp_20</dimen>
 </resources>

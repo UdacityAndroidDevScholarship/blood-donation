@@ -36,6 +36,9 @@ dependencies {
   // Firebase Auth
   implementation deps.google.firebase.auth
 
+  // Realtime database
+  implementation deps.google.firebase.database
+
   //Country code picker
   // https://android-arsenal.com/details/1/5753
   implementation 'com.github.joielechong:countrycodepicker:2.1.5'
@@ -44,10 +47,17 @@ dependencies {
   debugImplementation deps.square.leackcanary.debug
   releaseImplementation deps.square.leackcanary.release
 
+  // Timber - Logging library
+  implementation deps.other.timber
+
+  // Fused location
+  implementation deps.google.play_services.location
+
   testImplementation deps.junit
 
   androidTestImplementation deps.android.support.test.runner
   androidTestImplementation deps.android.support.test.espressoCore
+
 }
 
 apply plugin: 'com.google.gms.google-services'
