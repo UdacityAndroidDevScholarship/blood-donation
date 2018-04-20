@@ -5,13 +5,13 @@
   <!--LoginScreen Activity-->
   <string name="enter_phone_number">Enter phone number</string>
   <string name="iam_in">I am in</string>
-  <string name="verify_mobile_number">Verify mobile number"</string>
     <string name="OTP_msg_has_been_sent">OTP has been sent to you on mobile number please enter it below</string>
     <string name="resend_code">Resend Code</string>
     <string name="countdown"></string>
     <string name="hint_otp"></string>
     <string name="otp_sent_text"></string>
     <string name="verify_phone_number"></string>
+  <string name="verify_mobile_number">Verify mobile number.OTP has been sent"</string>
   <string name="verify">Verify</string>
   <string name="verification">Verification</string>
 

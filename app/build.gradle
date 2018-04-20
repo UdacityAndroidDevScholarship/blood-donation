@@ -1,65 +1,63 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion buildConfig.compileSdk
+  compileSdkVersion buildConfig.compileSdk
 
-    defaultConfig {
-        applicationId "com.udacity.nanodegree.blooddonation"
-        minSdkVersion buildConfig.minSdk
-        targetSdkVersion buildConfig.targetSdk
-        versionCode buildConfig.version.code
-        versionName buildConfig.version.name
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
+  defaultConfig {
+    applicationId "com.udacity.nanodegree.blooddonation"
+    minSdkVersion buildConfig.minSdk
+    targetSdkVersion buildConfig.targetSdk
+    versionCode buildConfig.version.code
+    versionName buildConfig.version.name
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+  }
 
-    dataBinding {
-        enabled = true
-    }
+  dataBinding {
+    enabled = true
+  }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // Support lib
-    implementation deps.android.support.appcompatV7
+  // Support lib
+  implementation deps.android.support.appcompatV7
 
-    // Constraint layout
-    implementation deps.android.support.constraintLayout
+  // Constraint layout
+  implementation deps.android.support.constraintLayout
 
-    // Firebase Auth
-    implementation deps.google.firebase.auth
+  // Firebase Auth
+  implementation deps.google.firebase.auth
 
-    // Realtime database
-    implementation deps.google.firebase.database
+  // Realtime database
+  implementation deps.google.firebase.database
 
-    //Country code picker
-    // https://android-arsenal.com/details/1/5753
-    implementation 'com.github.joielechong:countrycodepicker:2.1.5'
+  //Country code picker
+  // https://android-arsenal.com/details/1/5753
+  implementation 'com.github.joielechong:countrycodepicker:2.1.5'
 
-    // Leak canary
-    implementation 'com.google.firebase:firebase-auth:15.0.0'
-    debugImplementation deps.square.leackcanary.debug
-    releaseImplementation deps.square.leackcanary.release
+  // Leak canary
+  debugImplementation deps.square.leackcanary.debug
+  releaseImplementation deps.square.leackcanary.release
 
-    // Timber - Logging library
-    implementation deps.other.timber
+  // Timber - Logging library
+  implementation deps.other.timber
 
-    // Fused location
-    implementation deps.google.play_services.location
+  // Fused location
+  implementation deps.google.play_services.location
 
-    testImplementation deps.junit
+  testImplementation deps.junit
 
-    androidTestImplementation deps.android.support.test.runner
-    androidTestImplementation deps.android.support.test.espressoCore
+  androidTestImplementation deps.android.support.test.runner
+  androidTestImplementation deps.android.support.test.espressoCore
 
 }
-
 
 apply plugin: 'com.google.gms.google-services'
