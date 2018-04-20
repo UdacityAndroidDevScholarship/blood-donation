@@ -120,7 +120,7 @@
           android:layout_marginRight="@dimen/dp_8"
           android:layout_marginStart="@dimen/dp_8"
           android:layout_marginTop="@dimen/dp_8"
-          android:text="@string/verify_phone_number"
+          android:text="@string/verify_mobile_number"
           android:textStyle="bold"
           android:textSize="@dimen/sp_20"
           app:layout_constraintBottom_toTopOf="@+id/tv_verify_label"

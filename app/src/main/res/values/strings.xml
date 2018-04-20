@@ -7,6 +7,10 @@
   <string name="iam_in">I am in</string>
   <string name="verify_mobile_number">Verify mobile number.OTP has been sent"</string>
   <string name="verify">Verify</string>
+    <string name="otp_sent_text"></string>
+    <string name="hint_otp"></string>
+    <string name="countdown"></string>
+    <string name="resend_code"></string>
   <string name="verification">Verification</string>
 
 
