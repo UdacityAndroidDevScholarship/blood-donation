@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-=======
-
->>>>>>> ab3f7e929de70fbe5f4d0ace7e9befe949798f26
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -35,10 +31,6 @@
           android:id="@+id/et_first_name"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-<<<<<<< HEAD
-=======
-
->>>>>>> ab3f7e929de70fbe5f4d0ace7e9befe949798f26
           android:layout_marginTop="@dimen/dp_16"
           android:autofillHints="@string/hint_first_name"
           android:background="@drawable/edit_text_border"
@@ -53,10 +45,7 @@
           app:layout_constraintHorizontal_chainStyle="spread"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
-<<<<<<< HEAD
-=======
 
->>>>>>> ab3f7e929de70fbe5f4d0ace7e9befe949798f26
 
       <android.support.v7.widget.AppCompatEditText
           android:id="@+id/et_last_name"
