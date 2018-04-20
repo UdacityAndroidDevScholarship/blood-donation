@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
+=======
+
+>>>>>>> ab3f7e929de70fbe5f4d0ace7e9befe949798f26
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
