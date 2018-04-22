@@ -2,7 +2,7 @@
 
 ---
 
-## how the app will work?
+## How the app will work?
  * First of all, the one(Voluntary Donor) firstly makes an account on our app with general information(e.g. name, age) + his Blood Group + his live location(As per his permission) or City name.
  * On the second side, the one who needs blood will create a request for blood unit with his Location and all people near him(Our Voluntary Donors) will receive notification.(For example, `XYZ` needs blood at `XYZ hospital` or `123.456.789` location)
  
