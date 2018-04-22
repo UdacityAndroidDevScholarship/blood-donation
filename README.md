@@ -1,8 +1,4 @@
-> **Blood Donation App**
-
-Hello Everyone,
-
-This application is an ongoing collaborative project made by the `Google Udacity Android Developer Scholarship Recipients`.
+![blood donation app](https://user-images.githubusercontent.com/25679263/39100590-363db566-46a9-11e8-9b39-4daf32a287fd.png)
 
 ---
 
