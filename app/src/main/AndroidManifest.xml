@@ -44,6 +44,8 @@
         android:name="com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity"
         android:screenOrientation="portrait"/>
 
+      <!-- YOU NEED TO ADD YOUR MAPS API KEY. Get a key from
+      https://developers.google.com/maps/documentation/android-api/ -->
       <meta-data
           android:name="com.google.android.geo.API_KEY"
           android:value="@string/maps_api_key" />
