@@ -9,11 +9,9 @@ import android.support.annotation.Nullable;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
-
 import com.udacity.nanodegree.blooddonation.constants.SharedPrefConstants;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;

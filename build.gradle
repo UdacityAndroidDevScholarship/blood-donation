@@ -10,7 +10,7 @@ buildscript {
             'espressoCore'    : '3.0.1',
             'leak_canary'     :  '1.5.4',
             'timber'          : '4.7.0',
-            'play_service_location' : '15.0.0'
+            'play_services'   : '15.0.0'
     ]
 
 
@@ -50,6 +50,7 @@ buildscript {
                             'appcompatV7'     : "com.android.support:appcompat-v7:${versions.supportLibrary}",
                             'annotations'     : "com.android.support:support-annotations:${versions.supportLibrary}",
                             'constraintLayout': "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
+                            'design'          : "com.android.support:design:${versions.supportLibrary}",
                             'test'            : [
                                     'runner'      : "com.android.support.test:runner:${versions.testRunner}",
                                     'espressoCore': "com.android.support.test.espresso:espresso-core:${versions.espressoCore}"
@@ -63,7 +64,8 @@ buildscript {
                             'database':"com.google.firebase:firebase-database:${versions.firebase}"
                     ],
                     'play_services':[
-                        'location':"com.google.android.gms:play-services-location:${versions.play_service_location}"
+                        'location':"com.google.android.gms:play-services-location:${versions.play_services}",
+                        'maps':"com.google.android.gms:play-services-maps:${versions.play_services}"
                     ]
             ],
 

@@ -44,6 +44,10 @@
         android:name="com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity"
         android:screenOrientation="portrait"/>
 
+      <meta-data
+          android:name="com.google.android.geo.API_KEY"
+          android:value="@string/maps_api_key" />
+
   </application>
 
 </manifest>

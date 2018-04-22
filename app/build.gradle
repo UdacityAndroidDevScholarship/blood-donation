@@ -25,8 +25,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Support lib
     implementation deps.android.support.appcompatV7
 
@@ -44,7 +43,6 @@ dependencies {
     implementation 'com.github.joielechong:countrycodepicker:2.1.5'
 
     // Leak canary
-    implementation 'com.google.firebase:firebase-auth:14.0.0'
     debugImplementation deps.square.leackcanary.debug
     releaseImplementation deps.square.leackcanary.release
 
@@ -59,6 +57,9 @@ dependencies {
     androidTestImplementation deps.android.support.test.runner
     androidTestImplementation deps.android.support.test.espressoCore
 
+    implementation deps.android.support.design
+
+    implementation deps.google.play_services.maps
 }
 
 
