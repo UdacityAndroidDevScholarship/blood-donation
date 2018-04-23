@@ -2,9 +2,13 @@ package com.udacity.nanodegree.blooddonation.ui.home;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -14,6 +18,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
@@ -22,10 +27,12 @@ import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
 /**
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
  */
-public class HomeActivity extends BaseActivity implements OnMapReadyCallback, HomeContract.View {
+public class HomeActivity extends BaseActivity implements OnMapReadyCallback, HomeContract.View, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private HomePresenter presenter;
+    private LinearLayout bottomSheet;
+    private BottomSheetBehavior<LinearLayout> sheetBehavior;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,9 +40,34 @@ public class HomeActivity extends BaseActivity implements OnMapReadyCallback, Ho
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
         presenter = new HomePresenter(this);
-
+        bottomSheet = findViewById(R.id.bottom_sheet);
         ((ActivityHomeBinding) mBinding).setPresenter(presenter);
 
+        sheetBehavior = BottomSheetBehavior.from(bottomSheet);
+
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        break;
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+        sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragement_maps);
         mapFragment.getMapAsync(this);
 
@@ -44,6 +76,7 @@ public class HomeActivity extends BaseActivity implements OnMapReadyCallback, Ho
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setOnMarkerClickListener(this);
 
         updateCamera(null);
 
@@ -102,9 +135,29 @@ public class HomeActivity extends BaseActivity implements OnMapReadyCallback, Ho
 
     }
 
+
     @Override
     public void generalInfo(int msg) {
         //todo Change implementation.
         Toast.makeText(this, "Fab clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    public void toggleBottomSheet() {
+        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        } else {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        toggleBottomSheet();
+        if (marker.getTitle().equals("Donor")) {
+
+        } else if (marker.getTitle().equals("Donor")) {
+
+        }
+        return false;
     }
 }
