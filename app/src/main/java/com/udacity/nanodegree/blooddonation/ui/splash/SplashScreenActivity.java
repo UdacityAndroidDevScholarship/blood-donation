@@ -46,6 +46,7 @@ public class SplashScreenActivity extends BaseActivity {
                 }
                 finish();
                 overridePendingTransition(R.anim.enter, R.anim.exit);
+                intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         }

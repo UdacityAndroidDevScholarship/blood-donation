@@ -27,9 +27,18 @@
     <string name="gender">Gender</string>
     <string name="gender_female">Female</string>
     <string name="date_hint">Select date</string>
+
+    <!-- HomeActivity -->
     <string name="sign_out">Sign Out</string>
     <string name="map_theme">Map Theme</string>
     <string name="about">About</string>
+
+    <!-- BloodRequestActivity -->
+    <string name="submit">Submit</string>
+    <string name="txt_purpose">Purpose of your blood request</string>
+    <string name="i_want_to">I want to</string>
+    <string name="select_blood_group">Select Blood Group</string>
+    <string name="title_blood_request">Blood Request</string>
 
 
 </resources>

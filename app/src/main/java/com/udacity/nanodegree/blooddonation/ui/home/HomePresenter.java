@@ -2,11 +2,14 @@ package com.udacity.nanodegree.blooddonation.ui.home;
 
 import android.content.Intent;
 
+import com.udacity.nanodegree.blooddonation.ui.bloodrequest.view.BloodRequestActivity;
+
 /**
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
  */
 public class HomePresenter implements HomeContract.Presenter {
 
+    public static final int BLOOD_REQUEST_RC = 100;
     private final HomeContract.View view;
 
     public HomePresenter(HomeContract.View view) {
@@ -16,8 +19,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void onAddClicked() {
-
-        view.generalInfo(0);
+        view.switchActivity(BloodRequestActivity.class, BLOOD_REQUEST_RC, null);
     }
 
     @Override
