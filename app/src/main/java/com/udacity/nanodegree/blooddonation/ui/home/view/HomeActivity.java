@@ -1,4 +1,4 @@
-package com.udacity.nanodegree.blooddonation.ui.home;
+package com.udacity.nanodegree.blooddonation.ui.home.view;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -18,23 +18,25 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
+import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter;
+import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
 
 /**
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
  */
-public class HomeActivity extends BaseActivity implements OnMapReadyCallback, HomeContract.View {
+public class HomeActivity extends BaseActivity implements OnMapReadyCallback, HomeActivityContract.View {
 
     private GoogleMap mMap;
-    private HomePresenter presenter;
+    private HomeActivityContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        presenter = new HomePresenter(this);
+        mPresenter = new HomeActivityPresenter(this);
 
-        ((ActivityHomeBinding) mBinding).setPresenter(presenter);
+        ((ActivityHomeBinding) mBinding).setPresenter(mPresenter);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragement_maps);
         mapFragment.getMapAsync(this);
@@ -64,7 +66,6 @@ public class HomeActivity extends BaseActivity implements OnMapReadyCallback, Ho
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }

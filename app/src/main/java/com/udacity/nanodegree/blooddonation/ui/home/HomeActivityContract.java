@@ -6,7 +6,7 @@ import android.support.annotation.StringRes;
 import com.google.android.gms.maps.model.LatLng;
 import com.udacity.nanodegree.blooddonation.base.BasePresenter;
 
-interface HomeContract {
+public interface HomeActivityContract {
 
     interface View {
 

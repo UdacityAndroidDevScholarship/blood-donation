@@ -18,7 +18,7 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
     <activity
-        android:name="com.udacity.nanodegree.blooddonation.ui.home.HomeActivity"
+        android:name="com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity"
         android:screenOrientation="portrait">
 
     </activity>
