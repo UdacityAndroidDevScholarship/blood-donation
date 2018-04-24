@@ -50,6 +50,11 @@
         android:name="com.google.android.geo.API_KEY"
         android:value="@string/google_maps_key" />
 
+        <activity
+            android:name=".ui.bloodrequest.view.BloodRequestActivity"
+            android:screenOrientation="portrait" />
+        
+
   </application>
 
 </manifest>
