@@ -1,12 +1,8 @@
-## Blood Donation App
-
-Hello Everyone,
-
-This application is an ongoing collaborative project made by the `Google Udacity Android Developer Scholarship Recipients`.
+![blood donation app](https://user-images.githubusercontent.com/25679263/39100590-363db566-46a9-11e8-9b39-4daf32a287fd.png)
 
 ---
 
-## how the app will work?
+## How the app will work?
  * First of all, the one(Voluntary Donor) firstly makes an account on our app with general information(e.g. name, age) + his Blood Group + his live location(As per his permission) or City name.
  * On the second side, the one who needs blood will create a request for blood unit with his Location and all people near him(Our Voluntary Donors) will receive notification.(For example, `XYZ` needs blood at `XYZ hospital` or `123.456.789` location)
  
