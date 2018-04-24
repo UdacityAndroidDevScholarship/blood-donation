@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.github.joielechong:countrycodepicker:2.1.5'
 
     // Leak canary
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     debugImplementation deps.square.leackcanary.debug
     releaseImplementation deps.square.leackcanary.release
 
