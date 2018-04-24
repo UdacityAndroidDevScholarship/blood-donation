@@ -30,6 +30,8 @@
   <string name="sign_out">Sign Out</string>
     <string name="map_theme">Map Theme</string>
   <string name="about">About</string>
+  <string name="user_details">User Details</string>
+  <string name="change_the_layout_accordingly">Change the layout accordingly</string>
 
 
 </resources>

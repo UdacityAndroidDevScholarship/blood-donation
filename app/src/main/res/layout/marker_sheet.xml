@@ -14,14 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center_vertical"
-        android:weightSum="3">
+        android:layout_gravity="center_vertical">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="User Details"
+            android:text="@string/user_details"
             android:textColor="#444"
             android:textStyle="bold" />
 
@@ -37,7 +35,7 @@
         android:layout_marginTop="30dp"
         android:background="#000"
         android:foreground="?attr/selectableItemBackground"
-        android:text="Change the layout accordingly"
+        android:text="@string/change_the_layout_accordingly"
         android:textColor="#fff" />
 
 </LinearLayout>

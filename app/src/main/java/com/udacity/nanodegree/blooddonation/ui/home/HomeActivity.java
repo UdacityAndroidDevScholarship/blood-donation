@@ -30,8 +30,8 @@ import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
 public class HomeActivity extends BaseActivity implements OnMapReadyCallback, HomeContract.View, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
-    private HomePresenter presenter;
-    private LinearLayout bottomSheet;
+    private HomePresenter mPresenter;
+    private LinearLayout mBottomSheet;
     private BottomSheetBehavior<LinearLayout> sheetBehavior;
 
     @Override
@@ -39,11 +39,11 @@ public class HomeActivity extends BaseActivity implements OnMapReadyCallback, Ho
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        presenter = new HomePresenter(this);
-        bottomSheet = findViewById(R.id.bottom_sheet);
-        ((ActivityHomeBinding) mBinding).setPresenter(presenter);
+        mPresenter = new HomePresenter(this);
+        mBottomSheet = findViewById(R.id.bottom_sheet);
+        ((ActivityHomeBinding) mBinding).setPresenter(mPresenter);
 
-        sheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        sheetBehavior = BottomSheetBehavior.from(mBottomSheet);
 
         sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
