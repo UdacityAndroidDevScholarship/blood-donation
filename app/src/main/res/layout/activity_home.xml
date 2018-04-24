@@ -6,14 +6,14 @@
 
         <variable
             name="presenter"
-            type="com.udacity.nanodegree.blooddonation.ui.home.HomePresenter" />
+            type="com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract.Presenter" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeActivity">
+        tools:context=".ui.home.view.HomeActivity">
 
 
         <fragment
@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:context=".ui.home.HomeActivity" />
+            tools:context=".ui.home.view.HomeActivity" />
 
 
         <android.support.design.widget.FloatingActionButton
