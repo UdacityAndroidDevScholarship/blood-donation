@@ -19,6 +19,7 @@ import com.udacity.nanodegree.blooddonation.storage.SharedPreferenceManager;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
 import com.udacity.nanodegree.blooddonation.util.Util;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 import timber.log.Timber;
 
@@ -27,7 +28,8 @@ import timber.log.Timber;
  */
 public class UserLoginPresenter implements UserLoginContract.Presenter {
 
-  private UserLoginContract.View mView;
+  private WeakReference<UserLoginContract.View> mView;
+
   private String mVerificationId;
   private PhoneAuthProvider.ForceResendingToken mResendToken;
   private String mPhoneNumber;
@@ -41,10 +43,10 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
   private CountDownTimer countdownTimer;
 
   private static final int COUNT_DOWN = 60;
-
+  
   public UserLoginPresenter(FirebaseAuth firebaseAuth,
       SharedPreferenceManager sharedPreferenceManager, UserLoginContract.View view) {
-    mView = view;
+    mView = new WeakReference<>(view);
     mFireBaseAuth = firebaseAuth;
     mSharedPreferenceManager = sharedPreferenceManager;
   }
@@ -77,11 +79,11 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
 
       @Override public void onVerificationFailed(FirebaseException e) {
         isVerificationInProgress = false;
-        mView.showHideLoader(false);
+        mView.get().showHideLoader(false);
         if (e instanceof FirebaseAuthInvalidCredentialsException) {
-          mView.showNotValidPhoneNumberMessage();
+          mView.get().showNotValidPhoneNumberMessage();
         } else if (e instanceof FirebaseTooManyRequestsException) {
-          mView.showLimitExceededMessage();
+          mView.get().showLimitExceededMessage();
         }
       }
 
@@ -89,13 +91,13 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
       public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken token) {
         Timber.d("CodeSent -> Yes");
         if (mResendToken != null) {
-          mView.showVerificationScreen(true);
+          mView.get().showVerificationScreen(true);
         }
-        mView.setVerificationTitleBar();
-        mView.setUserRegisInfoIsCodeFlag(true);
+        mView.get().setVerificationTitleBar();
+        mView.get().setUserRegisInfoIsCodeFlag(true);
         mVerificationId = verificationId;
         mResendToken = token;
-        mView.showHideLoader(false);
+        mView.get().showHideLoader(false);
 
         startCountdown();
       }
@@ -108,24 +110,24 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
   }
 
   private void startCountdown() {
-    mView.setPhoneNumber(mPhoneNumber);
-    mView.showCountdown(true);
+    mView.get().setPhoneNumber(mPhoneNumber);
+    mView.get().showCountdown(true);
     countdownTimer = new CountDownTimer(COUNT_DOWN * 1000, 1000) {
       @Override public void onTick(long millisUntilFinished) {
-        mView.setTimerCount(millisUntilFinished / 1000);
+        mView.get().setTimerCount(millisUntilFinished / 1000);
       }
 
       @Override public void onFinish() {
-        mView.showCountdown(false);
+        mView.get().showCountdown(false);
       }
     }.start();
   }
 
   private void onSignInSuccess() {
     if (mSharedPreferenceManager.getBoolean(SharedPrefConstants.IS_USER_DETAILS_ENTERED)) {
-      mView.launchHomeScreen();
+      mView.get().launchHomeScreen();
     } else {
-      mView.launchUserDetailsScreen();
+      mView.get().launchUserDetailsScreen();
     }
   }
 
@@ -134,12 +136,12 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
           @Override public void onComplete(@NonNull Task<AuthResult> task) {
             if (task.isSuccessful()) {
-              mView.showHideLoader(false);
+              mView.get().showHideLoader(false);
               onSignInSuccess();
             } else {
-              mView.showHideLoader(false);
+              mView.get().showHideLoader(false);
               if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                mView.showInvalidVerificationCodeMessage();
+                mView.get().showInvalidVerificationCodeMessage();
               }
             }
           }
@@ -148,14 +150,14 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
 
   public void signIn(String otp) {
     PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, otp);
-    mView.showHideLoader(true);
+    mView.get().showHideLoader(true);
     signInWithPhoneAuthCredential(credential);
   }
 
   public void verifyPhoneNumber(String phoneNumber) {
     if (!isVerificationInProgress) {
-      mView.hidePhoneNumberScreen();
-      mView.showHideLoader(true);
+      mView.get().hidePhoneNumberScreen();
+      mView.get().showHideLoader(true);
       mPhoneNumber = phoneNumber;
 
       PhoneAuthProvider.getInstance()
@@ -170,7 +172,7 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
     if (Util.isValidPhoneNumber(phoneNumber) && !TextUtils.isEmpty(phoneCode)) {
       verifyPhoneNumber(Util.getPhoneNumberWithPlus(phoneNumber, phoneCode));
     } else {
-      mView.showNotValidPhoneNumberMessage();
+      mView.get().showNotValidPhoneNumberMessage();
     }
   }
 
