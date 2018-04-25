@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="@dimen/dp_8"
+      >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".ui.bloodrequest.view.BloodRequestActivity"
+        >
+
+
+      <android.support.v7.widget.AppCompatTextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_16"
+          android:text="@string/i_want_to"
+          android:textAppearance="@style/TextAppearance.AppCompat.Large"
+          app:layout_constraintStart_toStartOf="@+id/tv_location_picker"
+          />
+
+      <Spinner
+          android:id="@+id/request_drop_down"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_16"
+          android:background="@drawable/edit_text_border"
+          android:padding="@dimen/dp_16"
+          style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+          />
+
+      <android.support.v7.widget.AppCompatTextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_16"
+          android:text="@string/select_blood_group"
+          android:textAppearance="@style/TextAppearance.AppCompat.Large"
+          />
+
+      <!--Blood group-->
+      <Spinner
+          android:id="@+id/blood_group_drop_down"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_16"
+          android:background="@drawable/edit_text_border"
+          android:padding="@dimen/dp_16"
+          style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+          />
+
+      <android.support.v7.widget.AppCompatEditText
+          android:id="@+id/et_purpose"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_16"
+          android:background="@drawable/edit_text_border"
+          android:gravity="start"
+          android:hint="@string/txt_purpose"
+          android:inputType="textCapSentences|textMultiLine"
+          android:maxLength="150"
+          android:maxLines="4"
+          android:minLines="4"
+          android:padding="@dimen/dp_8"
+          />
+
+      <Button
+          android:id="@+id/submit"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="@dimen/dp_16"
+          android:text="@string/submit"
+          style="@style/Widget.AppCompat.Button.Colored"
+          />
+
+    </LinearLayout>
+
+  </ScrollView>
+
+
+</layout>

@@ -162,8 +162,13 @@ public class HomeActivity extends BaseActivity implements OnMapReadyCallback, Ho
 
     }
 
-
     @Override
+    public void switchActivity(Class activity, int requestCode, @Nullable Bundle bundle) {
+
+    }
+
+
+
     public void generalInfo(int msg) {
         //todo Change implementation.
         Toast.makeText(this, "Fab clicked", Toast.LENGTH_SHORT).show();

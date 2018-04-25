@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.home.view.HomeActivity"
+    >
 
 
     <fragment
@@ -15,7 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".ui.home.HomeActivity" />
+        tools:context=".ui.home.view.HomeActivity"
+        />
 
 
     <android.support.design.widget.FloatingActionButton
@@ -25,13 +26,14 @@
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
+        android:onClick="@{() -> presenter.onCurrentLocationClicked()}"
         android:src="@drawable/ic_location"
         app:backgroundTint="@android:color/background_light"
         app:fabSize="mini"
-        android:onClick="@{() -> presenter.onCurrentLocationClicked()}"
         app:layout_constraintBottom_toTopOf="@+id/fab_add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/colorAccent" />
+        app:rippleColor="@color/colorAccent"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add"
@@ -45,6 +47,7 @@
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/common_google_signin_btn_text_dark_default" />
+        app:rippleColor="@color/common_google_signin_btn_text_dark_default"
+        />
 
 </android.support.constraint.ConstraintLayout>
