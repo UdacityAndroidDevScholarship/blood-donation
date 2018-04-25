@@ -11,48 +11,39 @@ import com.udacity.nanodegree.blooddonation.ui.bloodrequest.view.BloodRequestAct
  */
 public class HomeActivityPresenter implements HomeActivityContract.Presenter {
 
+  private final HomeActivityContract.View mView;
 
-    private final HomeActivityContract.View view;
+  public static final int BLOOD_REQUEST_RC = 100;
 
-    public static final int BLOOD_REQUEST_RC = 100;
+  public HomeActivityPresenter(HomeActivityContract.View view) {
+    this.mView = view;
+  }
 
-    public HomeActivityPresenter(HomeActivityContract.View view) {
-        this.view = view;
-    }
+  @Override public void onCurrentLocationClicked() {
+    mView.updateCamera(null);
+  }
 
+  @Override public void onAddClicked() {
+    mView.switchActivity(BloodRequestActivity.class, BLOOD_REQUEST_RC, null);
+  }
 
-    @Override
-    public void onAddClicked() {
-        view.switchActivity(BloodRequestActivity.class, BLOOD_REQUEST_RC, null);
-    }
+  @Override public void onCreate() {
 
-    @Override
-    public void onCurrentLocationClicked() {
-        view.updateCamera(null);
-    }
+  }
 
-    @Override
-    public void handleActivityResult(int requestCode, int resultCode, Intent data) {
+  @Override public void onStart() {
 
-    }
+  }
 
-    @Override
-    public void onCreate() {
+  @Override public void onStop() {
 
-    }
+  }
 
-    @Override
-    public void onStart() {
+  @Override public void onDestroy() {
 
-    }
+  }
 
-    @Override
-    public void onStop() {
+  @Override public void handleActivityResult(int requestCode, int resultCode, Intent data) {
 
-    }
-
-    @Override
-    public void onDestroy() {
-
-    }
+  }
 }

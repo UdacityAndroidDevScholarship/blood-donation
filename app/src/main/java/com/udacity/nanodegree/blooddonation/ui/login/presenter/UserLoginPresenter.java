@@ -3,7 +3,6 @@ package com.udacity.nanodegree.blooddonation.ui.login.presenter;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
