@@ -1,5 +1,6 @@
 package com.udacity.nanodegree.blooddonation.ui.home.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +30,12 @@ public class HomeActivity extends BaseActivity
 
   private GoogleMap mMap;
   private HomeActivityContract.Presenter mPresenter;
+
+  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    mPresenter.handleActivityResult(requestCode, resultCode, data);
+  }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -92,8 +99,14 @@ public class HomeActivity extends BaseActivity
     mMap.animateCamera(location, 2000, null);
   }
 
-  @Override public void generalInfo(int msg) {
-    //todo Change implementation.
-    Toast.makeText(this, "Fab clicked", Toast.LENGTH_SHORT).show();
+  @Override public void switchActivity(Class activity, int requestCode, @Nullable Bundle bundle) {
+
+    Intent intent = new Intent(this, activity);
+    if (bundle != null) intent.putExtras(bundle);
+    if (requestCode == 0) {
+      startActivity(intent);
+    } else {
+      startActivityForResult(intent, requestCode);
+    }
   }
 }

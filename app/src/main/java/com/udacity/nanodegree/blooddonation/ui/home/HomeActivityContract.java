@@ -1,5 +1,7 @@
 package com.udacity.nanodegree.blooddonation.ui.home;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
@@ -19,12 +21,9 @@ public interface HomeActivityContract {
     void updateCamera(@Nullable LatLng position);
 
     /**
-     * Method to pass general information to the activity in order to show general response
-     * message.
-     *
-     * @param msg: Message to be displayed
+     * Method to switch to a particular activity.
      */
-    void generalInfo(@StringRes int msg);
+    void switchActivity(Class activity, int requestCode, @Nullable Bundle bundle);
   }
 
   interface Presenter extends BasePresenter {
@@ -38,5 +37,10 @@ public interface HomeActivityContract {
      * Action to perform on current location click.
      */
     void onCurrentLocationClicked();
+
+    /**
+     * Method to handle onActivityResult.
+     */
+    void handleActivityResult(int requestCode, int resultCode, Intent data);
   }
 }
