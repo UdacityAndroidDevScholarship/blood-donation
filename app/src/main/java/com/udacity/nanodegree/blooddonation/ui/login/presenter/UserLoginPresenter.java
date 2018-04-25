@@ -43,9 +43,7 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
   private CountDownTimer countdownTimer;
 
   private static final int COUNT_DOWN = 60;
-
-
-
+  
   public UserLoginPresenter(FirebaseAuth firebaseAuth,
       SharedPreferenceManager sharedPreferenceManager, UserLoginContract.View view) {
     mView = new WeakReference<>(view);
