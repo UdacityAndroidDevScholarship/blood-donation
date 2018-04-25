@@ -182,9 +182,9 @@ public class HomeActivity extends BaseActivity implements OnMapReadyCallback, Ho
     public boolean onMarkerClick(Marker marker) {
 
         if (marker.getTitle().equals("Donor")) {
-            toggleBottomSheet(donorBehavior,receiverBehaviour);
+            toggleBottomSheet(donorBehavior, receiverBehaviour);
         } else if (marker.getTitle().equals("Blood Request")) {
-            toggleBottomSheet(receiverBehaviour,donorBehavior);
+            toggleBottomSheet(receiverBehaviour, donorBehavior);
         }
         return false;
     }

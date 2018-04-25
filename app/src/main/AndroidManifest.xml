@@ -46,9 +46,9 @@
 
       <!-- YOU NEED TO ADD YOUR MAPS API KEY. Get a key from
       https://developers.google.com/maps/documentation/android-api/ -->
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="@string/google_maps_key" />
+      <meta-data
+          android:name="com.google.android.geo.API_KEY"
+          android:value="@string/google_maps_key" />
 
   </application>
 
