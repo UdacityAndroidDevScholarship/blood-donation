@@ -7,40 +7,33 @@ import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
  */
 public class HomeActivityPresenter implements HomeActivityContract.Presenter {
 
-    private final HomeActivityContract.View view;
+  private final HomeActivityContract.View view;
 
-    public HomeActivityPresenter(HomeActivityContract.View view) {
-        this.view = view;
-    }
+  public HomeActivityPresenter(HomeActivityContract.View view) {
+    this.view = view;
+  }
 
+  @Override public void onAddClicked() {
+    view.generalInfo(0);
+  }
 
-    @Override
-    public void onAddClicked() {
-        view.generalInfo(0);
-    }
+  @Override public void onCurrentLocationClicked() {
+    view.updateCamera(null);
+  }
 
-    @Override
-    public void onCurrentLocationClicked() {
-        view.updateCamera(null);
-    }
+  @Override public void onCreate() {
 
-    @Override
-    public void onCreate() {
+  }
 
-    }
+  @Override public void onStart() {
 
-    @Override
-    public void onStart() {
+  }
 
-    }
+  @Override public void onStop() {
 
-    @Override
-    public void onStop() {
+  }
 
-    }
+  @Override public void onDestroy() {
 
-    @Override
-    public void onDestroy() {
-
-    }
+  }
 }

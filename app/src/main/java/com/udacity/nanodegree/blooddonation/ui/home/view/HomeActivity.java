@@ -24,88 +24,76 @@ import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
 /**
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
  */
-public class HomeActivity extends BaseActivity implements OnMapReadyCallback, HomeActivityContract.View {
+public class HomeActivity extends BaseActivity
+    implements OnMapReadyCallback, HomeActivityContract.View {
 
-    private GoogleMap mMap;
-    private HomeActivityContract.Presenter mPresenter;
+  private GoogleMap mMap;
+  private HomeActivityContract.Presenter mPresenter;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        mPresenter = new HomeActivityPresenter(this);
+    mPresenter = new HomeActivityPresenter(this);
 
-        ((ActivityHomeBinding) mBinding).setPresenter(mPresenter);
+    ((ActivityHomeBinding) mBinding).setPresenter(mPresenter);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragement_maps);
-        mapFragment.getMapAsync(this);
+    SupportMapFragment mapFragment =
+        (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragement_maps);
+    mapFragment.getMapAsync(this);
+  }
 
+  @Override public void onMapReady(GoogleMap googleMap) {
+    mMap = googleMap;
+
+    updateCamera(null);
+
+    // Sample Markers.
+
+    mMap.addMarker(new MarkerOptions().position(new LatLng(28.6315, 77.2167))
+        .title("Donor")
+        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+
+    mMap.addMarker(new MarkerOptions().position(new LatLng(27.6315, 78.2167))
+        .title("Blood Request")
+        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_main, menu);
+    return true;
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+
+    switch (item.getItemId()) {
+      case R.id.action_map_theme:
+        Toast.makeText(this, "Map Theme", Toast.LENGTH_SHORT).show();
+        break;
+      case R.id.action_about:
+        Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+        break;
+      case R.id.action_sign_out:
+        logout();
+        break;
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+    return super.onOptionsItemSelected(item);
+  }
 
-        updateCamera(null);
+  @Override public void updateCamera(@Nullable LatLng position) {
 
-        // Sample Markers.
-
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(28.6315, 77.2167))
-                .title("Donor")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-
-
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(27.6315, 78.2167))
-                .title("Blood Request")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-
+    if (position == null) {
+      position = new LatLng(28.6315,
+          77.2167); // This is hard coded default location. This will be changed by current location
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+    CameraUpdate location = CameraUpdateFactory.newLatLngZoom(position, 8);
+    mMap.animateCamera(location, 2000, null);
+  }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.action_map_theme:
-                Toast.makeText(this, "Map Theme", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.action_about:
-                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.action_sign_out:
-                Toast.makeText(this, "Sign Out", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public void updateCamera(@Nullable LatLng position) {
-
-
-        if (position == null)
-            position = new LatLng(28.6315, 77.2167); // This is hard coded default location. This will be changed by current location
-
-
-        CameraUpdate location = CameraUpdateFactory.newLatLngZoom(position, 8);
-        mMap.animateCamera(location, 2000, null);
-
-
-    }
-
-    @Override
-    public void generalInfo(int msg) {
-        //todo Change implementation.
-        Toast.makeText(this, "Fab clicked", Toast.LENGTH_SHORT).show();
-    }
+  @Override public void generalInfo(int msg) {
+    //todo Change implementation.
+    Toast.makeText(this, "Fab clicked", Toast.LENGTH_SHORT).show();
+  }
 }
