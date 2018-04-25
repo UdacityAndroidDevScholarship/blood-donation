@@ -1,4 +1,4 @@
-package com.udacity.nanodegree.blooddonation.ui.home;
+package com.udacity.nanodegree.blooddonation.ui.home.view;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -23,29 +23,34 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
+import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
+import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter;
 
 /**
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
  */
-public class HomeActivity extends BaseActivity implements OnMapReadyCallback, HomeContract.View, GoogleMap.OnMarkerClickListener {
+public class HomeActivity extends BaseActivity implements OnMapReadyCallback, HomeActivityContract.View, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
-    private HomePresenter mPresenter;
-    private LinearLayout mBottomSheet;
-    private BottomSheetBehavior<LinearLayout> sheetBehavior;
+    private HomeActivityPresenter mPresenter;
+    private LinearLayout mDonorSheet, mReceiver;
+    private BottomSheetBehavior<LinearLayout> donorBehavior;
+    private BottomSheetBehavior<LinearLayout> receiverBehaviour;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        mPresenter = new HomePresenter(this);
-        mBottomSheet = findViewById(R.id.bottom_sheet);
+        mPresenter = new HomeActivityPresenter(this);
+        mDonorSheet = findViewById(R.id.donor_sheet);
+        mReceiver = findViewById(R.id.receiver_sheet);
         ((ActivityHomeBinding) mBinding).setPresenter(mPresenter);
 
-        sheetBehavior = BottomSheetBehavior.from(mBottomSheet);
+        donorBehavior = BottomSheetBehavior.from(mDonorSheet);
+        receiverBehaviour = BottomSheetBehavior.from(mReceiver);
 
-        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+        receiverBehaviour.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
@@ -67,7 +72,30 @@ public class HomeActivity extends BaseActivity implements OnMapReadyCallback, Ho
 
             }
         });
-        sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        donorBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        break;
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+        receiverBehaviour.setState(BottomSheetBehavior.STATE_HIDDEN);
+        donorBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragement_maps);
         mapFragment.getMapAsync(this);
 
@@ -97,7 +125,6 @@ public class HomeActivity extends BaseActivity implements OnMapReadyCallback, Ho
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -142,21 +169,22 @@ public class HomeActivity extends BaseActivity implements OnMapReadyCallback, Ho
         Toast.makeText(this, "Fab clicked", Toast.LENGTH_SHORT).show();
     }
 
-    public void toggleBottomSheet() {
+    public void toggleBottomSheet(BottomSheetBehavior<LinearLayout> sheetBehavior, BottomSheetBehavior<LinearLayout> sheetBehavior2) {
         if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
             sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         } else {
             sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         }
+        sheetBehavior2.setState(BottomSheetBehavior.STATE_HIDDEN);
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        toggleBottomSheet();
+
         if (marker.getTitle().equals("Donor")) {
-
-        } else if (marker.getTitle().equals("Donor")) {
-
+            toggleBottomSheet(donorBehavior,receiverBehaviour);
+        } else if (marker.getTitle().equals("Blood Request")) {
+            toggleBottomSheet(receiverBehaviour,donorBehavior);
         }
         return false;
     }

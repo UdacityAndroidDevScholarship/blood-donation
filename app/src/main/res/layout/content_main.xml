@@ -25,10 +25,10 @@
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:onClick="@{() -> presenter.onCurrentLocationClicked()}"
         android:src="@drawable/ic_location"
         app:backgroundTint="@android:color/background_light"
         app:fabSize="mini"
+        android:onClick="@{() -> presenter.onCurrentLocationClicked()}"
         app:layout_constraintBottom_toTopOf="@+id/fab_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="@color/colorAccent" />
@@ -46,4 +46,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="@color/common_google_signin_btn_text_dark_default" />
+
 </android.support.constraint.ConstraintLayout>

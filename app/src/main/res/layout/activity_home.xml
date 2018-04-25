@@ -6,13 +6,13 @@
 
         <variable
             name="presenter"
-            type="com.udacity.nanodegree.blooddonation.ui.home.HomePresenter" />
+            type="com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeActivity">
+        tools:context=".ui.home.view.HomeActivity">
 
         <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -26,7 +26,10 @@
             <include layout="@layout/content_main" />
 
             <!-- Adding bottom sheet after main content -->
-            <include layout="@layout/marker_sheet" />
+            <include layout="@layout/donor_sheet" />
+
+            <include layout="@layout/receiver_sheet" />
+
 
         </android.support.design.widget.CoordinatorLayout>
     </android.support.design.widget.CoordinatorLayout>

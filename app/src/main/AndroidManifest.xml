@@ -18,7 +18,7 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
     <activity
-        android:name="com.udacity.nanodegree.blooddonation.ui.home.HomeActivity"
+        android:name="com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity"
         android:screenOrientation="portrait">
         <intent-filter>
             <action android:name="android.intent.action.MAIN"/>
@@ -46,9 +46,9 @@
 
       <!-- YOU NEED TO ADD YOUR MAPS API KEY. Get a key from
       https://developers.google.com/maps/documentation/android-api/ -->
-      <meta-data
-          android:name="com.google.android.geo.API_KEY"
-          android:value="@string/maps_api_key" />
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="@string/google_maps_key" />
 
   </application>
 

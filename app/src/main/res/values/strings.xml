@@ -28,10 +28,10 @@
   <string name="gender_female">Female</string>
   <string name="date_hint">Select date</string>
   <string name="sign_out">Sign Out</string>
-    <string name="map_theme">Map Theme</string>
+  <string name="map_theme">Map Theme</string>
   <string name="about">About</string>
   <string name="user_details">User Details</string>
-  <string name="change_the_layout_accordingly">Change the layout accordingly</string>
-
+  <string name="donor">donor</string>
+  <string name="receiver">receiver</string>
 
 </resources>
