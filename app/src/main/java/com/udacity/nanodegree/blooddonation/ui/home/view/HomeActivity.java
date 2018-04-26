@@ -29,7 +29,7 @@ import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresen
 /**
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
  */
-public class HomeActivity extends BaseActivity implements OnMapReadyCallback, HomeActivityContract.View, GoogleMap.OnMarkerClickListener {
+public class HomeActivity extends BaseActivity implements HomeActivityContract.View {
 
     private GoogleMap mMap;
     private HomeActivityPresenter mPresenter;
