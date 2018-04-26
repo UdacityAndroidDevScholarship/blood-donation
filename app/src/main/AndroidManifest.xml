@@ -45,7 +45,13 @@
 
     <activity
         android:name=".ui.bloodrequest.view.BloodRequestActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait">
+
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".ui.home.view.HomeActivity" />
+
+    </activity>
 
 
     <!-- YOU NEED TO ADD YOUR MAPS API KEY. Get a key from
