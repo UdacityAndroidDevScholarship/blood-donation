@@ -1,10 +1,19 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.view.HomeActivity">
+<layout>
 
+  <data>
+    <variable
+        name="presenter"
+        type="com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract.Presenter"
+        />
+  </data>
+
+  <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".ui.home.view.HomeActivity"
+      >
 
     <fragment
         android:id="@+id/fragement_maps"
@@ -15,7 +24,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".ui.home.view.HomeActivity" />
+        tools:context=".ui.home.view.HomeActivity"
+        />
 
 
     <android.support.design.widget.FloatingActionButton
@@ -31,7 +41,8 @@
         app:fabSize="mini"
         app:layout_constraintBottom_toTopOf="@+id/fab_add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/colorAccent" />
+        app:rippleColor="@color/colorAccent"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add"
@@ -45,6 +56,12 @@
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/common_google_signin_btn_text_dark_default" />
+        app:rippleColor="@color/common_google_signin_btn_text_dark_default"
+        />
 
-</android.support.constraint.ConstraintLayout>
+  </android.support.constraint.ConstraintLayout>
+
+</layout>
+
+
+

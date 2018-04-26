@@ -1,36 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <data>
+  <data>
+    <variable
+        name="presenter"
+        type="com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract.Presenter"
+        />
+  </data>
 
-        <variable
-            name="presenter"
-            type="com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter" />
-    </data>
+  <android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="#efefef"
+      tools:context=".ui.home.view.HomeActivity">
 
-    <android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.home.view.HomeActivity">
+    <include layout="@layout/content_main"
+        bind:presenter="@{presenter}"/>
 
-        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#efefef"
-            tools:context="info.androidhive.bottomsheet.MainActivity">
+    <!-- Adding bottom sheet after main content -->
+    <include layout="@layout/donor_sheet"/>
 
+    <include layout="@layout/receiver_sheet"/>
 
-            <include layout="@layout/content_main" />
-
-            <!-- Adding bottom sheet after main content -->
-            <include layout="@layout/donor_sheet" />
-
-            <include layout="@layout/receiver_sheet" />
-
-
-        </android.support.design.widget.CoordinatorLayout>
-    </android.support.design.widget.CoordinatorLayout>
+  </android.support.design.widget.CoordinatorLayout>
 </layout>
