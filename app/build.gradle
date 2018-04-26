@@ -57,6 +57,9 @@ dependencies {
   // Fused location
   implementation deps.google.play_services.location
 
+  // Geo-fire
+  implementation deps.google.firebase.geo_fire
+
   testImplementation deps.junit
 
   androidTestImplementation deps.android.support.test.runner

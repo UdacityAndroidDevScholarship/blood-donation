@@ -2,65 +2,58 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.udacity.nanodegree.blooddonation">
 
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-permission android:name="android.permission.RECEIVE_SMS"/>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+  <application
+      android:name=".App"
+      android:allowBackup="true"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/app_name"
+      android:roundIcon="@mipmap/ic_launcher_round"
+      android:supportsRtl="true"
+      android:theme="@style/AppTheme">
+    <activity
+        android:name="com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity"
+        android:screenOrientation="portrait">
+    </activity>
 
+    <activity
+        android:name="com.udacity.nanodegree.blooddonation.ui.splash.SplashScreenActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
 
-    <application
-        android:name=".App"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name="com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name="com.udacity.nanodegree.blooddonation.ui.splash.SplashScreenActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
 
 
-        <activity
-            android:name="com.udacity.nanodegree.blooddonation.ui.login.view.UserLoginActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait">
-        </activity>
+    <activity
+        android:name="com.udacity.nanodegree.blooddonation.ui.login.view.UserLoginActivity"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="adjustPan">
+    </activity>
 
-        <activity
-            android:name="com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity"
-            android:screenOrientation="portrait"/>
+    <activity
+        android:name="com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity"
+        android:screenOrientation="portrait">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".ui.home.view.HomeActivity"/>
 
-        <activity
-            android:name=".ui.bloodrequest.view.BloodRequestActivity"
-            android:screenOrientation="portrait">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.home.view.HomeActivity" />
-
-        </activity>
+    </activity>
 
 
-        <!-- YOU NEED TO ADD YOUR MAPS API KEY. Get a key from
-        https://developers.google.com/maps/documentation/android-api/ -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
+    <!-- YOU NEED TO ADD YOUR MAPS API KEY. Get a key from
+    https://developers.google.com/maps/documentation/android-api/ -->
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="@string/google_maps_key"/>
 
-    </application>
+  </application>
 
 </manifest>

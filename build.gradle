@@ -10,7 +10,8 @@ buildscript {
             'espressoCore'    : '3.0.1',
             'leak_canary'     :  '1.5.4',
             'timber'          : '4.7.0',
-            'play_services'   : '15.0.0'
+            'play_services'   : '15.0.0',
+            'geo_fire'        : '2.3.1'
     ]
 
 
@@ -61,7 +62,8 @@ buildscript {
             'google' : [
                     'firebase': [
                             'auth': "com.google.firebase:firebase-auth:${versions.firebase}",
-                            'database':"com.google.firebase:firebase-database:${versions.firebase}"
+                            'database':"com.google.firebase:firebase-database:${versions.firebase}",
+                            'geo_fire':"com.firebase:geofire-android:${versions.geo_fire}"
                     ],
                     'play_services':[
                         'location':"com.google.android.gms:play-services-location:${versions.play_services}",

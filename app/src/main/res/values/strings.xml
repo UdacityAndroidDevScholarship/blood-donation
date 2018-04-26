@@ -43,7 +43,7 @@
     <string name="txt_purpose">Purpose of your blood request</string>
     <string name="i_want_to">I want to</string>
     <string name="select_blood_group">Select Blood Group</string>
-    <string name="title_blood_request">Blood Request</string>
+    <string name="title_create_request">Create Request</string>
 
 
 </resources>
