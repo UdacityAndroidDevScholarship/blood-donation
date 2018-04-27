@@ -20,6 +20,8 @@ public interface HomeActivityContract {
     void updateCamera(@Nullable LatLng position);
 
     void openCreateRequestDialog();
+
+    void tryToGetLocationAndUpdateCamera();
   }
 
   interface Presenter extends BasePresenter {

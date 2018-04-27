@@ -1,6 +1,9 @@
 package com.udacity.nanodegree.blooddonation.ui.home.view;
 
+import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +15,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,22 +25,26 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter;
+import com.udacity.nanodegree.blooddonation.util.permission.AppPermissionsUtil;
 
 /**
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
  */
 public class HomeActivity extends BaseActivity implements HomeActivityContract.View {
 
+  private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 101;
   private GoogleMap mMap;
   private HomeActivityContract.Presenter mPresenter;
   private LinearLayout mDonorSheet, mReceiver;
   private BottomSheetBehavior<LinearLayout> donorBehavior;
   private BottomSheetBehavior<LinearLayout> receiverBehaviour;
+  private FusedLocationProviderClient fusedLocationProviderClient;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -48,6 +57,8 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
 
     donorBehavior = BottomSheetBehavior.from(mDonorSheet);
     receiverBehaviour = BottomSheetBehavior.from(mReceiver);
+
+    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
     receiverBehaviour.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
       @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -100,17 +111,51 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
     mMap = googleMap;
     mMap.setOnMarkerClickListener(this);
 
-    updateCamera(null);
+    tryToGetLocationAndUpdateCamera();
 
     // Sample Markers.
 
-    mMap.addMarker(new MarkerOptions().position(new LatLng(28.6315, 77.2167))
-        .title("Donor")
-        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+//    mMap.addMarker(new MarkerOptions().position(new LatLng(28.6315, 77.2167))
+//        .title("Donor")
+//        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+//
+//    mMap.addMarker(new MarkerOptions().position(new LatLng(27.6315, 78.2167))
+//        .title("Blood Request")
+//        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+  }
+  @Override
+  public void tryToGetLocationAndUpdateCamera() {
+    if (AppPermissionsUtil.checkIfLocationPermissionIsGiven(this)) {
+      getLocationAndUpdateCamera();
+    } else {
+      AppPermissionsUtil.requestForLocationPermission(this, MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+    }
+  }
 
-    mMap.addMarker(new MarkerOptions().position(new LatLng(27.6315, 78.2167))
-        .title("Blood Request")
-        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+  @SuppressLint("MissingPermission")
+  private void getLocationAndUpdateCamera() {
+    fusedLocationProviderClient.getLastLocation()
+            .addOnSuccessListener(new OnSuccessListener<Location>() {
+              @Override
+              public void onSuccess(Location location) {
+                LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                updateCamera(currentLocation);
+                mMap.addMarker(new MarkerOptions().position(currentLocation)
+                        .title("Donor")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                );
+              }
+            });
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    if (requestCode == MY_PERMISSIONS_REQUEST_FINE_LOCATION
+            && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+          getLocationAndUpdateCamera();
+    }else{
+      Toast.makeText(this, "Location permission is required.", Toast.LENGTH_SHORT).show();
+    }
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {

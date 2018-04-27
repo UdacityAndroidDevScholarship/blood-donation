@@ -44,6 +44,7 @@
     <string name="i_want_to">I want to</string>
     <string name="select_blood_group">Select Blood Group</string>
     <string name="title_create_request">Create Request</string>
+    <string name="google_maps_key">AIzaSyBQzUJTiN_HNNclyb3SLxZiupvGWDTt2vM</string>
 
 
 </resources>

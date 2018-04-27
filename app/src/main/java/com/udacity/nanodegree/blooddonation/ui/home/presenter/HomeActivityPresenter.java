@@ -16,7 +16,7 @@ public class HomeActivityPresenter implements HomeActivityContract.Presenter {
   }
 
   @Override public void onCurrentLocationClicked() {
-    mView.updateCamera(null);
+    mView.tryToGetLocationAndUpdateCamera();
   }
 
   @Override public void onAddClicked() {
