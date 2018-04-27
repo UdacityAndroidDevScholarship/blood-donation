@@ -42,7 +42,7 @@ public class UserDetailPresenter implements UserDetailContract.Presenter {
 
   @Override public void onCreateNowClick(UserDetail userDetail) {
     User user = Util.getPreparedUser(userDetail);
-    mDataRepo.writeNewUser(mFirebaseAuth.getCurrentUser().getUid(),
+    mDataRepo.saveNewUser(mFirebaseAuth.getCurrentUser().getUid(),
         user);
     mSharedPreferenceManager.put(SharedPrefConstants.IS_USER_DETAILS_ENTERED,true);
     mView.launchHomeScreen();

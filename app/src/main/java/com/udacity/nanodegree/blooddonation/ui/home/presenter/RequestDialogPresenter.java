@@ -1,5 +1,6 @@
 package com.udacity.nanodegree.blooddonation.ui.home.presenter;
 
+import com.firebase.geofire.GeoLocation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.udacity.nanodegree.blooddonation.data.model.Location;
 import com.udacity.nanodegree.blooddonation.data.model.Receiver;
@@ -46,11 +47,22 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
     receiver.setPurpose(requestDetails.purpose.get());
     receiver.setbGp(requestDetails.bloodGroup.get());
 
-    mDataRepo.writeReceiverDetails(mFirebaseAuth.getCurrentUser().getUid(), receiver);
+    mDataRepo.saveReceiverDetails(mFirebaseAuth.getCurrentUser().getUid(), receiver);
   }
 
   private void saveDonorDetails(RequestDetails requestDetails) {
+    mDataRepo.saveDonorDetails(mFirebaseAuth.getCurrentUser().getUid(),
+        requestDetails.bloodGroup.get(),
+        new GeoLocation(requestDetails.latitude.get(), requestDetails.longitude.get()),
+        new ISaveDonorDetails() {
+          @Override public void success() {
 
+          }
+
+          @Override public void fail() {
+
+          }
+        });
   }
 
   @Override public void onSubmitButtonClick(RequestDetails requestDetails) {
@@ -66,5 +78,11 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
 
   @Override public void onLocationClick() {
     mView.getLastLocation();
+  }
+
+  public interface ISaveDonorDetails {
+    void success();
+
+    void fail();
   }
 }
