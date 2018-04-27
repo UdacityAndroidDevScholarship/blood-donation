@@ -1,8 +1,8 @@
 package com.udacity.nanodegree.blooddonation.ui.home;
 
-
-import android.widget.AdapterView;
 import com.udacity.nanodegree.blooddonation.base.BasePresenter;
+import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
+import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -10,13 +10,14 @@ import com.udacity.nanodegree.blooddonation.base.BasePresenter;
 public interface RequestDialogContract {
   interface View {
     void getLastLocation();
+
+    void dismissDialog(boolean isReceiver, ReceiverDonorRequestType receiverDonorRequestType);
   }
 
-  interface Presenter extends BasePresenter{
-    void onRequestTypeDropDownChange(AdapterView<?> parent, android.view.View view, int position, long id);
-    void onBloodGroupChange(AdapterView<?> parent, android.view.View view, int position, long id);
-    void onPurposeTextChanged(CharSequence s, int start, int before, int count);
-    void onSubmitButtonClick();
+  interface Presenter extends BasePresenter {
+
+    void onSubmitButtonClick(RequestDetails requestDetails);
+
     void onLocationClick();
   }
 }

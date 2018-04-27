@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Point;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,13 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.udacity.nanodegree.blooddonation.R;
+import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.databinding.FragmentBloodRequestBinding;
+import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.RequestDialogContract;
+import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.RequestDialogPresenter;
 import com.udacity.nanodegree.blooddonation.util.permission.AppPermissionsUtil;
 
@@ -33,6 +33,8 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
 
   private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 101;
   private FusedLocationProviderClient mFusedLocationClient;
+
+  private RequestDetails mRequestDetails;
 
   public RequestDialogFragment() {
   }
@@ -45,25 +47,24 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       Bundle savedInstanceState) {
     setCancelable(false);
-    mPresenter = new RequestDialogPresenter(this);
+    mRequestDetails = new RequestDetails();
+    mPresenter = new RequestDialogPresenter(this, Injection.provideFireBaseAuth(),
+        Injection.providesDataRepo());
     mFragmentBloodRequestBinding =
         DataBindingUtil.inflate(inflater, R.layout.fragment_blood_request, container, false);
     mFragmentBloodRequestBinding.setPresenter(mPresenter);
+    mFragmentBloodRequestBinding.setRequestDetails(mRequestDetails);
     mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
     return mFragmentBloodRequestBinding.getRoot();
   }
 
   @SuppressLint("MissingPermission") private void getLocation() {
-    mFusedLocationClient.getLastLocation()
-        .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-          @Override public void onSuccess(Location location) {
-            // Got last known location. In some rare situations this can be null.
-            if (location != null) {
-              //mUserDetail.latitiude.set(location.getLatitude());
-              //mUserDetail.longitude.set(location.getLongitude());
-            }
-          }
-        });
+    mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), location -> {
+      if (location != null) {
+        mRequestDetails.latitude.set(location.getLatitude());
+        mRequestDetails.longitude.set(location.getLongitude());
+      }
+    });
   }
 
   @Override public void getLastLocation() {
@@ -73,6 +74,12 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
       AppPermissionsUtil.requestForLocationPermission((HomeActivity) getActivity(),
           MY_PERMISSIONS_REQUEST_FINE_LOCATION);
     }
+  }
+
+  @Override public void dismissDialog(boolean isReceiver, ReceiverDonorRequestType receiverDonorRequestType) {
+    IRequestDialogFragmentListener listener = (IRequestDialogFragmentListener) getActivity();
+    listener.onRequestDialogDismissed(isReceiver, receiverDonorRequestType);
+    dismiss();
   }
 
   @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
@@ -86,28 +93,6 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
       default:
         break;
     }
-  }
-
-  @Override public void onActivityCreated(Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
-    initRequestDropDownSpinner();
-    initBloodRequestSpinner();
-  }
-
-  private void initRequestDropDownSpinner() {
-    ArrayAdapter<CharSequence> adapter =
-        ArrayAdapter.createFromResource(getActivity(), R.array.blood_request,
-            android.R.layout.simple_spinner_item);
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    mFragmentBloodRequestBinding.requestDropDown.setAdapter(adapter);
-  }
-
-  private void initBloodRequestSpinner() {
-    ArrayAdapter<CharSequence> adapter =
-        ArrayAdapter.createFromResource(getActivity(), R.array.blood_group,
-            android.R.layout.simple_spinner_item);
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    mFragmentBloodRequestBinding.bloodGroupDropDown.setAdapter(adapter);
   }
 
   @Override public void onResume() {
@@ -125,5 +110,9 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
       mFragmentBloodRequestBinding = null;
     }
     super.onDestroyView();
+  }
+
+  public interface IRequestDialogFragmentListener {
+    void onRequestDialogDismissed(boolean isReceiver, ReceiverDonorRequestType receiverDonorRequestType);
   }
 }

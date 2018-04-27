@@ -38,12 +38,13 @@
     <string name="donor">donor</string>
     <string name="receiver">receiver</string>
 
-    <!-- BloodRequestActivity -->
+    <!-- RequestDialogFragment -->
     <string name="submit">Submit</string>
     <string name="txt_purpose">Purpose of your blood request</string>
     <string name="i_want_to">I want to</string>
     <string name="select_blood_group">Select Blood Group</string>
     <string name="title_create_request">Create Request</string>
-
+    <string name="receiver_request_type">Request Blood</string>
+    <string name="donor_request_type">Donate Blood</string>
 
 </resources>

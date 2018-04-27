@@ -6,6 +6,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.udacity.nanodegree.blooddonation.base.BasePresenter;
+import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
+import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
 
 public interface HomeActivityContract {
 
@@ -21,7 +23,9 @@ public interface HomeActivityContract {
 
     void openCreateRequestDialog();
 
-    void tryToGetLocationAndUpdateCamera();
+    void addRequestMarker(ReceiverDonorRequestType receiverDonorRequestType);
+
+    void addDonorMarker(ReceiverDonorRequestType receiverDonorRequestType);
   }
 
   interface Presenter extends BasePresenter {
@@ -35,5 +39,9 @@ public interface HomeActivityContract {
      * Action to perform on current location click.
      */
     void onCurrentLocationClicked();
+
+    void onBloodRequest(RequestDetails requestDetails);
+
+    void onDonateRequest(RequestDetails requestDetails);
   }
 }

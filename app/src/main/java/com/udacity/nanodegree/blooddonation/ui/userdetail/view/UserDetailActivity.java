@@ -41,7 +41,7 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
     super.onCreate(savedInstanceState);
 
     mPresenter =
-        new UserDetailPresenter(this, Injection.getFirebaseAuth(), Injection.getSharedPreference(),
+        new UserDetailPresenter(this, Injection.provideFireBaseAuth(), Injection.getSharedPreference(),
             Injection.providesDataRepo());
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_details);
     mActivityUserDetailsBinding = (ActivityUserDetailsBinding) mBinding;

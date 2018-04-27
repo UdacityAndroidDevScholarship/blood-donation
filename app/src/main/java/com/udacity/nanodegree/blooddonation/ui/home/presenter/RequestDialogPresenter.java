@@ -1,9 +1,12 @@
 package com.udacity.nanodegree.blooddonation.ui.home.presenter;
 
-import android.view.View;
-import android.widget.AdapterView;
+import com.firebase.geofire.GeoLocation;
+import com.google.firebase.auth.FirebaseAuth;
+import com.udacity.nanodegree.blooddonation.data.model.Location;
+import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
+import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
 import com.udacity.nanodegree.blooddonation.ui.home.RequestDialogContract;
-import timber.log.Timber;
+import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -11,9 +14,15 @@ import timber.log.Timber;
 public class RequestDialogPresenter implements RequestDialogContract.Presenter {
 
   private RequestDialogContract.View mView;
+  private final FirebaseAuth mFirebaseAuth;
+  private final DonationDataSource mDataRepo;
+  private ReceiverDonorRequestType receiverDonorRequestType;
 
-  public RequestDialogPresenter(RequestDialogContract.View view) {
-    mView = view;
+  public RequestDialogPresenter(RequestDialogContract.View view, FirebaseAuth firebaseAuth,
+      DonationDataSource dataRepo) {
+    this.mView = view;
+    this.mFirebaseAuth = firebaseAuth;
+    this.mDataRepo = dataRepo;
   }
 
   @Override public void onCreate() {
@@ -32,25 +41,55 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
 
   }
 
-  @Override
-  public void onRequestTypeDropDownChange(AdapterView<?> parent, View view, int position, long id) {
-    Timber.d(parent.getItemAtPosition(position).toString());
+  private void prepareReceiverDonorRequestType(RequestDetails requestDetails) {
+    Location location = new Location(requestDetails.latitude.get(), requestDetails.longitude.get());
+    receiverDonorRequestType = new ReceiverDonorRequestType();
+    receiverDonorRequestType.setLocation(location);
+    receiverDonorRequestType.setPurpose(requestDetails.purpose.get());
+    receiverDonorRequestType.setbGp(requestDetails.bloodGroup.get());
   }
 
-  @Override
-  public void onBloodGroupChange(AdapterView<?> parent, View view, int position, long id) {
-    Timber.d(parent.getItemAtPosition(position).toString());
+  private void saveReceiverDetailsInDb(RequestDetails requestDetails) {
+    prepareReceiverDonorRequestType(requestDetails);
+    mDataRepo.saveReceiverDetails(mFirebaseAuth.getCurrentUser().getUid(),
+        receiverDonorRequestType);
+    mView.dismissDialog(true,receiverDonorRequestType);
   }
 
-  @Override public void onPurposeTextChanged(CharSequence s, int start, int before, int count) {
-    Timber.d(s.toString());
+  private void saveDonorDetails(RequestDetails requestDetails) {
+    prepareReceiverDonorRequestType(requestDetails);
+    mDataRepo.saveDonorDetails(mFirebaseAuth.getCurrentUser().getUid(),
+        requestDetails.bloodGroup.get(),
+        new GeoLocation(requestDetails.latitude.get(), requestDetails.longitude.get()),
+        new ISaveDonorDetails() {
+          @Override public void success() {
+            mView.dismissDialog(false,receiverDonorRequestType);
+          }
+
+          @Override public void fail() {
+            mView.dismissDialog(false, receiverDonorRequestType);
+          }
+        });
   }
 
-  @Override public void onSubmitButtonClick() {
-    Timber.d("Submit button clicked");
+  @Override public void onSubmitButtonClick(RequestDetails requestDetails) {
+    // Request Type is receiver
+    if (requestDetails.requestType.get().trim().equalsIgnoreCase("0")) {
+      saveReceiverDetailsInDb(requestDetails);
+      return;
+    }
+
+    // Request Type is donor
+    saveDonorDetails(requestDetails);
   }
 
   @Override public void onLocationClick() {
     mView.getLastLocation();
+  }
+
+  public interface ISaveDonorDetails {
+    void success();
+
+    void fail();
   }
 }

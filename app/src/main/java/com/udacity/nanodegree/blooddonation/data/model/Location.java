@@ -5,28 +5,30 @@ package com.udacity.nanodegree.blooddonation.data.model;
  */
 public class Location {
 
-    double latitude;
-    double longitiude;
+  double latitude;
+  double longitude;
 
-    public Location(double latitude, double longitiude) {
-        this.latitude = latitude;
-        this.longitiude = longitiude;
-    }
+  public Location() {
+  }
 
-    public double getLatitude() {
+  public Location(double latitude, double longitude) {
+    this.latitude = latitude;
+    this.longitude = longitude;
+  }
 
-        return latitude;
-    }
+  public double getLatitude() {
+    return latitude;
+  }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
+  public void setLatitude(double latitude) {
+    this.latitude = latitude;
+  }
 
-    public double getLongitiude() {
-        return longitiude;
-    }
+  public double getLongitude() {
+    return longitude;
+  }
 
-    public void setLongitiude(double longitiude) {
-        this.longitiude = longitiude;
-    }
+  public void setLongitude(double longitude) {
+    this.longitude = longitude;
+  }
 }
