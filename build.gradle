@@ -120,3 +120,10 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+def propOrThrow(String name) {
+    if (hasProperty(name))
+        return getProperty(name)
+    else
+        throw new GradleException("Can't find property `$name`, make sure you have added them to the global 'gradle.properties' file")
+}
