@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -114,11 +115,6 @@ public class HomeActivity extends BaseActivity
     mMap.setOnMarkerClickListener(this);
 
     updateCamera(null);
-
-    // Sample Markers.
-    //mMap.addMarker(new MarkerOptions().position(new LatLng(28.6315, 77.2167))
-    //    .title("Donor")
-    //    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
