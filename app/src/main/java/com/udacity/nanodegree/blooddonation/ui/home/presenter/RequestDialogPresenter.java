@@ -39,15 +39,29 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
 
   }
 
-  @Override public void onSubmitButtonClick(RequestDetails requestDetails) {
+  private void saveReceiverDetailsInDb(RequestDetails requestDetails) {
     Location location = new Location(requestDetails.latitude.get(), requestDetails.longitude.get());
     Receiver receiver = new Receiver();
     receiver.setLocation(location);
     receiver.setPurpose(requestDetails.purpose.get());
     receiver.setbGp(requestDetails.bloodGroup.get());
 
-    mDataRepo.writeReceiverDetails(mFirebaseAuth.getCurrentUser().getUid(),
-        receiver);
+    mDataRepo.writeReceiverDetails(mFirebaseAuth.getCurrentUser().getUid(), receiver);
+  }
+
+  private void saveDonorDetails(RequestDetails requestDetails) {
+
+  }
+
+  @Override public void onSubmitButtonClick(RequestDetails requestDetails) {
+    // Request Type is receiver
+    if (requestDetails.requestType.get().trim().equalsIgnoreCase("0")) {
+      saveReceiverDetailsInDb(requestDetails);
+      return;
+    }
+
+    // Request Type is donor
+    saveDonorDetails(requestDetails);
   }
 
   @Override public void onLocationClick() {
