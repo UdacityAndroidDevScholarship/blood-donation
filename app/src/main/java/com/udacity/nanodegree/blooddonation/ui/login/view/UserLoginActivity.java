@@ -5,7 +5,11 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.rilixtech.Country;
@@ -33,6 +37,12 @@ public class UserLoginActivity extends BaseActivity
 
   private UserLoginInfo userLoginInfo;
 
+  private EditText etPhoneNumber;
+
+  private Button iAmInButton;
+
+  private int PHONE_NUMBER_DIGITS;
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
@@ -40,6 +50,32 @@ public class UserLoginActivity extends BaseActivity
     mPresenter = new UserLoginPresenter(Injection.getFirebaseAuth(),Injection.getSharedPreference(), this);
 
     userLoginInfo = new UserLoginInfo();
+
+    etPhoneNumber = findViewById(R.id.et_phone_number);
+    iAmInButton = findViewById(R.id.bv_in);
+    PHONE_NUMBER_DIGITS = 10;
+
+    etPhoneNumber.addTextChangedListener(new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+           if(count == PHONE_NUMBER_DIGITS){
+               iAmInButton.setEnabled(true);
+           }else {
+               etPhoneNumber.setError("The mobile number must have 10 digits !!!");
+               iAmInButton.setEnabled(false);
+           }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    });
 
     ((ActivityUserLoginBinding) mBinding).setRegisInfo(userLoginInfo);
     ((ActivityUserLoginBinding) mBinding).setPresenter(mPresenter);
