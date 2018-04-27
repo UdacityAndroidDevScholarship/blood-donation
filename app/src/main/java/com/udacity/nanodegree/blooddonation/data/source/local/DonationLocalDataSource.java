@@ -37,6 +37,5 @@ public class DonationLocalDataSource implements DonationDataSource {
 
   @Override public void saveDonorDetails(String uid, String s, GeoLocation geoLocation,
       RequestDialogPresenter.ISaveDonorDetails iSaveDonorDetails) {
-
   }
 }

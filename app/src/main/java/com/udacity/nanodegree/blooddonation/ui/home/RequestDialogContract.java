@@ -9,6 +9,8 @@ import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
 public interface RequestDialogContract {
   interface View {
     void getLastLocation();
+
+    void dismissDialog(boolean isReceiver);
   }
 
   interface Presenter extends BasePresenter {

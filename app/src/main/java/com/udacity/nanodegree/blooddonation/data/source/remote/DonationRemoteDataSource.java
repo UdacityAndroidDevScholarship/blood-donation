@@ -52,9 +52,9 @@ public class DonationRemoteDataSource implements DonationDataSource {
     GeoFire geoFire = new GeoFire(databaseReference);
     geoFire.setLocation(uid, geoLocation, (key, error) -> {
       if (error != null) {
-        iSaveDonorDetails.fail();
-      } else {
         iSaveDonorDetails.success();
+      } else {
+        iSaveDonorDetails.fail();
       }
     });
   }

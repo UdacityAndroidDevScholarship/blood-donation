@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,7 +28,8 @@ import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresen
 /**
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
  */
-public class HomeActivity extends BaseActivity implements HomeActivityContract.View {
+public class HomeActivity extends BaseActivity implements HomeActivityContract.View,
+    RequestDialogFragment.IRequestDialogFragmentListener {
 
   private GoogleMap mMap;
   private HomeActivityContract.Presenter mPresenter;
@@ -167,5 +167,9 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
     FragmentManager fragmentManager = getSupportFragmentManager();
     RequestDialogFragment requestDialogFragment = new RequestDialogFragment();
     requestDialogFragment.show(fragmentManager, "request_dialog");
+  }
+
+  @Override public void onRequestDialogDismissed(boolean isReceiver) {
+
   }
 }

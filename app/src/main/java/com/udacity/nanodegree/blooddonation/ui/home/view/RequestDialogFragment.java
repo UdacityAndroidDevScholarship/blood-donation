@@ -75,6 +75,12 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     }
   }
 
+  @Override public void dismissDialog(boolean isReceiver) {
+    IRequestDialogFragmentListener listener = (IRequestDialogFragmentListener) getActivity();
+    listener.onRequestDialogDismissed(isReceiver);
+    dismiss();
+  }
+
   @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
       @NonNull int[] grantResults) {
     switch (requestCode) {
@@ -103,5 +109,10 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
       mFragmentBloodRequestBinding = null;
     }
     super.onDestroyView();
+  }
+
+  public interface IRequestDialogFragmentListener{
+
+    void onRequestDialogDismissed(boolean isReceiver);
   }
 }

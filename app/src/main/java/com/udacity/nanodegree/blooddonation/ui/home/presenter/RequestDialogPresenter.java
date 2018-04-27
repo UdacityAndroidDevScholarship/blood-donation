@@ -48,6 +48,7 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
     receiver.setbGp(requestDetails.bloodGroup.get());
 
     mDataRepo.saveReceiverDetails(mFirebaseAuth.getCurrentUser().getUid(), receiver);
+    mView.dismissDialog(true);
   }
 
   private void saveDonorDetails(RequestDetails requestDetails) {
@@ -56,11 +57,11 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
         new GeoLocation(requestDetails.latitude.get(), requestDetails.longitude.get()),
         new ISaveDonorDetails() {
           @Override public void success() {
-
+            mView.dismissDialog(false);
           }
 
           @Override public void fail() {
-
+            mView.dismissDialog(false);
           }
         });
   }
