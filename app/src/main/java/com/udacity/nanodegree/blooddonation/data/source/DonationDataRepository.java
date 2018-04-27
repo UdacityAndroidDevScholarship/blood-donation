@@ -1,5 +1,6 @@
 package com.udacity.nanodegree.blooddonation.data.source;
 
+import com.udacity.nanodegree.blooddonation.data.model.Receiver;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 
 /**
@@ -31,5 +32,9 @@ public class DonationDataRepository implements DonationDataSource {
 
   @Override public void writeNewUser(String userId, User user) {
     mRemoteDataSource.writeNewUser(userId,user);
+  }
+
+  @Override public void writeReceiverDetails(String userId, Receiver receiver) {
+    mRemoteDataSource.writeReceiverDetails(userId, receiver);
   }
 }

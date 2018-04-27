@@ -5,77 +5,34 @@ package com.udacity.nanodegree.blooddonation.data.model;
  */
 public class Receiver {
 
-    String id;
-    Location mLocation;
-    boolean mIsRequired;
-    String mName;
-    long mPhoneNumber;
-    String mBloodType;
-    String mProfilePic;
+  Location location;
+  String bGp;
+  String purpose;
 
-    public Receiver(String id, Location mLocation, boolean mIsRequired, String mName, long mPhoneNumber, String mBloodType, String mProfilePic) {
-        this.id = id;
-        this.mLocation = mLocation;
-        this.mIsRequired = mIsRequired;
-        this.mName = mName;
-        this.mPhoneNumber = mPhoneNumber;
-        this.mBloodType = mBloodType;
-        this.mProfilePic = mProfilePic;
-    }
+  public Receiver() {
+  }
 
-    public String getId() {
-        return id;
-    }
+  public Location getLocation() {
+    return location;
+  }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+  public void setLocation(Location location) {
+    this.location = location;
+  }
 
-    public Location getmLocation() {
-        return mLocation;
-    }
+  public String getbGp() {
+    return bGp;
+  }
 
-    public void setmLocation(Location mLocation) {
-        this.mLocation = mLocation;
-    }
+  public void setbGp(String bGp) {
+    this.bGp = bGp;
+  }
 
-    public boolean ismIsRequired() {
-        return mIsRequired;
-    }
+  public String getPurpose() {
+    return purpose;
+  }
 
-    public void setmIsRequired(boolean mIsRequired) {
-        this.mIsRequired = mIsRequired;
-    }
-
-    public String getmName() {
-        return mName;
-    }
-
-    public void setmName(String mName) {
-        this.mName = mName;
-    }
-
-    public long getmPhoneNumber() {
-        return mPhoneNumber;
-    }
-
-    public void setmPhoneNumber(long mPhoneNumber) {
-        this.mPhoneNumber = mPhoneNumber;
-    }
-
-    public String getmBloodType() {
-        return mBloodType;
-    }
-
-    public void setmBloodType(String mBloodType) {
-        this.mBloodType = mBloodType;
-    }
-
-    public String getmProfilePic() {
-        return mProfilePic;
-    }
-
-    public void setmProfilePic(String mProfilePic) {
-        this.mProfilePic = mProfilePic;
-    }
+  public void setPurpose(String purpose) {
+    this.purpose = purpose;
+  }
 }

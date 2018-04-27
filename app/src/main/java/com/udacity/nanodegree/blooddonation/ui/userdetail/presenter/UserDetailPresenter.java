@@ -1,13 +1,6 @@
 package com.udacity.nanodegree.blooddonation.ui.userdetail.presenter;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.udacity.nanodegree.blooddonation.constants.Constants;
-import com.udacity.nanodegree.blooddonation.constants.FirebaseConstants;
 import com.udacity.nanodegree.blooddonation.constants.SharedPrefConstants;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
@@ -15,7 +8,6 @@ import com.udacity.nanodegree.blooddonation.storage.SharedPreferenceManager;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.UserDetailContract;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
 import com.udacity.nanodegree.blooddonation.util.Util;
-import timber.log.Timber;
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -24,8 +16,8 @@ public class UserDetailPresenter implements UserDetailContract.Presenter {
 
   private final UserDetailContract.View mView;
   private final FirebaseAuth mFirebaseAuth;
-  private final SharedPreferenceManager mSharedPreferenceManager;
   private final DonationDataSource mDataRepo;
+  private final SharedPreferenceManager mSharedPreferenceManager;
 
   public UserDetailPresenter(UserDetailContract.View view, FirebaseAuth firebaseAuth,
       SharedPreferenceManager sharedPreference, DonationDataSource dataRepo) {

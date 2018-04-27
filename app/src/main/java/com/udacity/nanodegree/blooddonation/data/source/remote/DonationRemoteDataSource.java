@@ -1,7 +1,8 @@
 package com.udacity.nanodegree.blooddonation.data.source.remote;
 
 import com.google.firebase.database.FirebaseDatabase;
-import com.udacity.nanodegree.blooddonation.constants.FirebaseConstants;
+import com.udacity.nanodegree.blooddonation.constants.FireBaseConstants;
+import com.udacity.nanodegree.blooddonation.data.model.Receiver;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
 
@@ -30,6 +31,13 @@ public class DonationRemoteDataSource implements DonationDataSource {
   }
 
   @Override public void writeNewUser(String userId, User user) {
-    mFirebaseDatabase.getReference().child(FirebaseConstants.USERS).child(userId).setValue(user);
+    mFirebaseDatabase.getReference().child(FireBaseConstants.USERS).child(userId).setValue(user);
+  }
+
+  @Override public void writeReceiverDetails(String userId, Receiver receiver) {
+    mFirebaseDatabase.getReference()
+        .child(FireBaseConstants.RECEIVER)
+        .child(userId)
+        .setValue(receiver);
   }
 }

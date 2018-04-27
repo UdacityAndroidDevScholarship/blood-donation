@@ -1,5 +1,6 @@
 package com.udacity.nanodegree.blooddonation.data.source.local;
 
+import com.udacity.nanodegree.blooddonation.data.model.Receiver;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
 
@@ -25,5 +26,9 @@ public class DonationLocalDataSource implements DonationDataSource {
 
   @Override public void writeNewUser(String userId, User user) {
     throw  new UnsupportedOperationException("Not supported");
+  }
+
+  @Override public void writeReceiverDetails(String userId, Receiver receiver) {
+
   }
 }

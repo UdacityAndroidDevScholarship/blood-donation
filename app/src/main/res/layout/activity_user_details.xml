@@ -99,7 +99,7 @@
           android:background="@drawable/edit_text_border"
           android:gravity="center"
           android:padding="@dimen/dp_16"
-          app:binding="@{userdetail.bloodGroup}"
+          app:observableString="@{userdetail.bloodGroup}"
           app:layout_constraintEnd_toEndOf="@+id/et_email"
           app:layout_constraintStart_toStartOf="@+id/et_email"
           app:layout_constraintTop_toBottomOf="@+id/et_email"

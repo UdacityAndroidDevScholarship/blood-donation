@@ -2,12 +2,20 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
   <data>
+
+    <import type="com.udacity.nanodegree.blooddonation.util.Util"/>
+
     <variable
         name="presenter"
         type="com.udacity.nanodegree.blooddonation.ui.home.RequestDialogContract.Presenter"
+        />
+    <variable
+        name="requestDetails"
+        type="com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails"
         />
   </data>
 
@@ -21,9 +29,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
+        android:orientation="vertical"
         >
 
       <android.support.v7.widget.AppCompatTextView
@@ -41,8 +49,11 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/dp_16"
           android:background="@drawable/edit_text_border"
-          android:onItemSelected="@{(adapter,view,pos,id)->presenter.onRequestTypeDropDownChange(adapter,view,pos,id)}"
           android:padding="@dimen/dp_16"
+          android:entries="@array/blood_request"
+          tools:listitem="@layout/support_simple_spinner_dropdown_item"
+          app:observableString="@{requestDetails.requestType}"
+          app:setPos="@{true}"
           style="@style/Base.Widget.AppCompat.Spinner.Underlined"
           />
 
@@ -61,8 +72,10 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/dp_16"
           android:background="@drawable/edit_text_border"
-          android:onItemSelected="@{(adapter,view,pos,id)->presenter.onBloodGroupChange(adapter,view,pos,id)}"
           android:padding="@dimen/dp_16"
+          android:entries="@array/blood_group"
+          tools:listitem="@layout/support_simple_spinner_dropdown_item"
+          app:observableString="@{requestDetails.bloodGroup}"
           style="@style/Base.Widget.AppCompat.Spinner.Underlined"
           />
 
@@ -78,8 +91,9 @@
           android:maxLength="150"
           android:maxLines="4"
           android:minLines="4"
-          android:onTextChanged="@{(s,start,before,count)->presenter.onPurposeTextChanged(s,start,before,count)}"
+          android:text="@{requestDetails.purpose}"
           android:padding="@dimen/dp_8"
+          app:binding="@{requestDetails.purpose}"
           />
 
       <android.support.v7.widget.AppCompatTextView
@@ -92,7 +106,9 @@
           android:drawableRight="@drawable/ic_location_on_red_24dp"
           android:hint="@string/hint_location"
           android:onClick="@{()->presenter.onLocationClick()}"
-          android:padding="@dimen/dp_30"/>
+          android:text="@{Util.convertLatLongToAddress(requestDetails.latitude,requestDetails.longitude)}"
+          android:padding="@dimen/dp_30"
+          />
 
       <Button
           android:id="@+id/submit"
@@ -100,8 +116,8 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
           android:layout_marginTop="@dimen/dp_16"
+          android:onClick="@{()->presenter.onSubmitButtonClick(requestDetails)}"
           android:text="@string/submit"
-          android:onClick="@{()->presenter.onSubmitButtonClick()}"
           style="@style/Widget.AppCompat.Button.Colored"
           />
 

@@ -1,9 +1,11 @@
 package com.udacity.nanodegree.blooddonation.ui.home.presenter;
 
-import android.view.View;
-import android.widget.AdapterView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.udacity.nanodegree.blooddonation.data.model.Location;
+import com.udacity.nanodegree.blooddonation.data.model.Receiver;
+import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
 import com.udacity.nanodegree.blooddonation.ui.home.RequestDialogContract;
-import timber.log.Timber;
+import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -11,9 +13,14 @@ import timber.log.Timber;
 public class RequestDialogPresenter implements RequestDialogContract.Presenter {
 
   private RequestDialogContract.View mView;
+  private final FirebaseAuth mFirebaseAuth;
+  private final DonationDataSource mDataRepo;
 
-  public RequestDialogPresenter(RequestDialogContract.View view) {
-    mView = view;
+  public RequestDialogPresenter(RequestDialogContract.View view, FirebaseAuth firebaseAuth,
+      DonationDataSource dataRepo) {
+    this.mView = view;
+    this.mFirebaseAuth = firebaseAuth;
+    this.mDataRepo = dataRepo;
   }
 
   @Override public void onCreate() {
@@ -32,22 +39,15 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
 
   }
 
-  @Override
-  public void onRequestTypeDropDownChange(AdapterView<?> parent, View view, int position, long id) {
-    Timber.d(parent.getItemAtPosition(position).toString());
-  }
+  @Override public void onSubmitButtonClick(RequestDetails requestDetails) {
+    Location location = new Location(requestDetails.latitude.get(), requestDetails.longitude.get());
+    Receiver receiver = new Receiver();
+    receiver.setLocation(location);
+    receiver.setPurpose(requestDetails.purpose.get());
+    receiver.setbGp(requestDetails.bloodGroup.get());
 
-  @Override
-  public void onBloodGroupChange(AdapterView<?> parent, View view, int position, long id) {
-    Timber.d(parent.getItemAtPosition(position).toString());
-  }
-
-  @Override public void onPurposeTextChanged(CharSequence s, int start, int before, int count) {
-    Timber.d(s.toString());
-  }
-
-  @Override public void onSubmitButtonClick() {
-    Timber.d("Submit button clicked");
+    mDataRepo.writeReceiverDetails(mFirebaseAuth.getCurrentUser().getUid(),
+        receiver);
   }
 
   @Override public void onLocationClick() {
