@@ -53,26 +53,17 @@ public class HomeActivity extends BaseActivity
     donorBehavior = BottomSheetBehavior.from(mDonorSheet);
     receiverBehaviour = BottomSheetBehavior.from(mReceiver);
 
-    receiverBehaviour.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-      @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
-        switch (newState) {
-          case BottomSheetBehavior.STATE_HIDDEN:
-            break;
-          case BottomSheetBehavior.STATE_EXPANDED:
-            break;
-          case BottomSheetBehavior.STATE_COLLAPSED:
-            break;
-          case BottomSheetBehavior.STATE_DRAGGING:
-            break;
-          case BottomSheetBehavior.STATE_SETTLING:
-            break;
-        }
-      }
+    setReceiverBehaviorBottomSheetCallBack();
+    setDonorBehaviorBottomSheetCallBack();
 
-      @Override public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+    receiverBehaviour.setState(BottomSheetBehavior.STATE_HIDDEN);
+    donorBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    SupportMapFragment mapFragment =
+        (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragement_maps);
+    mapFragment.getMapAsync(this);
+  }
 
-      }
-    });
+  private void setDonorBehaviorBottomSheetCallBack() {
     donorBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
       @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
         switch (newState) {
@@ -93,11 +84,29 @@ public class HomeActivity extends BaseActivity
 
       }
     });
-    receiverBehaviour.setState(BottomSheetBehavior.STATE_HIDDEN);
-    donorBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-    SupportMapFragment mapFragment =
-        (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragement_maps);
-    mapFragment.getMapAsync(this);
+  }
+
+  private void setReceiverBehaviorBottomSheetCallBack() {
+    receiverBehaviour.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+      @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
+        switch (newState) {
+          case BottomSheetBehavior.STATE_HIDDEN:
+            break;
+          case BottomSheetBehavior.STATE_EXPANDED:
+            break;
+          case BottomSheetBehavior.STATE_COLLAPSED:
+            break;
+          case BottomSheetBehavior.STATE_DRAGGING:
+            break;
+          case BottomSheetBehavior.STATE_SETTLING:
+            break;
+        }
+      }
+
+      @Override public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+      }
+    });
   }
 
   @Override public void onMapReady(GoogleMap googleMap) {
