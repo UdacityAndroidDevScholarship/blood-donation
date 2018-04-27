@@ -21,15 +21,17 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
+import com.udacity.nanodegree.blooddonation.data.model.Receiver;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
+import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter;
 
 /**
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
  */
-public class HomeActivity extends BaseActivity implements HomeActivityContract.View,
-    RequestDialogFragment.IRequestDialogFragmentListener {
+public class HomeActivity extends BaseActivity
+    implements HomeActivityContract.View, RequestDialogFragment.IRequestDialogFragmentListener {
 
   private GoogleMap mMap;
   private HomeActivityContract.Presenter mPresenter;
@@ -37,11 +39,14 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
   private BottomSheetBehavior<LinearLayout> donorBehavior;
   private BottomSheetBehavior<LinearLayout> receiverBehaviour;
 
+  private Marker mRequestMarker;
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-    mPresenter = new HomeActivityPresenter(this);
+    mPresenter = new HomeActivityPresenter(this, Injection.provideFireBaseAuth(),
+        Injection.provideFireBaseDatabase());
     mDonorSheet = findViewById(R.id.donor_sheet);
     mReceiver = findViewById(R.id.receiver_sheet);
     ((ActivityHomeBinding) mBinding).setPresenter(mPresenter);
@@ -103,14 +108,9 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
     updateCamera(null);
 
     // Sample Markers.
-
-    mMap.addMarker(new MarkerOptions().position(new LatLng(28.6315, 77.2167))
-        .title("Donor")
-        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-
-    mMap.addMarker(new MarkerOptions().position(new LatLng(27.6315, 78.2167))
-        .title("Blood Request")
-        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+    //mMap.addMarker(new MarkerOptions().position(new LatLng(28.6315, 77.2167))
+    //    .title("Donor")
+    //    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -127,7 +127,7 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
         Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
         break;
       case R.id.action_sign_out:
-        Toast.makeText(this, "Sign Out", Toast.LENGTH_SHORT).show();
+        logout();
         break;
     }
 
@@ -170,6 +170,23 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
   }
 
   @Override public void onRequestDialogDismissed(boolean isReceiver) {
+    if (isReceiver) {
+      mPresenter.onBloodRequest();
+      return;
+    }
+    mPresenter.onDonateRequest();
+  }
 
+  @Override public void addRequestMarker(Receiver receiver) {
+    if (mRequestMarker != null) {
+      mRequestMarker.remove();
+    }
+    LatLng latLng =
+        new LatLng(receiver.getLocation().getLatitude(), receiver.getLocation().getLongitude());
+    mRequestMarker = mMap.addMarker(new MarkerOptions().position(latLng)
+        .title("Blood Request")
+        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+
+    updateCamera(latLng);
   }
 }
