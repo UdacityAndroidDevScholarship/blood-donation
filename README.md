@@ -46,6 +46,15 @@ All persons near him i.e. *our voluntary donors* will receive notification for s
 
 * Get you own google map API key. See the [quick guide to getting an API key][2].
 * Find `.gradle` folder in your home directory, create a file named `gradle.properties` (if not present).
+
+    Usually it can be found at:
+    
+        Windows: C:\Users\<Your Username>\.gradle
+        Mac: /Users/<Your Username>/.gradle
+        Linux: /home/<Your Username>/.gradle
+    
+        Inside it there would be a file named gradle.properties (just create it if there isn’t any).
+
 * Open the `gradle.properties` file and paste your API key into the value of the `GOOGLE_MAPS_API_KEY` property, like this
 
     `GOOGLE_MAPS_API_KEY=PASTE-YOUR-API-KEY-HERE`
