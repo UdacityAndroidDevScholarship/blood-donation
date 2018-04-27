@@ -5,7 +5,7 @@ import com.firebase.geofire.GeoLocation;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.udacity.nanodegree.blooddonation.constants.FireBaseConstants;
-import com.udacity.nanodegree.blooddonation.data.model.Receiver;
+import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.RequestDialogPresenter;
@@ -38,11 +38,11 @@ public class DonationRemoteDataSource implements DonationDataSource {
     mFirebaseDatabase.getReference().child(FireBaseConstants.USERS).child(userId).setValue(user);
   }
 
-  @Override public void saveReceiverDetails(String userId, Receiver receiver) {
+  @Override public void saveReceiverDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
     mFirebaseDatabase.getReference()
         .child(FireBaseConstants.RECEIVER)
         .child(userId)
-        .setValue(receiver);
+        .setValue(receiverDonorRequestType);
   }
 
   @Override public void saveDonorDetails(String uid, String bgp, GeoLocation geoLocation,

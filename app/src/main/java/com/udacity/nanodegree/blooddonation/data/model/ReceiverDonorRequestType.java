@@ -3,13 +3,13 @@ package com.udacity.nanodegree.blooddonation.data.model;
 /**
  * Created by Kautilya on 25-04-2018.
  */
-public class Receiver {
+public class ReceiverDonorRequestType {
 
   Location location;
   String bGp;
   String purpose;
 
-  public Receiver() {
+  public ReceiverDonorRequestType() {
   }
 
   public Location getLocation() {

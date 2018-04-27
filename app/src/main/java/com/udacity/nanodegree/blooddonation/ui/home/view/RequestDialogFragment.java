@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.udacity.nanodegree.blooddonation.R;
+import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.databinding.FragmentBloodRequestBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.RequestDialogContract;
@@ -75,9 +76,9 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     }
   }
 
-  @Override public void dismissDialog(boolean isReceiver) {
+  @Override public void dismissDialog(boolean isReceiver, ReceiverDonorRequestType receiverDonorRequestType) {
     IRequestDialogFragmentListener listener = (IRequestDialogFragmentListener) getActivity();
-    listener.onRequestDialogDismissed(isReceiver);
+    listener.onRequestDialogDismissed(isReceiver, receiverDonorRequestType);
     dismiss();
   }
 
@@ -111,8 +112,7 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     super.onDestroyView();
   }
 
-  public interface IRequestDialogFragmentListener{
-
-    void onRequestDialogDismissed(boolean isReceiver);
+  public interface IRequestDialogFragmentListener {
+    void onRequestDialogDismissed(boolean isReceiver, ReceiverDonorRequestType receiverDonorRequestType);
   }
 }

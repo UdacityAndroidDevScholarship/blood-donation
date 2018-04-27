@@ -3,7 +3,7 @@ package com.udacity.nanodegree.blooddonation.ui.home.presenter;
 import com.firebase.geofire.GeoLocation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.udacity.nanodegree.blooddonation.data.model.Location;
-import com.udacity.nanodegree.blooddonation.data.model.Receiver;
+import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
 import com.udacity.nanodegree.blooddonation.ui.home.RequestDialogContract;
 import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
@@ -16,6 +16,7 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
   private RequestDialogContract.View mView;
   private final FirebaseAuth mFirebaseAuth;
   private final DonationDataSource mDataRepo;
+  private ReceiverDonorRequestType receiverDonorRequestType;
 
   public RequestDialogPresenter(RequestDialogContract.View view, FirebaseAuth firebaseAuth,
       DonationDataSource dataRepo) {
@@ -40,28 +41,33 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
 
   }
 
-  private void saveReceiverDetailsInDb(RequestDetails requestDetails) {
+  private void prepareReceiverDonorRequestType(RequestDetails requestDetails) {
     Location location = new Location(requestDetails.latitude.get(), requestDetails.longitude.get());
-    Receiver receiver = new Receiver();
-    receiver.setLocation(location);
-    receiver.setPurpose(requestDetails.purpose.get());
-    receiver.setbGp(requestDetails.bloodGroup.get());
+    receiverDonorRequestType = new ReceiverDonorRequestType();
+    receiverDonorRequestType.setLocation(location);
+    receiverDonorRequestType.setPurpose(requestDetails.purpose.get());
+    receiverDonorRequestType.setbGp(requestDetails.bloodGroup.get());
+  }
 
-    mDataRepo.saveReceiverDetails(mFirebaseAuth.getCurrentUser().getUid(), receiver);
-    mView.dismissDialog(true);
+  private void saveReceiverDetailsInDb(RequestDetails requestDetails) {
+    prepareReceiverDonorRequestType(requestDetails);
+    mDataRepo.saveReceiverDetails(mFirebaseAuth.getCurrentUser().getUid(),
+        receiverDonorRequestType);
+    mView.dismissDialog(true,receiverDonorRequestType);
   }
 
   private void saveDonorDetails(RequestDetails requestDetails) {
+    prepareReceiverDonorRequestType(requestDetails);
     mDataRepo.saveDonorDetails(mFirebaseAuth.getCurrentUser().getUid(),
         requestDetails.bloodGroup.get(),
         new GeoLocation(requestDetails.latitude.get(), requestDetails.longitude.get()),
         new ISaveDonorDetails() {
           @Override public void success() {
-            mView.dismissDialog(false);
+            mView.dismissDialog(false,receiverDonorRequestType);
           }
 
           @Override public void fail() {
-            mView.dismissDialog(false);
+            mView.dismissDialog(false, receiverDonorRequestType);
           }
         });
   }

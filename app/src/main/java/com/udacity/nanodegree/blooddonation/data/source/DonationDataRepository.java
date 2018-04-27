@@ -1,7 +1,7 @@
 package com.udacity.nanodegree.blooddonation.data.source;
 
 import com.firebase.geofire.GeoLocation;
-import com.udacity.nanodegree.blooddonation.data.model.Receiver;
+import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.RequestDialogPresenter;
 
@@ -36,8 +36,8 @@ public class DonationDataRepository implements DonationDataSource {
     mRemoteDataSource.saveNewUser(userId, user);
   }
 
-  @Override public void saveReceiverDetails(String userId, Receiver receiver) {
-    mRemoteDataSource.saveReceiverDetails(userId, receiver);
+  @Override public void saveReceiverDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
+    mRemoteDataSource.saveReceiverDetails(userId, receiverDonorRequestType);
   }
 
   @Override public void saveDonorDetails(String uid, String bgp, GeoLocation geoLocation,

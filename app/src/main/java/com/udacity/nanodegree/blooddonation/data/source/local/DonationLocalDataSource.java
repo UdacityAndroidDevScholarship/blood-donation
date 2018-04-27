@@ -1,7 +1,7 @@
 package com.udacity.nanodegree.blooddonation.data.source.local;
 
 import com.firebase.geofire.GeoLocation;
-import com.udacity.nanodegree.blooddonation.data.model.Receiver;
+import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.RequestDialogPresenter;
@@ -31,7 +31,7 @@ public class DonationLocalDataSource implements DonationDataSource {
     throw new UnsupportedOperationException("Not supported");
   }
 
-  @Override public void saveReceiverDetails(String userId, Receiver receiver) {
+  @Override public void saveReceiverDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
 
   }
 
