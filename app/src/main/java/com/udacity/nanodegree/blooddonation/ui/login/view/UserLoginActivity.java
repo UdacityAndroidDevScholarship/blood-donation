@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.view.View;
 import android.widget.Toast;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.rilixtech.Country;
-import com.rilixtech.CountryCodePicker;
-import com.udacity.nanodegree.blooddonation.databinding.ActivityUserLoginBinding;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
+import com.udacity.nanodegree.blooddonation.databinding.ActivityUserLoginBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
@@ -50,11 +47,7 @@ public class UserLoginActivity extends BaseActivity
     userLoginInfo.phoneCode.set("91");
 
     ((ActivityUserLoginBinding) mBinding).ccCountryCode.setOnCountryChangeListener(
-        new CountryCodePicker.OnCountryChangeListener() {
-          @Override public void onCountrySelected(Country country) {
-            userLoginInfo.phoneCode.set(country.getPhoneCode());
-          }
-        });
+        country -> userLoginInfo.phoneCode.set(country.getPhoneCode()));
 
     mPresenter.onCreate();
   }

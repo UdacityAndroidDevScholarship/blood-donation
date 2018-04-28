@@ -26,6 +26,8 @@ public interface HomeActivityContract {
     void addRequestMarker(ReceiverDonorRequestType receiverDonorRequestType);
 
     void addDonorMarker(ReceiverDonorRequestType receiverDonorRequestType);
+
+    void showHideLoader(boolean isActive);
   }
 
   interface Presenter extends BasePresenter {

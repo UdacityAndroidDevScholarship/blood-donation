@@ -24,6 +24,7 @@ import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
+import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter;
 
@@ -46,22 +47,38 @@ public class HomeActivity extends BaseActivity
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-    mPresenter = new HomeActivityPresenter(this);
-    mDonorSheet = findViewById(R.id.donor_sheet);
-    mReceiver = findViewById(R.id.receiver_sheet);
+    mPresenter = new HomeActivityPresenter(this, Injection.provideFireBaseAuth(),
+        Injection.provideFireBaseDatabase());
     ((ActivityHomeBinding) mBinding).setPresenter(mPresenter);
 
+    mDonorSheet = findViewById(R.id.donor_sheet);
+    mReceiver = findViewById(R.id.receiver_sheet);
     donorBehavior = BottomSheetBehavior.from(mDonorSheet);
     receiverBehaviour = BottomSheetBehavior.from(mReceiver);
-
     setReceiverBehaviorBottomSheetCallBack();
     setDonorBehaviorBottomSheetCallBack();
-
     receiverBehaviour.setState(BottomSheetBehavior.STATE_HIDDEN);
     donorBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
     SupportMapFragment mapFragment =
         (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragement_maps);
     mapFragment.getMapAsync(this);
+
+    showHideLoader(true);
+    mPresenter.onCreate();
+  }
+
+  @Override public void showHideLoader(boolean isActive) {
+    if (isActive) {
+      ((ActivityHomeBinding) mBinding).pbLoader.setVisibility(View.VISIBLE);
+      return;
+    }
+    ((ActivityHomeBinding) mBinding).pbLoader.setVisibility(View.GONE);
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    mPresenter.onDestroy();
   }
 
   private void setDonorBehaviorBottomSheetCallBack() {
@@ -110,13 +127,6 @@ public class HomeActivity extends BaseActivity
     });
   }
 
-  @Override public void onMapReady(GoogleMap googleMap) {
-    mMap = googleMap;
-    mMap.setOnMarkerClickListener(this);
-
-    updateCamera(null);
-  }
-
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_main, menu);
     return true;
@@ -138,13 +148,11 @@ public class HomeActivity extends BaseActivity
     return super.onOptionsItemSelected(item);
   }
 
-  @Override public void updateCamera(@Nullable LatLng position) {
-    if (position == null) {
-      position = new LatLng(28.6315,
-          77.2167); // This is hard coded default location. This will be changed by current location
+  @Override public void updateCamera(@Nullable LatLng latLng) {
+    if (latLng == null) {
+      return;
     }
-
-    CameraUpdate location = CameraUpdateFactory.newLatLngZoom(position, 8);
+    CameraUpdate location = CameraUpdateFactory.newLatLngZoom(latLng, 8);
     mMap.animateCamera(location, 2000, null);
   }
 
@@ -156,15 +164,6 @@ public class HomeActivity extends BaseActivity
       sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     }
     sheetBehavior2.setState(BottomSheetBehavior.STATE_HIDDEN);
-  }
-
-  public boolean onMarkerClick(Marker marker) {
-    if (marker.getTitle().equals("Donor")) {
-      toggleBottomSheet(donorBehavior, receiverBehaviour);
-    } else if (marker.getTitle().equals("Blood Request")) {
-      toggleBottomSheet(receiverBehaviour, donorBehavior);
-    }
-    return false;
   }
 
   @Override public void openCreateRequestDialog() {
@@ -214,5 +213,22 @@ public class HomeActivity extends BaseActivity
         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
     updateCamera(latLng);
+  }
+
+  // Google Map callbacks
+  @Override public void onMapReady(GoogleMap googleMap) {
+    mMap = googleMap;
+    mMap.setOnMarkerClickListener(this);
+
+    updateCamera(null);
+  }
+
+  @Override public boolean onMarkerClick(Marker marker) {
+    if (marker.getTitle().equals("Donor")) {
+      toggleBottomSheet(donorBehavior, receiverBehaviour);
+    } else if (marker.getTitle().equals("Blood Request")) {
+      toggleBottomSheet(receiverBehaviour, donorBehavior);
+    }
+    return false;
   }
 }
