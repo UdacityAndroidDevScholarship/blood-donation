@@ -1,16 +1,17 @@
 package com.udacity.nanodegree.blooddonation.ui.home;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.udacity.nanodegree.blooddonation.base.BasePresenter;
+import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
+import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
 
 public interface HomeActivityContract {
 
-  interface View {
+  interface View extends GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
     /**
      * Method to zoom camera to a particular location. If {@code position} is null the camera
@@ -20,10 +21,11 @@ public interface HomeActivityContract {
      */
     void updateCamera(@Nullable LatLng position);
 
-    /**
-     * Method to switch to a particular activity.
-     */
-    void switchActivity(Class activity, int requestCode, @Nullable Bundle bundle);
+    void openCreateRequestDialog();
+
+    void addRequestMarker(ReceiverDonorRequestType receiverDonorRequestType);
+
+    void addDonorMarker(ReceiverDonorRequestType receiverDonorRequestType);
   }
 
   interface Presenter extends BasePresenter {
@@ -38,9 +40,8 @@ public interface HomeActivityContract {
      */
     void onCurrentLocationClicked();
 
-    /**
-     * Method to handle onActivityResult.
-     */
-    void handleActivityResult(int requestCode, int resultCode, Intent data);
+    void onBloodRequest(RequestDetails requestDetails);
+
+    void onDonateRequest(RequestDetails requestDetails);
   }
 }

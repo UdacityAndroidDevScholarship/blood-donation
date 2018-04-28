@@ -20,4 +20,5 @@
     <dimen name="splash_app_version_text_size">@dimen/sp_15</dimen>
     <dimen name="splash_app_version_margin_bottom">@dimen/dp_30</dimen>
     <dimen name="splash_app_name_text_size">@dimen/sp_20</dimen>
+
 </resources>

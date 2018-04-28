@@ -27,18 +27,41 @@
     <string name="gender">Gender</string>
     <string name="gender_female">Female</string>
     <string name="date_hint">Select date</string>
+    <string name="msg_sign_up_location_message">Your current location is required to sign you up so that you can get benefit of our loved community by sharing with them where you are.</string>
+    <string name="msg_never_ask_sign_up">Sign up process cannot be completed without location access. Please navigate to application settings -> Permissions and grant location permission.</string>
+    <string name="msg_first_name_empty">First name cannot be empty.</string>
+    <string name="msg_last_name_empty">Last name cannot be empty.</string>
+    <string name="msg_email_empty">Email cannot be empty.</string>
+    <string name="msg_invalid_email">Please enter a valid email address.</string>
+    <string name="msg_invalid_age">Please select your date of birth.</string>
+    <string name="msg_invalid_location">Your location is not yet selected.</string>
+
 
     <!-- HomeActivity -->
     <string name="sign_out">Sign Out</string>
     <string name="map_theme">Map Theme</string>
     <string name="about">About</string>
+    <string name="user_details">User Details</string>
+    <string name="donor">donor</string>
+    <string name="receiver">receiver</string>
 
-    <!-- BloodRequestActivity -->
+    <!-- RequestDialogFragment -->
     <string name="submit">Submit</string>
     <string name="txt_purpose">Purpose of your blood request</string>
     <string name="i_want_to">I want to</string>
     <string name="select_blood_group">Select Blood Group</string>
-    <string name="title_blood_request">Blood Request</string>
+    <string name="title_create_request">Create Request</string>
+    <string name="receiver_request_type">Request Blood</string>
+    <string name="donor_request_type">Donate Blood</string>
+    <string name="msg_blood_request_location_message">Your current location is required to create blood request. By this we can show everyone else where you are.</string>
+    <string name="msg_never_ask_blood_request">Your current location is required for creating blood request. Please navigate to application settings -> Permissions and grant location permission.</string>
+
+
+    <!-- General -->
+    <string name="txt_open_settings">Open Settings</string>
+    <string name="msg_location_permission_title">Location Permission Required.</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 
 
 </resources>

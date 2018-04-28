@@ -37,7 +37,7 @@ public class UserLoginActivity extends BaseActivity
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
 
-    mPresenter = new UserLoginPresenter(Injection.getFirebaseAuth(),Injection.getSharedPreference(), this);
+    mPresenter = new UserLoginPresenter(Injection.provideFireBaseAuth(),Injection.getSharedPreference(), this);
 
     userLoginInfo = new UserLoginInfo();
 

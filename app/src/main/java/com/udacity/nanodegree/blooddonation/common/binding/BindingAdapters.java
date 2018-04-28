@@ -44,23 +44,25 @@ public class BindingAdapters {
   public static void bindRadioGroup(RadioGroup view, final ObservableBoolean bindableBoolean) {
     if (view.getTag(R.id.bound_observable) != bindableBoolean) {
       view.setTag(R.id.bound_observable, bindableBoolean);
-      view.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-        @Override public void onCheckedChanged(RadioGroup group, int checkedId) {
-          bindableBoolean.set(checkedId == group.getChildAt(0).getId());
-        }
-      });
+      view.setOnCheckedChangeListener(
+          (group, checkedId) -> bindableBoolean.set(checkedId == group.getChildAt(0).getId()));
     }
     Boolean newValue = bindableBoolean.get();
     ((RadioButton) view.getChildAt(newValue ? 0 : 1)).setChecked(true);
   }
 
-  @BindingAdapter({ "app:binding" })
-  public static void bindSpinner(Spinner view, final ObservableString observableString) {
+  @BindingAdapter(value = { "observableString", "setPos" }, requireAll = false)
+  public static void bindSpinner(Spinner view, final ObservableString observableString,
+      final boolean setPos) {
     if (view.getTag(R.id.bound_observable) != observableString) {
       view.setTag(R.id.bound_observable, observableString);
       view.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+          if (setPos) {
+            observableString.set(String.valueOf(position));
+            return;
+          }
           observableString.set(parent.getItemAtPosition(position).toString());
         }
 
@@ -71,13 +73,8 @@ public class BindingAdapters {
     }
   }
 
-
   @BindingAdapter({ "app:onClick" })
   public static void bindOnClick(View view, final Runnable runnable) {
-    view.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        runnable.run();
-      }
-    });
+    view.setOnClickListener(v -> runnable.run());
   }
 }

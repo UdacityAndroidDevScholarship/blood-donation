@@ -1,67 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
   <data>
-
     <variable
         name="presenter"
         type="com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract.Presenter"
         />
   </data>
 
-  <android.support.constraint.ConstraintLayout
-      xmlns:tools="http://schemas.android.com/tools"
+  <android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      tools:context=".ui.home.view.HomeActivity"
-      >
+      android:background="#efefef"
+      tools:context=".ui.home.view.HomeActivity">
 
+    <include layout="@layout/content_main"
+        bind:presenter="@{presenter}"/>
 
-    <fragment
-        android:id="@+id/fragement_maps"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context=".ui.home.view.HomeActivity"
-        />
+    <!-- Adding bottom sheet after main content -->
+    <include layout="@layout/donor_sheet"/>
 
+    <include layout="@layout/receiver_sheet"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_current_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:onClick="@{() -> presenter.onCurrentLocationClicked()}"
-        android:src="@drawable/ic_location"
-        app:backgroundTint="@android:color/background_light"
-        app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/fab_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/colorAccent"
-        />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:onClick="@{() -> presenter.onAddClicked()}"
-        android:src="@drawable/ic_add_white_24dp"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/common_google_signin_btn_text_dark_default"
-        />
-
-  </android.support.constraint.ConstraintLayout>
+  </android.support.design.widget.CoordinatorLayout>
 </layout>

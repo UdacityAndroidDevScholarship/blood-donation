@@ -22,10 +22,19 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+
+    buildTypes.each {
+      it.resValue('string', "google_maps_key", propOrThrow('GOOGLE_MAPS_API_KEY'))
+    }
   }
 
   dataBinding {
     enabled = true
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 }
 
@@ -56,6 +65,9 @@ dependencies {
 
   // Fused location
   implementation deps.google.play_services.location
+
+  // Geo-fire
+  implementation deps.google.firebase.geo_fire
 
   testImplementation deps.junit
 
