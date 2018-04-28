@@ -1,10 +1,12 @@
 package com.udacity.nanodegree.blooddonation.ui.home;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DatabaseError;
 import com.udacity.nanodegree.blooddonation.base.BasePresenter;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
@@ -19,7 +21,10 @@ public interface HomeActivityContract {
      *
      * @param position: Lat long to animate camera at.
      */
+
     void updateCamera(@Nullable LatLng position);
+
+    void setSearchCircle(@NonNull LatLng latLng);
 
     void openCreateRequestDialog();
 
@@ -28,6 +33,14 @@ public interface HomeActivityContract {
     void addDonorMarker(ReceiverDonorRequestType receiverDonorRequestType);
 
     void showHideLoader(boolean isActive);
+
+    void putGeoKeyMarker(String key, GeoLocation location);
+
+    void removeOldGeoMarker(String key);
+
+    void animateGeoMarker(String key, GeoLocation location);
+
+    void showGeoQueryErrorDialogBox(DatabaseError error);
   }
 
   interface Presenter extends BasePresenter {
@@ -41,6 +54,10 @@ public interface HomeActivityContract {
      * Action to perform on current location click.
      */
     void onCurrentLocationClicked();
+
+    void queryGeoFire(LatLng latLng);
+
+    void queryGeoFire(LatLng latLng, String bgp);
 
     void onBloodRequest(RequestDetails requestDetails);
 
