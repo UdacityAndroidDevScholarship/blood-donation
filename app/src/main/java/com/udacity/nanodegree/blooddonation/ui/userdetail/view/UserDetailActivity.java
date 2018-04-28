@@ -18,7 +18,7 @@ import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.common.picker.DatePickerFragment;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityUserDetailsBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
-import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
+import com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.UserDetailContract;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.presenter.UserDetailPresenter;
@@ -41,7 +41,7 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
     super.onCreate(savedInstanceState);
 
     mPresenter =
-        new UserDetailPresenter(this, Injection.getFirebaseAuth(), Injection.getSharedPreference(),
+        new UserDetailPresenter(this, Injection.provideFireBaseAuth(), Injection.getSharedPreference(),
             Injection.providesDataRepo());
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_details);
     mActivityUserDetailsBinding = (ActivityUserDetailsBinding) mBinding;

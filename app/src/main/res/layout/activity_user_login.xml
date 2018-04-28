@@ -23,11 +23,10 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:padding="@dimen/dp_8"
+      android:background="@drawable/login_background"
       >
 
-
     <!--Registration-->
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_registration"
         android:layout_width="match_parent"
@@ -37,69 +36,73 @@
         android:visibility="@{!regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
         tools:visibility="visible">
 
-      <com.rilixtech.CountryCodePicker
-          android:id="@+id/cc_country_code"
-          app:ccp_defaultNameCode="IN"
-          app:ccp_showFullName="true"
-          app:ccp_enableHint="false"
-          android:layout_width="@dimen/dp_0"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/dp_8"
-          android:layout_marginEnd="@dimen/dp_16"
-          android:layout_marginLeft="@dimen/dp_16"
-          android:layout_marginRight="@dimen/dp_16"
-          android:layout_marginStart="@dimen/dp_16"
-          android:layout_marginTop="@dimen/dp_8"
-          app:layout_constraintBottom_toTopOf="@+id/et_phone_number"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0.5"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_chainStyle="packed" />
+        <com.rilixtech.CountryCodePicker
+            android:id="@+id/cc_country_code"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_8"
+            app:ccp_defaultNameCode="IN"
+            app:ccp_enableHint="false"
+            app:ccp_showFullName="true"
+            app:layout_constraintBottom_toTopOf="@+id/et_phone_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.971"
+            app:layout_constraintVertical_chainStyle="packed"/>
 
-      <android.support.v7.widget.AppCompatEditText
-          android:id="@+id/et_phone_number"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_horizontal"
-          android:layout_marginEnd="@dimen/dp_16"
-          android:layout_marginLeft="@dimen/dp_16"
-          android:layout_marginRight="@dimen/dp_16"
-          android:layout_marginStart="@dimen/dp_16"
-          android:layout_marginTop="@dimen/dp_16"
-          android:hint="@string/enter_phone_number"
-          android:inputType="number"
-          android:text="@{regisInfo.phoneNumber}"
-          android:addTextChangedListener="@{regisInfo.phoneNumberWatcher}"
-          app:layout_constraintBottom_toTopOf="@+id/bv_in"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0.5"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/cc_country_code" />
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_phone_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="8dp"
+            android:addTextChangedListener="@{regisInfo.phoneNumberWatcher}"
+            android:background="@drawable/group16"
+            android:hint="@string/enter_phone_number"
+            android:textColor="#ffffff"
+            android:inputType="phone"
+            android:digits="0123456789"
+            android:paddingBottom="3dp"
+            android:paddingLeft="43dp"
+            android:text="@{regisInfo.phoneNumber}"
+            android:textColorHint="#ffff"
+            app:layout_constraintBottom_toTopOf="@+id/bv_in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"/>
 
-      <Button
-          android:id="@+id/bv_in"
-          android:layout_width="@dimen/dp_0"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_horizontal"
-          android:layout_marginBottom="@dimen/dp_16"
-          android:layout_marginEnd="@dimen/dp_16"
-          android:layout_marginLeft="@dimen/dp_16"
-          android:layout_marginRight="@dimen/dp_16"
-          android:layout_marginStart="@dimen/dp_16"
-          android:layout_marginTop="@dimen/dp_8"
-          android:onClick="@{() -> presenter.onIamInButtonClick(regisInfo.phoneNumber,regisInfo.phoneCode)}"
-          android:text="@string/iam_in"
-          android:textAllCaps="true"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0.5"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
+        <Button
+            android:id="@+id/bv_in"
+            android:layout_width="244dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="28dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rectangle9"
+            android:onClick="@{() -> presenter.onIamInButtonClick(regisInfo.phoneNumber,regisInfo.phoneCode)}"
+            android:text="@string/iam_in"
+            android:textAllCaps="true"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"/>
 
     </android.support.constraint.ConstraintLayout>
-    <!--Verification-->
 
+
+    <!--Verification-->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_verification"
         android:layout_width="match_parent"
@@ -119,6 +122,8 @@
           android:layout_marginRight="@dimen/dp_8"
           android:layout_marginStart="@dimen/dp_8"
           android:layout_marginTop="@dimen/dp_8"
+          android:textColor="#ffff"
+
           android:text="@string/verify_mobile_number"
           android:textStyle="bold"
           android:textSize="@dimen/sp_20"
@@ -136,6 +141,7 @@
           android:layout_marginRight="@dimen/dp_16"
           android:layout_marginStart="@dimen/dp_16"
           android:layout_marginTop="@dimen/dp_16"
+          android:textColor="#fff"
           android:text="@string/otp_sent_text"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.503"
@@ -147,14 +153,18 @@
           android:layout_width="@dimen/dp_0"
           android:layout_height="wrap_content"
           android:inputType="number"
+          android:background="@drawable/group17"
           android:layout_marginEnd="@dimen/dp_16"
           android:layout_marginLeft="@dimen/dp_16"
           android:layout_marginRight="@dimen/dp_16"
           android:layout_marginStart="@dimen/dp_16"
           android:layout_marginTop="@dimen/dp_16"
+          android:paddingLeft="125dp"
           android:addTextChangedListener="@{regisInfo.otpWatcher}"
           android:text="@{regisInfo.otp}"
           android:hint="@string/hint_otp"
+          android:textColorHint="#fff"
+
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/tv_verify_label" />
@@ -168,12 +178,15 @@
           android:layout_marginTop="@dimen/dp_16"
           android:text="@string/countdown"
           app:layout_constraintEnd_toEndOf="parent"
+          android:textColor="#fff"
           app:layout_constraintTop_toBottomOf="@+id/et_otp" />
 
       <Button
           android:id="@+id/bv_verify"
           android:layout_width="@dimen/dp_0"
           android:layout_height="wrap_content"
+          android:background="@drawable/rectangle9"
+          android:textColor="#ffffff"
           android:layout_marginEnd="@dimen/dp_16"
           android:layout_marginLeft="@dimen/dp_16"
           android:layout_marginRight="@dimen/dp_16"
@@ -204,7 +217,6 @@
 
 
     </android.support.constraint.ConstraintLayout>
-
 
     <ProgressBar
         android:id="@+id/pb_loader"

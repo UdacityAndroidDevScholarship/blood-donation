@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -12,13 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.rilixtech.Country;
-import com.rilixtech.CountryCodePicker;
-import com.udacity.nanodegree.blooddonation.databinding.ActivityUserLoginBinding;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
+import com.udacity.nanodegree.blooddonation.databinding.ActivityUserLoginBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
-import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
+import com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo;
 import com.udacity.nanodegree.blooddonation.ui.login.presenter.UserLoginPresenter;
@@ -47,7 +44,7 @@ public class UserLoginActivity extends BaseActivity
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
 
-    mPresenter = new UserLoginPresenter(Injection.getFirebaseAuth(),Injection.getSharedPreference(), this);
+    mPresenter = new UserLoginPresenter(Injection.provideFireBaseAuth(),Injection.getSharedPreference(), this);
 
     userLoginInfo = new UserLoginInfo();
 
@@ -86,11 +83,7 @@ public class UserLoginActivity extends BaseActivity
     userLoginInfo.phoneCode.set("91");
 
     ((ActivityUserLoginBinding) mBinding).ccCountryCode.setOnCountryChangeListener(
-        new CountryCodePicker.OnCountryChangeListener() {
-          @Override public void onCountrySelected(Country country) {
-            userLoginInfo.phoneCode.set(country.getPhoneCode());
-          }
-        });
+        country -> userLoginInfo.phoneCode.set(country.getPhoneCode()));
 
     mPresenter.onCreate();
   }
