@@ -10,7 +10,8 @@ buildscript {
             'espressoCore'    : '3.0.1',
             'leak_canary'     :  '1.5.4',
             'timber'          : '4.7.0',
-            'play_service_location' : '15.0.0'
+            'play_services'   : '15.0.0',
+            'geo_fire'        : '2.3.1'
     ]
 
 
@@ -50,6 +51,7 @@ buildscript {
                             'appcompatV7'     : "com.android.support:appcompat-v7:${versions.supportLibrary}",
                             'annotations'     : "com.android.support:support-annotations:${versions.supportLibrary}",
                             'constraintLayout': "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
+                            'design'          : "com.android.support:design:${versions.supportLibrary}",
                             'test'            : [
                                     'runner'      : "com.android.support.test:runner:${versions.testRunner}",
                                     'espressoCore': "com.android.support.test.espresso:espresso-core:${versions.espressoCore}"
@@ -60,10 +62,12 @@ buildscript {
             'google' : [
                     'firebase': [
                             'auth': "com.google.firebase:firebase-auth:${versions.firebase}",
-                            'database':"com.google.firebase:firebase-database:${versions.firebase}"
+                            'database':"com.google.firebase:firebase-database:${versions.firebase}",
+                            'geo_fire':"com.firebase:geofire-android:${versions.geo_fire}"
                     ],
                     'play_services':[
-                        'location':"com.google.android.gms:play-services-location:${versions.play_service_location}"
+                        'location':"com.google.android.gms:play-services-location:${versions.play_services}",
+                        'maps':"com.google.android.gms:play-services-maps:${versions.play_services}"
                     ]
             ],
 
@@ -87,8 +91,8 @@ buildscript {
     }
     dependencies {
 
-        classpath 'com.android.tools.build:gradle:3.1.1'
-        classpath 'com.google.gms:google-services:3.2.0'
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha12'
+        classpath 'com.google.gms:google-services:3.2.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -115,4 +119,11 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+def propOrThrow(String name) {
+    if (hasProperty(name))
+        return getProperty(name)
+    else
+        throw new GradleException("Can't find property `$name`, make sure you have added them to the global 'gradle.properties' file")
 }

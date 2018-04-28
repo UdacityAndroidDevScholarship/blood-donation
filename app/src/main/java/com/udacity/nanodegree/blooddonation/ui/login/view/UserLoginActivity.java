@@ -18,7 +18,7 @@ import com.udacity.nanodegree.blooddonation.databinding.ActivityUserLoginBinding
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
-import com.udacity.nanodegree.blooddonation.ui.home.HomeActivity;
+import com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo;
 import com.udacity.nanodegree.blooddonation.ui.login.presenter.UserLoginPresenter;
@@ -47,7 +47,7 @@ public class UserLoginActivity extends BaseActivity
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
 
-    mPresenter = new UserLoginPresenter(Injection.getFirebaseAuth(),Injection.getSharedPreference(), this);
+    mPresenter = new UserLoginPresenter(Injection.provideFireBaseAuth(),Injection.getSharedPreference(), this);
 
     userLoginInfo = new UserLoginInfo();
 

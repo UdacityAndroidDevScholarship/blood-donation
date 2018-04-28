@@ -13,20 +13,33 @@ android {
   }
 
   buildTypes {
+
+    debug {
+      debuggable true
+    }
+
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    buildTypes.each {
+      it.resValue('string', "google_maps_key", propOrThrow('GOOGLE_MAPS_API_KEY'))
     }
   }
 
   dataBinding {
     enabled = true
   }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+  implementation fileTree(include: ['*.jar'], dir: 'libs')
   // Support lib
   implementation deps.android.support.appcompatV7
 
@@ -53,11 +66,18 @@ dependencies {
   // Fused location
   implementation deps.google.play_services.location
 
+  // Geo-fire
+  implementation deps.google.firebase.geo_fire
+
   testImplementation deps.junit
 
   androidTestImplementation deps.android.support.test.runner
   androidTestImplementation deps.android.support.test.espressoCore
 
+  implementation deps.android.support.design
+
+  implementation deps.google.play_services.maps
 }
+
 
 apply plugin: 'com.google.gms.google-services'

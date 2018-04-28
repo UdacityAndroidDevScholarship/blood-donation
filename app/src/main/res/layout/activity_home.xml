@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeActivity"
->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-    />
+  <data>
+    <variable
+        name="presenter"
+        type="com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract.Presenter"
+        />
+  </data>
 
-</android.support.constraint.ConstraintLayout>
+  <android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="#efefef"
+      tools:context=".ui.home.view.HomeActivity">
+
+    <include layout="@layout/content_main"
+        bind:presenter="@{presenter}"/>
+
+    <!-- Adding bottom sheet after main content -->
+    <include layout="@layout/donor_sheet"/>
+
+    <include layout="@layout/receiver_sheet"/>
+
+  </android.support.design.widget.CoordinatorLayout>
+</layout>
