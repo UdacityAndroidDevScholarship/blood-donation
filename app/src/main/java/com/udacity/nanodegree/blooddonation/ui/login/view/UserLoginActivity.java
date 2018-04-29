@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +18,7 @@ import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo;
 import com.udacity.nanodegree.blooddonation.ui.login.presenter.UserLoginPresenter;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity;
+import com.udacity.nanodegree.blooddonation.util.validation.PhoneNumberValidation;
 
 
 /**
@@ -38,41 +37,19 @@ public class UserLoginActivity extends BaseActivity
 
   private Button iAmInButton;
 
-  private int PHONE_NUMBER_DIGITS;
-
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
 
-    mPresenter = new UserLoginPresenter(Injection.provideFireBaseAuth(),Injection.getSharedPreference(), this);
+    mPresenter = new UserLoginPresenter(Injection.provideFireBaseAuth(),
+            Injection.getSharedPreference(), this);
 
     userLoginInfo = new UserLoginInfo();
 
     etPhoneNumber = findViewById(R.id.et_phone_number);
     iAmInButton = findViewById(R.id.bv_in);
-    PHONE_NUMBER_DIGITS = 10;
 
-    etPhoneNumber.addTextChangedListener(new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-           if(count == PHONE_NUMBER_DIGITS){
-               iAmInButton.setEnabled(true);
-           }else {
-               etPhoneNumber.setError("The mobile number must have 10 digits !!!");
-               iAmInButton.setEnabled(false);
-           }
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-
-        }
-    });
+    PhoneNumberValidation.validatePhoneNumber(etPhoneNumber , iAmInButton);
 
     ((ActivityUserLoginBinding) mBinding).setRegisInfo(userLoginInfo);
     ((ActivityUserLoginBinding) mBinding).setPresenter(mPresenter);
