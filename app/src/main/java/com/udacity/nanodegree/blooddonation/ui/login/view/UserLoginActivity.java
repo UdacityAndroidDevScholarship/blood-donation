@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
@@ -21,7 +19,7 @@ import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo;
 import com.udacity.nanodegree.blooddonation.ui.login.presenter.UserLoginPresenter;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity;
-import com.udacity.nanodegree.blooddonation.util.validation.PhoneNumberValidation;
+import com.udacity.nanodegree.blooddonation.util.AppUtil;
 
 
 /**
@@ -49,10 +47,7 @@ public class UserLoginActivity extends BaseActivity
 
     userLoginInfo = new UserLoginInfo();
 
-    etPhoneNumber = findViewById(R.id.et_phone_number);
-    iAmInButton = findViewById(R.id.bv_in);
-
-    PhoneNumberValidation.validatePhoneNumber(etPhoneNumber , iAmInButton);
+    checkForValidPhoneNumber();
 
     ((ActivityUserLoginBinding) mBinding).setRegisInfo(userLoginInfo);
     ((ActivityUserLoginBinding) mBinding).setPresenter(mPresenter);
@@ -66,6 +61,14 @@ public class UserLoginActivity extends BaseActivity
         country -> userLoginInfo.phoneCode.set(country.getPhoneCode()));
 
     mPresenter.onCreate();
+  }
+
+  public void checkForValidPhoneNumber(){
+
+    etPhoneNumber = ((ActivityUserLoginBinding) mBinding).etPhoneNumber;
+    iAmInButton = ((ActivityUserLoginBinding) mBinding).bvIn;
+
+    AppUtil.validatePhoneNumber(etPhoneNumber , iAmInButton);
   }
 
   @Override public void showNotValidPhoneNumberMessage() {
