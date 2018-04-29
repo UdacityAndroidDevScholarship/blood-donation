@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
 
   <data>
     <variable
@@ -13,15 +14,28 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="#efefef"
-      tools:context=".ui.home.view.HomeActivity">
+      tools:context=".ui.home.view.HomeActivity"
+      >
 
-    <include layout="@layout/content_main"
-        bind:presenter="@{presenter}"/>
+    <include
+        layout="@layout/content_main"
+        bind:presenter="@{presenter}"
+        />
 
     <!-- Adding bottom sheet after main content -->
     <include layout="@layout/donor_sheet"/>
 
     <include layout="@layout/receiver_sheet"/>
+
+    <ProgressBar
+        android:id="@+id/pb_loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
 
   </android.support.design.widget.CoordinatorLayout>
 </layout>

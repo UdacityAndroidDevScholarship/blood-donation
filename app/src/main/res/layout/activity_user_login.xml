@@ -26,7 +26,6 @@
       android:background="@drawable/login_background"
       >
 
-
     <!--Registration-->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_registration"
@@ -104,7 +103,6 @@
 
 
     <!--Verification-->
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_verification"
         android:layout_width="match_parent"
@@ -219,7 +217,6 @@
 
 
     </android.support.constraint.ConstraintLayout>
-
 
     <ProgressBar
         android:id="@+id/pb_loader"
