@@ -23,7 +23,6 @@
         android:background="@drawable/login_background"
         android:padding="@dimen/dp_8">
 
-
         <!--Registration-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/layout_registration"
@@ -71,7 +70,7 @@
                 android:paddingBottom="3dp"
                 android:paddingLeft="43dp"
                 android:text="@{regisInfo.phoneNumber}"
-                android:textColor="#ffffff"
+                android:textColor="@android:color/white"
                 android:textColorHint="#ffff"
                 app:layout_constraintBottom_toTopOf="@+id/bv_in"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +90,7 @@
                 android:onClick="@{() -> presenter.onIamInButtonClick(regisInfo.phoneNumber,regisInfo.phoneCode)}"
                 android:text="@string/iam_in"
                 android:textAllCaps="true"
-                android:textColor="#ffffff"
+                android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +101,6 @@
 
 
         <!--Verification-->
-
         <android.support.constraint.ConstraintLayout
             android:id="@+id/layout_verification"
             android:layout_width="match_parent"
@@ -158,11 +156,11 @@
                 android:layout_marginTop="@dimen/dp_16"
                 android:addTextChangedListener="@{regisInfo.otpWatcher}"
                 android:background="@drawable/group17"
+                android:gravity="center"
                 android:hint="@string/hint_otp"
                 android:inputType="number"
-                android:paddingLeft="125dp"
                 android:text="@{regisInfo.otp}"
-                android:textColor="#ffff"
+                android:textColor="@android:color/white"
                 android:textColorHint="#fff"
 
                 app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +191,7 @@
                 android:background="@drawable/rectangle9"
                 android:onClick="@{() -> presenter.onVerifyOtpButtonClick(regisInfo.otp)}"
                 android:text="@string/verify"
-                android:textColor="#ffffff"
+                android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_countdown" />
@@ -216,7 +214,6 @@
 
 
         </android.support.constraint.ConstraintLayout>
-
 
         <ProgressBar
             android:id="@+id/pb_loader"
