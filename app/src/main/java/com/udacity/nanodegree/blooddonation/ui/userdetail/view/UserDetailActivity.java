@@ -84,6 +84,7 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
+        mLocationUtil.onDestroy();
     }
 
     private void initSpinner() {

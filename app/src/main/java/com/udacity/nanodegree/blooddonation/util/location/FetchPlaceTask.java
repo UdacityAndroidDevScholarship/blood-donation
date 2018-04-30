@@ -1,6 +1,5 @@
 package com.udacity.nanodegree.blooddonation.util.location;
 
-import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -9,25 +8,27 @@ import android.os.AsyncTask;
 import java.io.IOException;
 import java.util.List;
 
-public class FetchPlaceTask extends AsyncTask<Object, Void, String> {
+public class FetchPlaceTask extends AsyncTask<Location, Void, String> {
 
 
+    private Geocoder mGeocoder;
     private boolean mIsAddressRequired;
     private AddressParseListener mListener;
 
-    public FetchPlaceTask(Context context, Location location, boolean isAddressRequired, AddressParseListener listener) {
+    public FetchPlaceTask(Geocoder geocoder, Location location, boolean isAddressRequired, AddressParseListener listener) {
+        mGeocoder = geocoder;
         this.mIsAddressRequired = isAddressRequired;
         this.mListener = listener;
 
 
-        execute(context, location);
+        execute(location);
     }
 
     @Override
-    protected String doInBackground(Object... objects) {
-        Location location = (Location) objects[1];
+    protected String doInBackground(Location... locations) {
+        Location location = locations[0];
         try {
-            List<Address> addresses = new Geocoder((Context) objects[0]).getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             if (addresses.size() > 0 && addresses.get(0) != null) {
                 Address address = addresses.get(0);
                 if (mIsAddressRequired)
@@ -48,7 +49,8 @@ public class FetchPlaceTask extends AsyncTask<Object, Void, String> {
         super.onPostExecute(s);
         if (s == null || s.isEmpty())
             s = "";
-        mListener.onAddressParsed(s);
+        if (mListener != null)
+            mListener.onAddressParsed(s);
     }
 
     /**

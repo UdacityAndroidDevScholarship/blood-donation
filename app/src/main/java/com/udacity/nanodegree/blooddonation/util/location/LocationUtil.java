@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.provider.Settings;
@@ -34,6 +35,8 @@ public class LocationUtil {
 
     private static final int LOCATION_SETTINGS_REQUEST_CODE = 1001;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1002;
+    private final Geocoder mGeocoder;
+    private boolean mIsLocationCallbackAdded;
     private BaseActivity mActivity;
     private LocationListener mListener;
     /**
@@ -52,6 +55,29 @@ public class LocationUtil {
 
 
         mPreferenceManager = sharedPreferenceManager;
+        mGeocoder = new Geocoder(activity);
+
+        mIsLocationCallbackAdded = false;
+
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+
+                if (locationResult != null && locationResult.getLastLocation() != null) {
+                    Location location = locationResult.getLastLocation();
+                    new FetchPlaceTask(mGeocoder, location, mIsAddressRequired, addressString -> {
+                        mListener.onLocationReceived(location, addressString);
+                        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+                        mIsLocationCallbackAdded = false;
+
+                    });
+                }
+
+            }
+        };
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mActivity);
     }
 
     /**
@@ -159,24 +185,10 @@ public class LocationUtil {
     @SuppressLint("MissingPermission")
     private void getLocation() {
 
-
-        mLocationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-
-                if (locationResult != null && locationResult.getLastLocation() != null) {
-                    Location location = locationResult.getLastLocation();
-                    new FetchPlaceTask(mActivity, location, mIsAddressRequired, addressString -> {
-                        mListener.onLocationReceived(location, addressString);
-                        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-                    });
-                }
-
-            }
-        };
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mActivity);
-        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
+        if (!mIsLocationCallbackAdded) {
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
+            mIsLocationCallbackAdded = true;
+        }
 
 
     }
@@ -197,6 +209,12 @@ public class LocationUtil {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 createLocationRequest();
         }
+    }
+
+    public void onDestroy() {
+        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+        mIsLocationCallbackAdded = false;
+
     }
 
     public interface LocationListener {
