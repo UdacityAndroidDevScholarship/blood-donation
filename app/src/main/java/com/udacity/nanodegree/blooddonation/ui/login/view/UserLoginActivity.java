@@ -3,9 +3,11 @@ package com.udacity.nanodegree.blooddonation.ui.login.view;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
+
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
@@ -22,120 +24,132 @@ import com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivit
  * Created by riteshksingh on Apr, 2018
  */
 public class UserLoginActivity extends BaseActivity
-    implements UserLoginContract.View {
+        implements UserLoginContract.View {
 
-  private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
-  private UserLoginContract.Presenter mPresenter;
+    private UserLoginContract.Presenter mPresenter;
 
-  private UserLoginInfo userLoginInfo;
+    private UserLoginInfo userLoginInfo;
 
-  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
+    private ActivityUserLoginBinding mLoginBinding;
 
-    mPresenter = new UserLoginPresenter(Injection.provideFireBaseAuth(),Injection.getSharedPreference(), this);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
+        mLoginBinding = ((ActivityUserLoginBinding) mBinding);
+        mPresenter = new UserLoginPresenter(Injection.provideFireBaseAuth(), Injection.provideFireBaseDatabase(), Injection.getSharedPreference(), this);
 
-    userLoginInfo = new UserLoginInfo();
+        userLoginInfo = new UserLoginInfo();
 
-    ((ActivityUserLoginBinding) mBinding).setRegisInfo(userLoginInfo);
-    ((ActivityUserLoginBinding) mBinding).setPresenter(mPresenter);
+        mLoginBinding.setRegisInfo(userLoginInfo);
+        mLoginBinding.setPresenter(mPresenter);
 
-    ((ActivityUserLoginBinding) mBinding).ccCountryCode.registerPhoneNumberTextView(
-        ((ActivityUserLoginBinding) mBinding).etPhoneNumber);
-
-    userLoginInfo.phoneCode.set("91");
-
-    ((ActivityUserLoginBinding) mBinding).ccCountryCode.setOnCountryChangeListener(
-        country -> userLoginInfo.phoneCode.set(country.getPhoneCode()));
-
-    mPresenter.onCreate();
-  }
-
-  @Override public void showNotValidPhoneNumberMessage() {
-    Toast.makeText(this, "Not a valid phone number", Toast.LENGTH_SHORT).show();
-  }
-
-  @Override public void showLimitExceededMessage() {
-    Toast.makeText(this, "Limit Exceeded", Toast.LENGTH_SHORT).show();
-  }
+        mLoginBinding.ccCountryCode.registerPhoneNumberTextView(
+                mLoginBinding.etPhoneNumber);
 
 
-  @Override
-  public void launchHomeScreen() {
-    Intent intent = new Intent(this, HomeActivity.class);
-    finish();
-    startActivity(intent);
-  }
+        userLoginInfo.phoneCode.set("91");
 
-  @Override
-  public void launchUserDetailsScreen() {
-    Intent intent = new Intent(this, UserDetailActivity.class);
-    finish();
-    startActivity(intent);
-  }
+        mLoginBinding.ccCountryCode.setOnCountryChangeListener(
+                country -> userLoginInfo.phoneCode.set(country.getPhoneCode()));
 
-  @Override public void showInvalidVerificationCodeMessage() {
-    Toast.makeText(UserLoginActivity.this, "Invalid verification code", Toast.LENGTH_SHORT)
-        .show();
-  }
+        initEditTexts();
 
-  @Override public void showHideLoader(boolean isActive) {
-    if (isActive) {
-      ((ActivityUserLoginBinding) mBinding).pbLoader.setVisibility(View.VISIBLE);
-      return;
+        mPresenter.onCreate();
     }
 
-    ((ActivityUserLoginBinding) mBinding).pbLoader.setVisibility(View.GONE);
-  }
+    @Override
+    public void launchHomeScreen() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        finish();
+        startActivity(intent);
+    }
 
-  @Override public void setVerificationTitleBar() {
-    getSupportActionBar().setTitle(R.string.verification);
-  }
+    @Override
+    public void launchUserDetailsScreen() {
+        Intent intent = new Intent(this, UserDetailActivity.class);
+        finish();
+        startActivity(intent);
+    }
 
-  @Override
-  public void setTimerCount(long seconds) {
-    if (seconds>0) {
-      String secondsLeft = getString(R.string.countdown, (int) seconds);
+    @Override
+    public void showHideLoader(boolean isActive) {
 
-      if (mBinding != null) {
-        ((ActivityUserLoginBinding) mBinding).tvCountdown.setText(secondsLeft);
-      }
+        mLoginBinding.pbLoader.setVisibility(isActive ? View.VISIBLE : View.GONE);
 
     }
-  }
 
-  @Override
-  public void hidePhoneNumberScreen() {
-    ((ActivityUserLoginBinding)mBinding).layoutRegistration.setVisibility(View.GONE);
-  }
-
-  @Override
-  public void showVerificationScreen(boolean visible) {
-    ((ActivityUserLoginBinding)mBinding).layoutVerification.setVisibility(visible ? View.VISIBLE : View.GONE);
-  }
-
-  @Override
-  public void setPhoneNumber(String phoneNumber) {
-    String otpSentText = getString(R.string.otp_sent_text,phoneNumber);
-    ((ActivityUserLoginBinding) mBinding).tvVerifyLabel.setText(otpSentText);
-  }
-
-  @Override
-  public void showCountdown(boolean visible) {
-    if (mBinding != null) {
-      ((ActivityUserLoginBinding) mBinding).tvCountdown.setVisibility(visible ? View.VISIBLE : View.GONE);
-      ((ActivityUserLoginBinding) mBinding).btnResendCode.setVisibility(visible ? View.GONE : View.VISIBLE);
+    @Override
+    public void setVerificationTitleBar() {
+        getSupportActionBar().setTitle(R.string.verification);
     }
-  }
 
-  @Override public void setUserRegisInfoIsCodeFlag(boolean b) {
-    userLoginInfo.isCodeSent.set(true);
-  }
+    @Override
+    public void setTimerCount(long seconds) {
+        if (seconds > 0) {
+            String secondsLeft = getString(R.string.countdown, (int) seconds);
 
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    mPresenter.onDestroy();
-  }
+            if (mBinding != null) {
+                mLoginBinding.tvCountdown.setText(secondsLeft);
+            }
+
+        }
+    }
+
+    @Override
+    public void toggleVerificationRegistrationScreen(Boolean isRegistrationVisible) {
+        if (isRegistrationVisible == null) {
+            mLoginBinding.layoutVerification.setVisibility(View.GONE);
+            mLoginBinding.layoutRegistration.setVisibility(View.GONE);
+        } else {
+            mLoginBinding.layoutVerification.setVisibility(isRegistrationVisible ? View.GONE : View.VISIBLE);
+            mLoginBinding.layoutRegistration.setVisibility(isRegistrationVisible ? View.VISIBLE : View.GONE);
+        }
+
+    }
+
+    @Override
+    public void setPhoneNumber(String phoneNumber) {
+        String otpSentText = getString(R.string.otp_sent_text, phoneNumber);
+        mLoginBinding.tvVerifyLabel.setText(otpSentText);
+    }
+
+    @Override
+    public void showCountdown(boolean visible) {
+        if (mBinding != null) {
+            mLoginBinding.tvCountdown.setVisibility(visible ? View.VISIBLE : View.GONE);
+            mLoginBinding.btnResendCode.setVisibility(visible ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void setUserRegisInfoIsCodeFlag(boolean b) {
+        userLoginInfo.isCodeSent.set(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
+    }
+
+    @Override
+    public void generalResponse(int responseId) {
+        Toast.makeText(this, responseId, Toast.LENGTH_SHORT).show();
+    }
+
+    private void initEditTexts() {
+        int delay = 50;
+        mLoginBinding.etPhoneNumber.setOnEditorActionListener((v, actionId, event) -> {
+            new Handler().postDelayed(() -> mPresenter.onIamInButtonClick(userLoginInfo.phoneNumber.get(), userLoginInfo.phoneCode.get()), delay);
+            return false;
+        });
+
+        mLoginBinding.etOtp.setOnEditorActionListener((v, actionId, event) -> {
+            new Handler().postDelayed(() -> mPresenter.onVerifyOtpButtonClick(userLoginInfo.otp.get()), delay);
+            return false;
+        });
+    }
 }

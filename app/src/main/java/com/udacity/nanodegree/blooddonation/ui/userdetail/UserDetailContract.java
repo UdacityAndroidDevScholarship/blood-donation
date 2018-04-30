@@ -1,8 +1,7 @@
 package com.udacity.nanodegree.blooddonation.ui.userdetail;
 
-import android.support.annotation.StringRes;
-
 import com.udacity.nanodegree.blooddonation.base.BasePresenter;
+import com.udacity.nanodegree.blooddonation.base.BaseView;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
 
 /**
@@ -17,20 +16,12 @@ public interface UserDetailContract {
         void onLocationClick();
     }
 
-    interface View {
+    interface View extends BaseView {
         void showDatePickerDialog();
 
         void getLastLocation();
 
         void launchHomeScreen();
-
-        /**
-         * Method to display general response.
-         *
-         * @param responseId: String resource id of the message.
-         */
-        void generalResponse(@StringRes int responseId);
-
 
     }
 }

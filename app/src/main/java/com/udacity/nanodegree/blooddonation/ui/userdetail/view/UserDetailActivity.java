@@ -55,6 +55,10 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
         mUserDetail = new UserDetail();
         mActivityUserDetailsBinding.setPresenter(mPresenter);
         mActivityUserDetailsBinding.setUserdetail(mUserDetail);
+        mActivityUserDetailsBinding.etFirstName.setOnEditorActionListener((v, actionId, event) -> {
+            mActivityUserDetailsBinding.etLastName.requestFocus();
+            return true;
+        });
         getSupportActionBar().setTitle(R.string.user_profile);
         initSpinner();
 

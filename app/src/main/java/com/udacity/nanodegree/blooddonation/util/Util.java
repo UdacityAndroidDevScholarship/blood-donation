@@ -1,5 +1,8 @@
 package com.udacity.nanodegree.blooddonation.util;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.Patterns;
 
@@ -9,6 +12,8 @@ import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
 
 import java.util.Calendar;
+
+import timber.log.Timber;
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -70,7 +75,10 @@ final public class Util {
     }
 
 
-    public static int isUserVaid(User user) {
+    public static int isValidUser(@Nullable User user) {
+
+        if (user == null)
+            return R.string.msg_empty_user;
 
         if (user.fName.isEmpty())
             return R.string.msg_first_name_empty;
@@ -92,6 +100,5 @@ final public class Util {
         }
 
         return 0;
-
     }
 }

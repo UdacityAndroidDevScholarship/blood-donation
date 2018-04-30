@@ -62,6 +62,11 @@
     <string name="msg_location_permission_title">Location Permission Required.</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="msg_empty_user">Could not find user details.</string>
+    <string name="msg_invalid_phone">Please enter a valid phone number.</string>
+    <string name="msg_something_went_wrong">Something went wrong!</string>
+    <string name="msg_invalid_code">Invalid verification code.</string>
+    <string name="msg_invalid_otp">OTP cannot be empty.</string>
 
 
 </resources>

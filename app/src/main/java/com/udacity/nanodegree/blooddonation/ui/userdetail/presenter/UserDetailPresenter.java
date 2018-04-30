@@ -47,7 +47,7 @@ public class UserDetailPresenter implements UserDetailContract.Presenter {
     @Override
     public void onCreateNowClick(UserDetail userDetail) {
         User user = Util.getPreparedUser(userDetail);
-        int isValid = Util.isUserVaid(user);
+        int isValid = Util.isValidUser(user);
         if (isValid == 0) {
             mDataRepo.saveNewUser(mFirebaseAuth.getCurrentUser().getUid(),
                     user);

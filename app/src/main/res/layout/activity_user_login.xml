@@ -67,6 +67,7 @@
                 android:hint="@string/enter_phone_number"
                 android:imeOptions="actionGo"
                 android:inputType="phone"
+                android:maxLength="15"
                 android:paddingBottom="3dp"
                 android:paddingLeft="43dp"
                 android:text="@{regisInfo.phoneNumber}"
@@ -108,7 +109,7 @@
             android:layout_marginLeft="@dimen/dp_16"
             android:layout_marginRight="@dimen/dp_16"
             android:visibility="@{regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <TextView
                 android:id="@+id/textView2"
@@ -159,10 +160,10 @@
                 android:gravity="center"
                 android:hint="@string/hint_otp"
                 android:inputType="number"
+                android:maxLength="6"
                 android:text="@{regisInfo.otp}"
                 android:textColor="@android:color/white"
                 android:textColorHint="#fff"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_verify_label" />
