@@ -5,30 +5,33 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 
+import com.udacity.nanodegree.blooddonation.util.Util;
+
 import java.io.IOException;
 import java.util.List;
 
-public class FetchPlaceTask extends AsyncTask<Location, Void, String> {
+public class FetchPlaceTask extends AsyncTask<Void, Void, String> {
 
 
     private Geocoder mGeocoder;
+    private Location mLocation;
     private boolean mIsAddressRequired;
     private AddressParseListener mListener;
 
     public FetchPlaceTask(Geocoder geocoder, Location location, boolean isAddressRequired, AddressParseListener listener) {
         mGeocoder = geocoder;
+        mLocation = location;
         this.mIsAddressRequired = isAddressRequired;
         this.mListener = listener;
 
 
-        execute(location);
+        execute();
     }
 
     @Override
-    protected String doInBackground(Location... locations) {
-        Location location = locations[0];
+    protected String doInBackground(Void... voids) {
         try {
-            List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            List<Address> addresses = mGeocoder.getFromLocation(mLocation.getLatitude(), mLocation.getLongitude(), 1);
             if (addresses.size() > 0 && addresses.get(0) != null) {
                 Address address = addresses.get(0);
                 if (mIsAddressRequired)
@@ -48,7 +51,7 @@ public class FetchPlaceTask extends AsyncTask<Location, Void, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         if (s == null || s.isEmpty())
-            s = "";
+            s = Util.convertLatLongToAddress(mLocation.getLatitude(), mLocation.getLongitude());
         if (mListener != null)
             mListener.onAddressParsed(s);
     }

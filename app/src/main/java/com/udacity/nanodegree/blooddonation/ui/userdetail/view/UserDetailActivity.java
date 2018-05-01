@@ -19,7 +19,6 @@ import com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.UserDetailContract;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.presenter.UserDetailPresenter;
-import com.udacity.nanodegree.blooddonation.util.Util;
 import com.udacity.nanodegree.blooddonation.util.location.LocationUtil;
 
 
@@ -126,9 +125,7 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
     public void onLocationReceived(@NonNull Location location, @NonNull String addressString) {
         mUserDetail.latitiude.set(location.getLatitude());
         mUserDetail.longitude.set(location.getLongitude());
-        if (!addressString.isEmpty())
-            mActivityUserDetailsBinding.tvLocationPicker.setText(addressString);
-        else
-            mActivityUserDetailsBinding.tvLocationPicker.setText(Util.convertLatLongToAddress(location.getLatitude(), location.getLongitude()));
+        mActivityUserDetailsBinding.tvLocationPicker.setText(addressString);
+
     }
 }
