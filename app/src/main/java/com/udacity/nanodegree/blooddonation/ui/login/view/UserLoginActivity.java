@@ -5,7 +5,11 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -18,6 +22,7 @@ import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo;
 import com.udacity.nanodegree.blooddonation.ui.login.presenter.UserLoginPresenter;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity;
+import com.udacity.nanodegree.blooddonation.util.AppUtil;
 
 
 /**
@@ -34,6 +39,10 @@ public class UserLoginActivity extends BaseActivity
 
     private ActivityUserLoginBinding mLoginBinding;
 
+    private EditText etPhoneNumber;
+
+    private Button iAmInButton;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +52,16 @@ public class UserLoginActivity extends BaseActivity
 
         userLoginInfo = new UserLoginInfo();
 
+        etPhoneNumber = ((ActivityUserLoginBinding) mBinding).etPhoneNumber;
+        iAmInButton = ((ActivityUserLoginBinding) mBinding).bvIn;
+
+        validatePhoneNumber(etPhoneNumber , iAmInButton);
+
         mLoginBinding.setRegisInfo(userLoginInfo);
         mLoginBinding.setPresenter(mPresenter);
 
         mLoginBinding.ccCountryCode.registerPhoneNumberTextView(
                 mLoginBinding.etPhoneNumber);
-
 
         userLoginInfo.phoneCode.set("91");
 
@@ -58,6 +71,31 @@ public class UserLoginActivity extends BaseActivity
         initEditTexts();
 
         mPresenter.onCreate();
+    }
+
+    public static void validatePhoneNumber(EditText phoneNumberView , View iAmInButtonView){
+        phoneNumberView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after){
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                int RETURN_CODE = AppUtil.phoneNumberDigitsWithinLimit(count);
+                if(RETURN_CODE == AppUtil.RETURN_VALUE_TRUE){
+                    iAmInButtonView.setEnabled(true);
+                }else if(RETURN_CODE == AppUtil.RETURN_VALUE_FALSE){
+                    iAmInButtonView.setEnabled(false);
+                    phoneNumberView.setError("The phone number must be between 7 and 13 digits !!");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @Override
