@@ -89,11 +89,7 @@ public class HomeActivity extends BaseActivity
   }
 
   @Override public void showHideLoader(boolean isActive) {
-    if (isActive) {
-      ((ActivityHomeBinding) mBinding).pbLoader.setVisibility(View.VISIBLE);
-      return;
-    }
-    ((ActivityHomeBinding) mBinding).pbLoader.setVisibility(View.GONE);
+    ((ActivityHomeBinding) mBinding).pbLoader.setVisibility(isActive? View.VISIBLE : View.GONE);
   }
 
   @Override protected void onStart() {

@@ -12,7 +12,7 @@ import com.udacity.nanodegree.blooddonation.ui.login.view.UserLoginActivity;
 /**
  * Created by riteshksingh on Apr, 2018
  */
-public class BaseActivity extends AppCompatActivity {
+abstract public class BaseActivity extends AppCompatActivity {
 
     protected ViewDataBinding mBinding = null;
 
