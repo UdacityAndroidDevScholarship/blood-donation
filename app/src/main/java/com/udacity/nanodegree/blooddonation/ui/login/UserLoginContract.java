@@ -1,44 +1,44 @@
 package com.udacity.nanodegree.blooddonation.ui.login;
 
 import com.udacity.nanodegree.blooddonation.base.BasePresenter;
+import com.udacity.nanodegree.blooddonation.base.BaseView;
 
 /**
  * Created by riteshksingh on Apr, 2018
  */
 public interface UserLoginContract {
-  interface Presenter extends BasePresenter {
-    void onIamInButtonClick(String phoneNumber,String phoneCode);
+    interface Presenter extends BasePresenter {
+        void onIamInButtonClick(String phoneNumber, String phoneCode);
 
-    void onVerifyOtpButtonClick(String otp);
+        void onVerifyOtpButtonClick(String otp);
 
-    void onResendCodeButtonClick();
-  }
+        void onResendCodeButtonClick();
+    }
 
-  interface View {
-    void showNotValidPhoneNumberMessage();
+    interface View extends BaseView {
 
-    void showLimitExceededMessage();
+        void launchHomeScreen();
 
-    void launchHomeScreen();
+        void launchUserDetailsScreen();
 
-    void launchUserDetailsScreen();
+        void showHideLoader(boolean isActive);
 
-    void showInvalidVerificationCodeMessage();
+        void setVerificationTitleBar();
 
-    void showHideLoader(boolean isActive);
+        void setUserRegisInfoIsCodeFlag(boolean b);
 
-    void setVerificationTitleBar();
+        void setTimerCount(long seconds);
 
-    void setUserRegisInfoIsCodeFlag(boolean b);
+        void setPhoneNumber(String phoneNumber);
 
-    void setTimerCount(long seconds);
+        void showCountdown(boolean visible);
 
-    void setPhoneNumber(String phoneNumber);
+        /**
+         * Method to toggle between registration and verification screen.
+         *
+         * @param isRegistrationVisible: if null Both screens will be invisible.
+         */
+        void toggleVerificationRegistrationScreen(Boolean isRegistrationVisible);
 
-    void showCountdown(boolean visible);
-
-    void hidePhoneNumberScreen();
-
-    void showVerificationScreen(boolean visible);
-  }
+    }
 }

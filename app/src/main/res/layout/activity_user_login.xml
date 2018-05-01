@@ -3,230 +3,227 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-  <data>
+    <data>
 
-    <import type="android.view.View"/>
+        <import type="android.view.View" />
 
-    <variable
-        name="regisInfo"
-        type="com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo"
-        />
+        <variable
+            name="regisInfo"
+            type="com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo" />
 
-    <variable
-        name="presenter"
-        type="com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract.Presenter"
-        />
-  </data>
+        <variable
+            name="presenter"
+            type="com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract.Presenter" />
+    </data>
 
 
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:padding="@dimen/dp_8"
-      android:background="@drawable/login_background"
-      >
-
-    <!--Registration-->
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/layout_registration"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="@{!regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
-        tools:visibility="visible">
+        android:background="@drawable/login_background"
+        android:padding="@dimen/dp_8">
 
-        <com.rilixtech.CountryCodePicker
-            android:id="@+id/cc_country_code"
-            android:layout_width="@dimen/dp_0"
+        <!--Registration-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_registration"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="@{!regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
+            tools:visibility="visible">
+
+            <com.rilixtech.CountryCodePicker
+                android:id="@+id/cc_country_code"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
+                app:ccp_defaultNameCode="IN"
+                app:ccp_enableHint="false"
+                app:ccp_showFullName="true"
+                app:layout_constraintBottom_toTopOf="@+id/et_phone_number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.971"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_phone_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="8dp"
+                android:addTextChangedListener="@{regisInfo.phoneNumberWatcher}"
+                android:background="@drawable/group16"
+                android:digits="0123456789"
+                android:hint="@string/enter_phone_number"
+                android:imeOptions="actionGo"
+                android:inputType="phone"
+                android:maxLength="15"
+                android:paddingBottom="3dp"
+                android:paddingLeft="43dp"
+                android:text="@{regisInfo.phoneNumber}"
+                android:textColor="@android:color/white"
+                android:textColorHint="#ffff"
+                app:layout_constraintBottom_toTopOf="@+id/bv_in"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <Button
+                android:id="@+id/bv_in"
+                android:layout_width="244dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="28dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rectangle9"
+                android:onClick="@{() -> presenter.onIamInButtonClick(regisInfo.phoneNumber,regisInfo.phoneCode)}"
+                android:text="@string/iam_in"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <!--Verification-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_verification"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:visibility="@{regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_8"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="@string/verify_mobile_number"
+
+                android:textColor="#ffff"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tv_verify_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_verify_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/otp_sent_text"
+                android:textColor="#fff"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <EditText
+                android:id="@+id/et_otp"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:addTextChangedListener="@{regisInfo.otpWatcher}"
+                android:background="@drawable/group17"
+                android:gravity="center"
+                android:hint="@string/hint_otp"
+                android:inputType="number"
+                android:maxLength="6"
+                android:text="@{regisInfo.otp}"
+                android:textColor="@android:color/white"
+                android:textColorHint="#fff"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_verify_label" />
+
+            <TextView
+                android:id="@+id/tv_countdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/countdown"
+                android:textColor="#fff"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_otp" />
+
+            <Button
+                android:id="@+id/bv_verify"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/rectangle9"
+                android:onClick="@{() -> presenter.onVerifyOtpButtonClick(regisInfo.otp)}"
+                android:text="@string/verify"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_countdown" />
+
+            <Button
+                android:id="@+id/btn_resend_code"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_16"
+                android:onClick="@{() -> presenter.onResendCodeButtonClick()}"
+                android:text="@string/resend_code"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bv_verify" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/pb_loader"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_8"
-            app:ccp_defaultNameCode="IN"
-            app:ccp_enableHint="false"
-            app:ccp_showFullName="true"
-            app:layout_constraintBottom_toTopOf="@+id/et_phone_number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.971"
-            app:layout_constraintVertical_chainStyle="packed"/>
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            tools:visibility="gone" />
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/et_phone_number"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="8dp"
-            android:addTextChangedListener="@{regisInfo.phoneNumberWatcher}"
-            android:background="@drawable/group16"
-            android:hint="@string/enter_phone_number"
-            android:textColor="#ffffff"
-            android:inputType="phone"
-            android:digits="0123456789"
-            android:paddingBottom="3dp"
-            android:paddingLeft="43dp"
-            android:text="@{regisInfo.phoneNumber}"
-            android:textColorHint="#ffff"
-            app:layout_constraintBottom_toTopOf="@+id/bv_in"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"/>
-
-        <Button
-            android:id="@+id/bv_in"
-            android:layout_width="244dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="28dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/rectangle9"
-            android:onClick="@{() -> presenter.onIamInButtonClick(regisInfo.phoneNumber,regisInfo.phoneCode)}"
-            android:text="@string/iam_in"
-            android:textAllCaps="true"
-            android:textColor="#ffffff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"/>
-
-    </android.support.constraint.ConstraintLayout>
-
-
-    <!--Verification-->
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/layout_verification"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/dp_16"
-        android:layout_marginRight="@dimen/dp_16"
-        android:visibility="@{regisInfo.isCodeSent ? View.VISIBLE : View.GONE}"
-        tools:visibility="gone"
-        >
-
-      <TextView
-          android:id="@+id/textView2"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/dp_8"
-          android:layout_marginLeft="@dimen/dp_8"
-          android:layout_marginRight="@dimen/dp_8"
-          android:layout_marginStart="@dimen/dp_8"
-          android:layout_marginTop="@dimen/dp_8"
-          android:textColor="#ffff"
-
-          android:text="@string/verify_mobile_number"
-          android:textStyle="bold"
-          android:textSize="@dimen/sp_20"
-          app:layout_constraintBottom_toTopOf="@+id/tv_verify_label"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
-
-      <TextView
-          android:id="@+id/tv_verify_label"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/dp_16"
-          android:layout_marginLeft="@dimen/dp_16"
-          android:layout_marginRight="@dimen/dp_16"
-          android:layout_marginStart="@dimen/dp_16"
-          android:layout_marginTop="@dimen/dp_16"
-          android:textColor="#fff"
-          android:text="@string/otp_sent_text"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0.503"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-      <EditText
-          android:id="@+id/et_otp"
-          android:layout_width="@dimen/dp_0"
-          android:layout_height="wrap_content"
-          android:inputType="number"
-          android:background="@drawable/group17"
-          android:layout_marginEnd="@dimen/dp_16"
-          android:layout_marginLeft="@dimen/dp_16"
-          android:layout_marginRight="@dimen/dp_16"
-          android:layout_marginStart="@dimen/dp_16"
-          android:layout_marginTop="@dimen/dp_16"
-          android:paddingLeft="125dp"
-          android:addTextChangedListener="@{regisInfo.otpWatcher}"
-          android:text="@{regisInfo.otp}"
-          android:hint="@string/hint_otp"
-          android:textColorHint="#fff"
-
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/tv_verify_label" />
-
-      <TextView
-          android:id="@+id/tv_countdown"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/dp_16"
-          android:layout_marginRight="@dimen/dp_16"
-          android:layout_marginTop="@dimen/dp_16"
-          android:text="@string/countdown"
-          app:layout_constraintEnd_toEndOf="parent"
-          android:textColor="#fff"
-          app:layout_constraintTop_toBottomOf="@+id/et_otp" />
-
-      <Button
-          android:id="@+id/bv_verify"
-          android:layout_width="@dimen/dp_0"
-          android:layout_height="wrap_content"
-          android:background="@drawable/rectangle9"
-          android:textColor="#ffffff"
-          android:layout_marginEnd="@dimen/dp_16"
-          android:layout_marginLeft="@dimen/dp_16"
-          android:layout_marginRight="@dimen/dp_16"
-          android:layout_marginStart="@dimen/dp_16"
-          android:layout_marginTop="@dimen/dp_16"
-          android:onClick="@{() -> presenter.onVerifyOtpButtonClick(regisInfo.otp)}"
-          android:text="@string/verify"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/tv_countdown" />
-
-      <Button
-          android:id="@+id/btn_resend_code"
-          android:layout_width="@dimen/dp_0"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/dp_16"
-          android:layout_marginLeft="@dimen/dp_16"
-          android:layout_marginRight="@dimen/dp_16"
-          android:layout_marginStart="@dimen/dp_16"
-          android:text="@string/resend_code"
-          android:visibility="gone"
-          android:onClick="@{() -> presenter.onResendCodeButtonClick()}"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0.0"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/bv_verify" />
-
-
-
-    </android.support.constraint.ConstraintLayout>
-
-    <ProgressBar
-        android:id="@+id/pb_loader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        tools:visibility="gone"
-        />
-
-  </RelativeLayout>
+    </RelativeLayout>
 
 </layout>

@@ -135,7 +135,6 @@
           android:hint="@string/hint_location"
           android:onClick="@{()->presenter.onLocationClick()}"
           android:padding="@dimen/dp_30"
-          android:text="@{Util.convertLatLongToAddress(userdetail.latitiude,userdetail.longitude)}"
           app:layout_constraintEnd_toEndOf="@+id/select_birth_date_button"
           app:layout_constraintStart_toStartOf="@+id/select_birth_date_button"
           app:layout_constraintTop_toBottomOf="@+id/select_birth_date_button"
