@@ -92,7 +92,7 @@
           android:layout_marginRight="@dimen/dp_32"
           android:layout_marginTop="@dimen/dp_64"
           android:addTextChangedListener="@{userLoginInfo.phoneNumberWatcher}"
-          android:ems="10"
+          android:maxLength="15"
           android:hint="@string/hint_phone_number"
           android:inputType="phone"
           android:textSize="@dimen/sp_16"
