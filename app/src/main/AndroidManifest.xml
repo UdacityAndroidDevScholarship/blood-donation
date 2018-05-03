@@ -23,7 +23,7 @@
     <activity
         android:name="com.udacity.nanodegree.blooddonation.ui.splash.SplashScreenActivity"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar.FullScreen">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
