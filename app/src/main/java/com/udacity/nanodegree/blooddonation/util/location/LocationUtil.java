@@ -54,7 +54,7 @@ public class LocationUtil {
     private LocationCallback mLocationCallback;
     private FusedLocationProviderClient mFusedLocationClient;
 
-    public LocationUtil(BaseActivity activity, LocationListener listener, SharedPreferenceManager sharedPreferenceManager) {
+    public <T extends AppCompatActivity> LocationUtil(T activity, LocationListener listener, SharedPreferenceManager sharedPreferenceManager) {
         mActivity = new WeakReference<>(activity);
         mListener = new WeakReference<>(listener);
 
