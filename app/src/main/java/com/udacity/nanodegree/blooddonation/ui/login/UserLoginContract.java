@@ -7,38 +7,39 @@ import com.udacity.nanodegree.blooddonation.base.BaseView;
  * Created by riteshksingh on Apr, 2018
  */
 public interface UserLoginContract {
-    interface Presenter extends BasePresenter {
-        void onIamInButtonClick(String phoneNumber, String phoneCode);
+  interface Presenter extends BasePresenter {
 
-        void onVerifyOtpButtonClick(String otp);
+    void onProceedButtonClick(String phoneNumber, String phoneCode);
 
-        void onResendCodeButtonClick();
-    }
+    void onVerifyOtpButtonClick(String otp);
 
-    interface View extends BaseView {
+    void onResendCodeButtonClick();
 
-        void launchHomeScreen();
+    void onEditPhoneNumberClick();
 
-        void launchUserDetailsScreen();
+    void onEditPhoneNumberActionYes();
+  }
 
-        void showHideLoader(boolean isActive);
+  interface View extends BaseView {
 
-        void setVerificationTitleBar();
+    void launchHomeScreen();
 
-        void setUserRegisInfoIsCodeFlag(boolean b);
+    void launchUserDetailsScreen();
 
-        void setTimerCount(long seconds);
+    void setProceedProgressVisibility(boolean isVisible);
 
-        void setPhoneNumber(String phoneNumber);
+    void setVerifyProgressVisibility(boolean isVisible);
 
-        void showCountdown(boolean visible);
+    void showPhoneNumberLayout();
 
-        /**
-         * Method to toggle between registration and verification screen.
-         *
-         * @param isRegistrationVisible: if null Both screens will be invisible.
-         */
-        void toggleVerificationRegistrationScreen(Boolean isRegistrationVisible);
+    void showVerifyOtpLayout();
 
-    }
+    void setResendButtonEnabled(boolean isEnabled);
+
+    void setResendButtonTimerCount(long secondsRemaining);
+
+    void setVerifyScreenPhoneNumber(String phoneNumber);
+
+    void showEditPhoneDialog();
+  }
 }

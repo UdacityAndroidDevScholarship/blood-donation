@@ -4,6 +4,8 @@ import android.databinding.ObservableField;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import com.goodiebag.pinview.Pinview;
+import timber.log.Timber;
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -13,12 +15,10 @@ public class UserLoginInfo {
 
   public ObservableField<String> otp = new ObservableField<>();
 
-  public ObservableField<Boolean> isCodeSent = new ObservableField<>();
-
   public ObservableField<String> phoneCode = new ObservableField<>();
 
+
   public UserLoginInfo() {
-    isCodeSent.set(false);
     phoneNumber.set("");
     otp.set("");
     phoneCode.set("");
@@ -40,18 +40,10 @@ public class UserLoginInfo {
     }
   };
 
-  public TextWatcher otpWatcher = new TextWatcher() {
-    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
+  public Pinview.PinViewEventListener pinViewEventListener = (pinview, fromUser) -> {
 
-    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override public void afterTextChanged(Editable s) {
-      if (!TextUtils.equals(otp.get(), s)) {
-        otp.set(s.toString());
-      }
+    if (!TextUtils.equals(otp.get(), pinview.getValue())) {
+      otp.set(pinview.getValue());
     }
   };
 }
