@@ -3,12 +3,9 @@ package com.udacity.nanodegree.blooddonation.ui.login.view;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.Toast;
-
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityUserLoginBinding;
@@ -19,137 +16,150 @@ import com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo;
 import com.udacity.nanodegree.blooddonation.ui.login.presenter.UserLoginPresenter;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity;
 
+import java.util.Locale;
 
 /**
  * Created by riteshksingh on Apr, 2018
  */
-public class UserLoginActivity extends BaseActivity
-        implements UserLoginContract.View {
+public class UserLoginActivity extends BaseActivity implements UserLoginContract.View {
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+  private ActivityUserLoginBinding mLoginBinding;
 
-    private UserLoginContract.Presenter mPresenter;
+  private UserLoginContract.Presenter mPresenter;
 
-    private UserLoginInfo userLoginInfo;
+  private UserLoginInfo mUserLoginInfo;
 
-    private ActivityUserLoginBinding mLoginBinding;
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
+    mLoginBinding = (ActivityUserLoginBinding) mBinding;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
-        mLoginBinding = ((ActivityUserLoginBinding) mBinding);
-        mPresenter = new UserLoginPresenter(Injection.provideFireBaseAuth(), Injection.provideFireBaseDatabase(), Injection.getSharedPreference(), this);
+    mPresenter = new UserLoginPresenter(Injection.provideFireBaseAuth(),
+        Injection.provideFireBaseDatabase(), Injection.getSharedPreference(), this);
+    mUserLoginInfo = new UserLoginInfo();
 
-        userLoginInfo = new UserLoginInfo();
+    mLoginBinding.setUserLoginInfo(mUserLoginInfo);
+    mLoginBinding.setPresenter(mPresenter);
 
-        mLoginBinding.setRegisInfo(userLoginInfo);
-        mLoginBinding.setPresenter(mPresenter);
+    mLoginBinding.ccCountryCode.registerPhoneNumberTextView(
+        mLoginBinding.etPhoneNumber);
 
-        mLoginBinding.ccCountryCode.registerPhoneNumberTextView(
-                mLoginBinding.etPhoneNumber);
+    mUserLoginInfo.phoneCode.set("91");
 
+    mLoginBinding.ccCountryCode.setOnCountryChangeListener(
+        country -> mUserLoginInfo.phoneCode.set(country.getPhoneCode())
+    );
 
-        userLoginInfo.phoneCode.set("91");
+    mPresenter.onCreate();
+  }
 
-        mLoginBinding.ccCountryCode.setOnCountryChangeListener(
-                country -> userLoginInfo.phoneCode.set(country.getPhoneCode()));
+  @Override protected void onStart() {
+    super.onStart();
+    mPresenter.onStart();
+  }
 
-        initEditTexts();
+  @Override protected void onStop() {
+    super.onStop();
+    mPresenter.onStop();
+  }
 
-        mPresenter.onCreate();
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    mPresenter.onDestroy();
+  }
+
+  @Override public void launchHomeScreen() {
+    Intent intent = new Intent(this, HomeActivity.class);
+    finish();
+    startActivity(intent);
+  }
+
+  @Override public void launchUserDetailsScreen() {
+    Intent intent = new Intent(this, UserDetailActivity.class);
+    finish();
+    startActivity(intent);
+  }
+
+  @Override public void setProceedProgressVisibility(boolean isVisible) {
+    if (isVisible) {
+      mLoginBinding.cmlProceedLayout.revealFrom(mLoginBinding.tvProceed.getWidth() / 2f,
+          mLoginBinding.tvProceed.getHeight() / 2f,
+          mLoginBinding.tvProceed.getWidth() / 2f,
+          mLoginBinding.tvProceed.getHeight() / 2f).setListener(
+          () -> {
+            mLoginBinding.tvProceed.setVisibility(View.GONE);
+            mLoginBinding.pbProcessing.setVisibility(View.VISIBLE);
+          }).start();
+    } else {
+      mLoginBinding.tvProceed.setVisibility(View.VISIBLE);
+      mLoginBinding.pbProcessing.setVisibility(View.GONE);
+      mLoginBinding.cmlProceedLayout.reverse();
     }
+  }
 
-    @Override
-    public void launchHomeScreen() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        finish();
-        startActivity(intent);
+  @Override public void setVerifyProgressVisibility(boolean isVisible) {
+    if (isVisible) {
+      mLoginBinding.cmlVerifyLayout.revealFrom(mLoginBinding.tvVerify.getWidth() / 2f,
+          mLoginBinding.tvVerify.getHeight() / 2f,
+          mLoginBinding.tvVerify.getWidth() / 2f,
+          mLoginBinding.tvVerify.getHeight() / 2f).setListener(
+          () -> {
+            mLoginBinding.tvVerify.setVisibility(View.GONE);
+            mLoginBinding.pbVerifying.setVisibility(View.VISIBLE);
+          }).start();
+    } else {
+      mLoginBinding.tvVerify.setVisibility(View.VISIBLE);
+      mLoginBinding.pbVerifying.setVisibility(View.GONE);
+      mLoginBinding.cmlVerifyLayout.reverse();
     }
+  }
 
-    @Override
-    public void launchUserDetailsScreen() {
-        Intent intent = new Intent(this, UserDetailActivity.class);
-        finish();
-        startActivity(intent);
+  @Override public void showPhoneNumberLayout() {
+    setTitle(getString(R.string.app_name));
+
+    mLoginBinding.layoutVerification.setVisibility(View.GONE);
+    mLoginBinding.layoutRegistration.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void showVerifyOtpLayout() {
+    setTitle(getString(R.string.verification));
+
+    mLoginBinding.layoutVerification.setVisibility(View.VISIBLE);
+    mLoginBinding.layoutRegistration.setVisibility(View.GONE);
+  }
+
+  @Override public void setResendButtonEnabled(boolean isEnabled) {
+    if (isEnabled) {
+      mLoginBinding.btResendCode.setEnabled(true);
+      mLoginBinding.btResendCode.setText(R.string.resend_code);
+    } else {
+      mLoginBinding.btResendCode.setEnabled(false);
     }
+  }
 
-    @Override
-    public void showHideLoader(boolean isActive) {
+  @Override public void setResendButtonTimerCount(long secondsRemaining) {
+    mLoginBinding.btResendCode.setText(
+        String.format(Locale.ENGLISH, getString(R.string.resend_code_timer), secondsRemaining));
+  }
 
-        mLoginBinding.pbLoader.setVisibility(isActive ? View.VISIBLE : View.GONE);
+  @Override public void setVerifyScreenPhoneNumber(String phoneNumber) {
+    mLoginBinding.tvPhoneNumber.setText(phoneNumber);
+  }
 
-    }
+  @Override public void showEditPhoneDialog() {
+    new AlertDialog.Builder(this)
+        .setMessage(
+            String.format(
+                getString(R.string.msg_currently_verifying_number),
+                mUserLoginInfo.phoneCode.get(), mUserLoginInfo.phoneNumber.get()))
+        .setCancelable(false)
+        .setPositiveButton(android.R.string.yes,
+            (dialog, which) -> mPresenter.onEditPhoneNumberActionYes())
+        .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.dismiss())
+        .show();
+  }
 
-    @Override
-    public void setVerificationTitleBar() {
-        getSupportActionBar().setTitle(R.string.verification);
-    }
-
-    @Override
-    public void setTimerCount(long seconds) {
-        if (seconds > 0) {
-            String secondsLeft = getString(R.string.countdown, (int) seconds);
-
-            if (mBinding != null) {
-                mLoginBinding.tvCountdown.setText(secondsLeft);
-            }
-
-        }
-    }
-
-    @Override
-    public void toggleVerificationRegistrationScreen(Boolean isRegistrationVisible) {
-        if (isRegistrationVisible == null) {
-            mLoginBinding.layoutVerification.setVisibility(View.GONE);
-            mLoginBinding.layoutRegistration.setVisibility(View.GONE);
-        } else {
-            mLoginBinding.layoutVerification.setVisibility(isRegistrationVisible ? View.GONE : View.VISIBLE);
-            mLoginBinding.layoutRegistration.setVisibility(isRegistrationVisible ? View.VISIBLE : View.GONE);
-        }
-
-    }
-
-    @Override
-    public void setPhoneNumber(String phoneNumber) {
-        String otpSentText = getString(R.string.otp_sent_text, phoneNumber);
-        mLoginBinding.tvVerifyLabel.setText(otpSentText);
-    }
-
-    @Override
-    public void showCountdown(boolean visible) {
-        if (mBinding != null) {
-            mLoginBinding.tvCountdown.setVisibility(visible ? View.VISIBLE : View.GONE);
-            mLoginBinding.btnResendCode.setVisibility(visible ? View.GONE : View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void setUserRegisInfoIsCodeFlag(boolean b) {
-        userLoginInfo.isCodeSent.set(true);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.onDestroy();
-    }
-
-    @Override
-    public void generalResponse(int responseId) {
-        Toast.makeText(this, responseId, Toast.LENGTH_SHORT).show();
-    }
-
-    private void initEditTexts() {
-        int delay = 50;
-        mLoginBinding.etPhoneNumber.setOnEditorActionListener((v, actionId, event) -> {
-            new Handler().postDelayed(() -> mPresenter.onIamInButtonClick(userLoginInfo.phoneNumber.get(), userLoginInfo.phoneCode.get()), delay);
-            return false;
-        });
-
-        mLoginBinding.etOtp.setOnEditorActionListener((v, actionId, event) -> {
-            new Handler().postDelayed(() -> mPresenter.onVerifyOtpButtonClick(userLoginInfo.otp.get()), delay);
-            return false;
-        });
-    }
+  @Override public void generalResponse(int responseId) {
+    showSnackBar(getString(responseId));
+  }
 }

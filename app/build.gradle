@@ -10,6 +10,8 @@ android {
     versionCode buildConfig.version.code
     versionName buildConfig.version.name
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    vectorDrawables.useSupportLibrary = true
   }
 
   buildTypes {
@@ -27,6 +29,17 @@ android {
       it.resValue('string', "google_maps_key", propOrThrow('GOOGLE_MAPS_API_KEY'))
     }
   }
+
+  lintOptions {
+    textReport true
+    textOutput 'stdout'
+    lintConfig rootProject.file('lint.xml')
+
+    checkDependencies true
+    checkTestSources true
+    explainIssues false
+  }
+
 
   dataBinding {
     enabled = true
@@ -56,7 +69,7 @@ dependencies {
   implementation deps.google.firebase.database
 
   //Country code picker
-  // https://android-arsenal.com/details/1/5753
+  // https://android-arsenal.com/details/1/5753 // TODO: move to project level gradle
   implementation 'com.github.joielechong:countrycodepicker:2.1.5'
 
   // Leak canary
@@ -74,6 +87,9 @@ dependencies {
 
   // Map
   implementation deps.google.play_services.maps
+
+  // PinView // TODO: move to project level gradle
+  implementation 'com.github.GoodieBag:Pinview:v1.3'
 
   testImplementation deps.junit
 
