@@ -2,12 +2,13 @@ package com.udacity.nanodegree.blooddonation.common.binding;
 
 import android.databinding.BaseObservable;
 import android.databinding.BindingConversion;
+
 import java.io.Serializable;
 
 /**
  * Created by riteshksingh on Apr, 2018
  */
-public class ObservableString extends BaseObservable implements Serializable{
+public class ObservableString extends BaseObservable implements Serializable {
   private String value = "";
 
   public ObservableString(String value) {
