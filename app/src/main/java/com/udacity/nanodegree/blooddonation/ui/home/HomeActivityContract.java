@@ -2,6 +2,7 @@ package com.udacity.nanodegree.blooddonation.ui.home;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -13,54 +14,54 @@ import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
 
 public interface HomeActivityContract {
 
-  interface View extends GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
+    interface View extends GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
-    /**
-     * Method to zoom camera to a particular location. If {@code position} is null the camera
-     * must animate to the current location if it is available.
-     *
-     * @param position: Lat long to animate camera at.
-     */
+        /**
+         * Method to zoom camera to a particular location. If {@code position} is null the camera
+         * must animate to the current location if it is available.
+         *
+         * @param position: Lat long to animate camera at.
+         */
 
-    void updateCamera(@Nullable LatLng position);
+        void updateCamera(@Nullable LatLng position);
 
-    void setSearchCircle(@NonNull LatLng latLng);
+        void setSearchCircle(@NonNull LatLng latLng);
 
-    void openCreateRequestDialog();
+        void openCreateRequestDialog();
 
-    void addRequestMarker(ReceiverDonorRequestType receiverDonorRequestType);
+        void addRequestMarker(ReceiverDonorRequestType receiverDonorRequestType);
 
-    void addDonorMarker(ReceiverDonorRequestType receiverDonorRequestType);
+        void addDonorMarker(ReceiverDonorRequestType receiverDonorRequestType);
 
-    void showHideLoader(boolean isActive);
+        void showHideLoader(boolean isActive);
 
-    void putGeoKeyMarker(String key, GeoLocation location);
+        void putGeoKeyMarker(String key, GeoLocation location);
 
-    void removeOldGeoMarker(String key);
+        void removeOldGeoMarker(String key);
 
-    void animateGeoMarker(String key, GeoLocation location);
+        void animateGeoMarker(String key, GeoLocation location);
 
-    void showGeoQueryErrorDialogBox(DatabaseError error);
-  }
+        void showGeoQueryErrorDialogBox(DatabaseError error);
+    }
 
-  interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter {
 
-    /**
-     * Action to perform on pressing add button.
-     */
-    void onAddClicked();
+        /**
+         * Action to perform on pressing add button.
+         */
+        void onAddClicked();
 
-    /**
-     * Action to perform on current location click.
-     */
-    void onCurrentLocationClicked();
+        /**
+         * Action to perform on current location click.
+         */
+        void onCurrentLocationClicked();
 
-    void queryGeoFire(LatLng latLng);
+        void queryGeoFire(LatLng latLng);
 
-    void queryGeoFire(LatLng latLng, String bgp);
+        void queryGeoFire(LatLng latLng, String bgp);
 
-    void onBloodRequest(RequestDetails requestDetails);
+        void onBloodRequest(RequestDetails requestDetails);
 
-    void onDonateRequest(RequestDetails requestDetails);
-  }
+        void onDonateRequest(RequestDetails requestDetails);
+    }
 }
