@@ -1,87 +1,73 @@
 <resources>
-  <string name="app_name">Blood Donation</string>
 
-  <!--LoginScreen Activity-->
-
-  <string name="hi">Hi.</string>
-  <string name="lets_get_started">Let\'s Get Started</string>
-  <string name="hint_phone_number">Phone Number</string>
-  <string name="proceed">PROCEED</string>
-
-  <string name="wait_for_auto_verify">Waiting to automatically detect an SMS sent to you mobile number</string>
-  <string name="enter_6_digit_code">Enter 6 - Digit code</string>
-  <string name="didn_t_receive_the_code">Didn\'t receive the code?</string>
-
-  <string name="verify">Verify</string>
-  <string name="verification">Verification</string>
-
-  <string name="msg_invalid_otp">OTP cannot be empty.</string>
-  <string name="msg_invalid_phone_number">Invalid Phone Number!</string>
-  <string name="msg_verification_already_in_progress">Please wait! Verification already in progress.</string>
-  <string name="msg_otp_has_been_sent">An OTP has been sent to your phone number.</string>
-  <string name="msg_encountered_an_unexpected_error">We have encountered an unexpected error while verifying your phone number!</string>
-  <string name="msg_invalid_verification_code">Invalid verification code!</string>
-  <string name="msg_sms_verification_limit_exceeded">Oops! You have exceeded the maximum limit for SMS verification, please try again later.</string>
-  <string name="msg_currently_verifying_number">Currently we are verifying the phone number:\n\n+%1$s-%2$s\n\nwould you like to edit the number?</string>
-
-  <string name="resend_code">RESEND CODE</string>
-  <string name="resend_code_timer">RESEND CODE (%ds)</string>
+    <string name="app_name">Blood Donation</string>
 
 
-  <!-- <string name="resend_code">Resend Code</string>-->
+    <!--LoginScreen Activity-->
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="iam_in">I am in</string>
+    <string name="verify_mobile_number">Verify mobile number.OTP has been sent"</string>
+    <string name="verify">Verify</string>
+    <string name="verification">Verification</string>
+    <string name="verify_phone_number">VERIFY PHONE NUMBER</string>
+    <string name="otp_sent_text">OTP has been sent to %1$s.</string>
+    <string name="hint_otp">OTP</string>
+    <string name="countdown">%1$d seconds left!</string>
+    <string name="resend_code">Resend Code</string>
 
 
-  <!--UserDetailActivity-->
-  <string name="user_profile">Profile</string>
-  <string name="hint_first_name">First Name</string>
-  <string name="hint_last_name">Last Name</string>
-  <string name="hint_birth_date">Select Birth Date</string>
-  <string name="hint_location">Select Your Location</string>
-  <string name="create_now">Create Now</string>
-  <string name="hint_email">Email</string>
-  <string name="gender_male">Male</string>
-  <string name="gender">Gender</string>
-  <string name="gender_female">Female</string>
-
-  <string name="msg_sign_up_location_message">Your current location is required to sign you up so that you can get benefit of our loved community by sharing with them where you are.</string>
-  <string name="msg_never_ask_sign_up">Sign up process cannot be completed without location access. Please navigate to application settings -> Permissions and grant location permission.</string>
-  <string name="msg_first_name_empty">First name cannot be empty.</string>
-  <string name="msg_last_name_empty">Last name cannot be empty.</string>
-  <string name="msg_email_empty">Email cannot be empty.</string>
-  <string name="msg_invalid_email">Please enter a valid email address.</string>
-  <string name="msg_invalid_age">Please select your date of birth.</string>
-  <string name="msg_invalid_location">Your location is not yet selected.</string>
-
-
-  <!-- HomeActivity -->
-  <string name="sign_out">Sign Out</string>
-  <string name="map_theme">Map Theme</string>
-  <string name="about">About</string>
-  <string name="user_details">User Details</string>
-  <string name="donor">donor</string>
-  <string name="receiver">receiver</string>
-
-  <!-- RequestDialogFragment -->
-  <string name="submit">Submit</string>
-  <string name="txt_purpose">Purpose of your blood request</string>
-  <string name="i_want_to">I want to</string>
-  <string name="select_blood_group">Select Blood Group</string>
-  <string name="title_create_request">Create Request</string>
-  <string name="receiver_request_type">Request Blood</string>
-  <string name="donor_request_type">Donate Blood</string>
-  <string name="msg_blood_request_location_message">Your current location is required to create blood request. By this we can show everyone else where you are.</string>
-  <string name="msg_never_ask_blood_request">Your current location is required for creating blood request. Please navigate to application settings -> Permissions and grant location permission.</string>
+    <!--UserDetailActivity-->
+    <string name="user_profile">Profile</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_birth_date">Select Birth Date</string>
+    <string name="hint_location">Select Your Location</string>
+    <string name="create_now">Create Now</string>
+    <string name="hint_email">Email</string>
+    <string name="gender_male">Male</string>
+    <string name="gender">Gender</string>
+    <string name="gender_female">Female</string>
+    <string name="date_hint">Select date</string>
+    <string name="msg_sign_up_location_message">Your current location is required to sign you up so that you can get benefit of our loved community by sharing with them where you are.</string>
+    <string name="msg_never_ask_sign_up">Sign up process cannot be completed without location access. Please navigate to application settings -> Permissions and grant location permission.</string>
+    <string name="msg_first_name_empty">First name cannot be empty.</string>
+    <string name="msg_last_name_empty">Last name cannot be empty.</string>
+    <string name="msg_email_empty">Email cannot be empty.</string>
+    <string name="msg_invalid_email">Please enter a valid email address.</string>
+    <string name="msg_invalid_age">Please select your date of birth.</string>
+    <string name="msg_invalid_location">Your location is not yet selected.</string>
 
 
-  <!-- General -->
-  <string name="txt_open_settings">Open Settings</string>
-  <string name="msg_location_permission_title">Location Permission Required.</string>
-  <string name="cancel">Cancel</string>
-  <string name="ok">OK</string>
-  <string name="msg_empty_user">Could not find user details.</string>
+    <!-- HomeActivity -->
+    <string name="sign_out">Sign Out</string>
+    <string name="map_theme">Map Theme</string>
+    <string name="about">About</string>
+    <string name="user_details">User Details</string>
+    <string name="donor">donor</string>
+    <string name="receiver">receiver</string>
 
-  <string name="msg_no_internet_connection">No internet connection!</string>
+    <!-- RequestDialogFragment -->
+    <string name="submit">Submit</string>
+    <string name="txt_purpose">Purpose of your blood request</string>
+    <string name="i_want_to">I want to</string>
+    <string name="select_blood_group">Select Blood Group</string>
+    <string name="title_create_request">Create Request</string>
+    <string name="receiver_request_type">Request Blood</string>
+    <string name="donor_request_type">Donate Blood</string>
+    <string name="msg_blood_request_location_message">Your current location is required to create blood request. By this we can show everyone else where you are.</string>
+    <string name="msg_never_ask_blood_request">Your current location is required for creating blood request. Please navigate to application settings -> Permissions and grant location permission.</string>
 
 
+    <!-- General -->
+    <string name="txt_open_settings">Open Settings</string>
+    <string name="msg_location_permission_title">Location Permission Required.</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="msg_empty_user">Could not find user details.</string>
+    <string name="msg_invalid_phone">Please enter a valid phone number.</string>
+    <string name="msg_something_went_wrong">Something went wrong!</string>
+    <string name="msg_invalid_code">Invalid verification code.</string>
+    <string name="msg_invalid_otp">OTP cannot be empty.</string>
+    <string name="app_about">This is a free Blood Donation Mobile Application which helps needful patients to search for blood donors in their city or area and request for blood donation.Connecting blood donors and needy reduces time which increases the possibility of saving lives and also eliminates the shortage of blood.</string>
 
 </resources>

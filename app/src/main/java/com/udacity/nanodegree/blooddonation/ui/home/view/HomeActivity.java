@@ -1,5 +1,6 @@
 package com.udacity.nanodegree.blooddonation.ui.home.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
+import com.udacity.nanodegree.blooddonation.ui.about.AboutActivity;
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter;
 import java.util.HashMap;
@@ -172,7 +174,8 @@ public class HomeActivity extends BaseActivity
         Toast.makeText(this, "Map Theme", Toast.LENGTH_SHORT).show();
         break;
       case R.id.action_about:
-        Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+        Intent about = new Intent(HomeActivity.this, AboutActivity.class);
+        startActivity(about);
         break;
       case R.id.action_sign_out:
         logout();
