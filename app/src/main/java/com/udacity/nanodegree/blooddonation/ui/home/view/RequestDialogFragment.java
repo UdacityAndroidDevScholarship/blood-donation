@@ -1,6 +1,7 @@
 package com.udacity.nanodegree.blooddonation.ui.home.view;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Point;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.udacity.nanodegree.blooddonation.R;
@@ -35,8 +39,10 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
   private FusedLocationProviderClient mFusedLocationClient;
 
   private RequestDetails mRequestDetails;
+  Button button;
 
   public RequestDialogFragment() {
+
   }
 
   private FragmentBloodRequestBinding mFragmentBloodRequestBinding;
@@ -48,6 +54,7 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
       Bundle savedInstanceState) {
     setCancelable(false);
     mRequestDetails = new RequestDetails();
+
     mPresenter = new RequestDialogPresenter(this, Injection.provideFireBaseAuth(),
         Injection.providesDataRepo());
     mFragmentBloodRequestBinding =
@@ -56,7 +63,11 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     mFragmentBloodRequestBinding.setRequestDetails(mRequestDetails);
     mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
     return mFragmentBloodRequestBinding.getRoot();
+
+
   }
+
+
 
   @SuppressLint("MissingPermission") private void getLocation() {
     mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), location -> {
@@ -76,13 +87,21 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     }
   }
 
+
+
   @Override public void dismissDialog(boolean isReceiver, ReceiverDonorRequestType receiverDonorRequestType) {
     IRequestDialogFragmentListener listener = (IRequestDialogFragmentListener) getActivity();
     listener.onRequestDialogDismissed(isReceiver, receiverDonorRequestType);
     dismiss();
   }
 
-  @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+    @Override
+    public void dismissDialog() {
+
+      onDestroyView();
+    }
+
+    @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
       @NonNull int[] grantResults) {
     switch (requestCode) {
       case MY_PERMISSIONS_REQUEST_FINE_LOCATION:
@@ -112,7 +131,11 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     super.onDestroyView();
   }
 
+
+
   public interface IRequestDialogFragmentListener {
     void onRequestDialogDismissed(boolean isReceiver, ReceiverDonorRequestType receiverDonorRequestType);
   }
+
 }
+

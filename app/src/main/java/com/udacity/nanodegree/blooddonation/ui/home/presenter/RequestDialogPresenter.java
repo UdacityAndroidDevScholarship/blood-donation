@@ -1,12 +1,17 @@
 package com.udacity.nanodegree.blooddonation.ui.home.presenter;
 
+import android.content.Intent;
+
 import com.firebase.geofire.GeoLocation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.udacity.nanodegree.blooddonation.data.model.Location;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
+import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
 import com.udacity.nanodegree.blooddonation.ui.home.RequestDialogContract;
 import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
+import com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity;
+import com.udacity.nanodegree.blooddonation.ui.home.view.RequestDialogFragment;
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -72,6 +77,8 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
         });
   }
 
+
+
   @Override public void onSubmitButtonClick(RequestDetails requestDetails) {
     // Request Type is receiver
     if (requestDetails.requestType.get().trim().equalsIgnoreCase("0")) {
@@ -79,8 +86,16 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
       return;
     }
 
+
     // Request Type is donor
     saveDonorDetails(requestDetails);
+  }
+
+   //Click cancel button will take you to HomeActivity
+  @Override public void onCancelButtonClick() {
+
+    mView.dismissDialog();
+
   }
 
   @Override public void onLocationClick() {

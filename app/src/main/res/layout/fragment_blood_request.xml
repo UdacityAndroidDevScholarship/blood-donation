@@ -110,16 +110,43 @@
           android:padding="@dimen/dp_30"
           />
 
-      <Button
-          android:id="@+id/submit"
+      <LinearLayout
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_horizontal"
-          android:layout_marginTop="@dimen/dp_16"
-          android:onClick="@{()->presenter.onSubmitButtonClick(requestDetails)}"
-          android:text="@string/submit"
-          style="@style/Widget.AppCompat.Button.Colored"
-          />
+          android:orientation="horizontal"
+          android:layout_marginTop="15sp"
+          android:layout_margin="10sp"
+          android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/submit"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="5sp"
+            android:background="@drawable/shapeone"
+            android:onClick="@{()->presenter.onSubmitButtonClick(requestDetails)}"
+            android:text="@string/submit"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="145dp" />
+
+        <Button
+            android:id="@+id/cancelBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="5sp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shapeone"
+            android:onClick="@{()->presenter.onCancelButtonClick()}"
+            android:text="@string/cancel"
+            app:layout_constraintTop_toTopOf="parent" />
+      </LinearLayout>
+
+
+
 
     </LinearLayout>
 

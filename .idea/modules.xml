@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects-blood-donation.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects-blood-donation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/blood-donation.iml" filepath="$PROJECT_DIR$/blood-donation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/blood-donation-app.iml" filepath="$PROJECT_DIR$/app/blood-donation-app.iml" />
+    </modules>
+  </component>
+</project>
