@@ -64,7 +64,6 @@ public class HomeActivity extends BaseActivity
     private Marker mDonorMarker;
 
     private Map<String, Marker> markers;
-    private LocationUtil mLocationUtil;
 
 
     @Override

@@ -2,9 +2,13 @@ package com.udacity.nanodegree.blooddonation.ui.home.presenter;
 
 import com.firebase.geofire.GeoLocation;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
+import com.udacity.nanodegree.blooddonation.constants.SharedPrefConstants;
 import com.udacity.nanodegree.blooddonation.data.model.Location;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
+import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
+import com.udacity.nanodegree.blooddonation.storage.SharedPreferenceManager;
 import com.udacity.nanodegree.blooddonation.ui.home.RequestDialogContract;
 import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
 
@@ -15,14 +19,16 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
 
     private final FirebaseAuth mFirebaseAuth;
     private final DonationDataSource mDataRepo;
+    private SharedPreferenceManager mSharedPreferenceManager;
     private RequestDialogContract.View mView;
     private ReceiverDonorRequestType receiverDonorRequestType;
 
     public RequestDialogPresenter(RequestDialogContract.View view, FirebaseAuth firebaseAuth,
-                                  DonationDataSource dataRepo) {
+                                  DonationDataSource dataRepo, SharedPreferenceManager sharedPreferenceManager) {
         this.mView = view;
         this.mFirebaseAuth = firebaseAuth;
         this.mDataRepo = dataRepo;
+        mSharedPreferenceManager = sharedPreferenceManager;
     }
 
     @Override
@@ -61,6 +67,8 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
     }
 
     private void saveDonorDetails(RequestDetails requestDetails) {
+
+        requestDetails.bloodGroup.set(new Gson().fromJson(mSharedPreferenceManager.getString(SharedPrefConstants.USER_DETAILS), User.class).bloodGroup);
         prepareReceiverDonorRequestType(requestDetails);
         mDataRepo.saveDonorDetails(mFirebaseAuth.getCurrentUser().getUid(),
                 requestDetails.bloodGroup.get(),

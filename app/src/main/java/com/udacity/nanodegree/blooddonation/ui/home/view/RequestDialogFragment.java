@@ -52,7 +52,7 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
         setCancelable(true);
         mRequestDetails = new RequestDetails();
         mPresenter = new RequestDialogPresenter(this, Injection.provideFireBaseAuth(),
-                Injection.providesDataRepo());
+                Injection.providesDataRepo(), Injection.getSharedPreference());
         mFragmentBloodRequestBinding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_blood_request, container, false);
         mFragmentBloodRequestBinding.setPresenter(mPresenter);

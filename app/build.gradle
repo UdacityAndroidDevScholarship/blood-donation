@@ -91,6 +91,9 @@ dependencies {
   // PinView // TODO: move to project level gradle
   implementation 'com.github.GoodieBag:Pinview:v1.3'
 
+  implementation deps.google.gson.gson
+
+
   testImplementation deps.junit
 
   androidTestImplementation deps.android.support.test.runner

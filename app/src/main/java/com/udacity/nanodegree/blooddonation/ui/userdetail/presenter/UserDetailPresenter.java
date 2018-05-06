@@ -1,6 +1,7 @@
 package com.udacity.nanodegree.blooddonation.ui.userdetail.presenter;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
 import com.udacity.nanodegree.blooddonation.constants.SharedPrefConstants;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
@@ -52,6 +53,7 @@ public class UserDetailPresenter implements UserDetailContract.Presenter {
             mDataRepo.saveNewUser(mFirebaseAuth.getCurrentUser().getUid(),
                     user);
             mSharedPreferenceManager.put(SharedPrefConstants.IS_USER_DETAILS_ENTERED, true);
+            mSharedPreferenceManager.put(SharedPrefConstants.USER_DETAILS, new Gson().toJson(user));
             mView.launchHomeScreen();
         } else mView.generalResponse(isValid);
 
