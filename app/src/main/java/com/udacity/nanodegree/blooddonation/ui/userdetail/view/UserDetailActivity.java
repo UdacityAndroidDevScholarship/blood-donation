@@ -62,8 +62,8 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
         initSpinner();
 
 
-        mLocationUtil = new LocationUtil(this, this, Injection.getSharedPreference());
-        mLocationUtil.fetchLocationForSignUp();
+        mLocationUtil = new LocationUtil(this, Injection.getSharedPreference());
+        mLocationUtil.fetchApproximateLocation(this);
         mPresenter.onCreate();
     }
 
@@ -101,7 +101,7 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
 
     @Override
     public void getLastLocation() {
-        mLocationUtil.fetchLocationForSignUp();
+        mLocationUtil.fetchApproximateLocation(this);
     }
 
     @Override

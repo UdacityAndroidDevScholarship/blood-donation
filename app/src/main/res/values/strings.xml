@@ -81,7 +81,7 @@
   <string name="msg_empty_user">Could not find user details.</string>
 
   <string name="msg_no_internet_connection">No internet connection!</string>
-
+    <string name="msg_please_wait">Please Wait.</string>
 
 
 </resources>

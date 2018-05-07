@@ -22,6 +22,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
+import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.databinding.FragmentBloodRequestBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.RequestDialogContract;
@@ -35,6 +36,7 @@ import com.udacity.nanodegree.blooddonation.util.location.LocationUtil;
 public class RequestDialogFragment extends DialogFragment implements RequestDialogContract.View, LocationUtil.LocationListener {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 101;
+    private static User mUser;
     private FusedLocationProviderClient mFusedLocationClient;
 
     private RequestDetails mRequestDetails;
@@ -45,6 +47,12 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     public RequestDialogFragment() {
     }
 
+    public static RequestDialogFragment getInstance(User user) {
+
+        mUser = user;
+        return new RequestDialogFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -52,7 +60,7 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
         setCancelable(true);
         mRequestDetails = new RequestDetails();
         mPresenter = new RequestDialogPresenter(this, Injection.provideFireBaseAuth(),
-                Injection.providesDataRepo(), Injection.getSharedPreference());
+                Injection.providesDataRepo(), mUser);
         mFragmentBloodRequestBinding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_blood_request, container, false);
         mFragmentBloodRequestBinding.setPresenter(mPresenter);
@@ -65,8 +73,8 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mLocationUtil = new LocationUtil((AppCompatActivity) getActivity(), this, Injection.getSharedPreference());
-        mLocationUtil.fetchLocationForBloodRequest();
+        mLocationUtil = new LocationUtil((AppCompatActivity) getActivity(), Injection.getSharedPreference());
+        mLocationUtil.fetchPreciseLocation(this);
     }
 
     @SuppressLint("MissingPermission")
@@ -81,7 +89,7 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
 
     @Override
     public void getLastLocation() {
-        mLocationUtil.fetchLocationForBloodRequest();
+        mLocationUtil.fetchPreciseLocation(this);
     }
 
     @Override

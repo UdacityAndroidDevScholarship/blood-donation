@@ -2,7 +2,6 @@ package com.udacity.nanodegree.blooddonation.ui.home.view;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +26,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -35,6 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
+import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
@@ -48,7 +47,7 @@ import java.util.Map;
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
  */
 public class HomeActivity extends BaseActivity
-        implements HomeActivityContract.View, RequestDialogFragment.IRequestDialogFragmentListener {
+        implements HomeActivityContract.View, RequestDialogFragment.IRequestDialogFragmentListener, LocationUtil.LocationListener {
 
     private static final int INITIAL_ZOOM_LEVEL = 14;
 
@@ -63,8 +62,26 @@ public class HomeActivity extends BaseActivity
     private Marker mRequestMarker;
     private Marker mDonorMarker;
 
+    private LocationUtil mLocationUtil;
+
     private Map<String, Marker> markers;
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        mLocationUtil.onPermissionResult(requestCode, permissions, grantResults);
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        mLocationUtil.onResolutionResult(requestCode, resultCode, data);
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,6 +110,8 @@ public class HomeActivity extends BaseActivity
         markers = new HashMap<>();
 
         mPresenter.onCreate();
+
+        mLocationUtil = new LocationUtil(this, Injection.getSharedPreference());
     }
 
     @Override
@@ -195,13 +214,13 @@ public class HomeActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+    /*@Override
     public void setSearchCircle(@NonNull LatLng latLng) {
         searchCircle = mMap.addCircle(new CircleOptions().center(latLng).radius(1000));
         searchCircle.setFillColor(Color.argb(66, 255, 0, 255));
         searchCircle.setStrokeColor(Color.argb(66, 0, 0, 0));
         updateCamera(latLng);
-    }
+    }*/
 
     @Override
     public void updateCamera(@Nullable LatLng latLng) {
@@ -210,6 +229,11 @@ public class HomeActivity extends BaseActivity
         }
         CameraUpdate location = CameraUpdateFactory.newLatLngZoom(latLng, INITIAL_ZOOM_LEVEL);
         mMap.animateCamera(location, 2000, null);
+    }
+
+    @Override
+    public void fetchCurrentLocation() {
+        mLocationUtil.fetchApproximateLocation(this);
     }
 
     public void toggleBottomSheet(BottomSheetBehavior<LinearLayout> sheetBehavior,
@@ -223,9 +247,9 @@ public class HomeActivity extends BaseActivity
     }
 
     @Override
-    public void openCreateRequestDialog() {
+    public void openCreateRequestDialog(@NonNull User user) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        RequestDialogFragment requestDialogFragment = new RequestDialogFragment();
+        RequestDialogFragment requestDialogFragment = RequestDialogFragment.getInstance(user);
         requestDialogFragment.show(fragmentManager, "request_dialog");
     }
 
@@ -262,7 +286,7 @@ public class HomeActivity extends BaseActivity
 
         updateCamera(latLng);
 
-        mPresenter.queryGeoFire(latLng, receiverDonorRequestType.getbGp());
+        //mPresenter.queryGeoFire(latLng, receiverDonorRequestType.getbGp());
     }
 
     @Override
@@ -282,6 +306,8 @@ public class HomeActivity extends BaseActivity
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnMarkerClickListener(this);
+        mLocationUtil.fetchApproximateLocation(this);
+
     }
 
     @Override
@@ -358,6 +384,13 @@ public class HomeActivity extends BaseActivity
     }
 
 
+    @Override
+    public void generalResponse(int responseId) {
+        Toast.makeText(this, responseId, Toast.LENGTH_SHORT).show();
+    }
 
-
+    @Override
+    public void onLocationReceived(@NonNull Location location, @NonNull String addressString) {
+        updateCamera(new LatLng(location.getLatitude(), location.getLongitude()));
+    }
 }

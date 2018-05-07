@@ -9,12 +9,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseError;
 import com.udacity.nanodegree.blooddonation.base.BasePresenter;
+import com.udacity.nanodegree.blooddonation.base.BaseView;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
+import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
 
 public interface HomeActivityContract {
 
-    interface View extends GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
+    interface View extends GoogleMap.OnMarkerClickListener, OnMapReadyCallback, BaseView {
 
         /**
          * Method to zoom camera to a particular location. If {@code position} is null the camera
@@ -25,15 +27,17 @@ public interface HomeActivityContract {
 
         void updateCamera(@Nullable LatLng position);
 
-        void setSearchCircle(@NonNull LatLng latLng);
+        //void setSearchCircle(@NonNull LatLng latLng);
 
-        void openCreateRequestDialog();
+        void openCreateRequestDialog(@NonNull User user);
 
         void addRequestMarker(ReceiverDonorRequestType receiverDonorRequestType);
 
         void addDonorMarker(ReceiverDonorRequestType receiverDonorRequestType);
 
         void showHideLoader(boolean isActive);
+
+        void fetchCurrentLocation();
 
         void putGeoKeyMarker(String key, GeoLocation location);
 
@@ -56,9 +60,9 @@ public interface HomeActivityContract {
          */
         void onCurrentLocationClicked();
 
-        void queryGeoFire(LatLng latLng);
+        //void queryGeoFire(LatLng latLng);
 
-        void queryGeoFire(LatLng latLng, String bgp);
+        //void queryGeoFire(LatLng latLng, String bgp);
 
         void onBloodRequest(RequestDetails requestDetails);
 

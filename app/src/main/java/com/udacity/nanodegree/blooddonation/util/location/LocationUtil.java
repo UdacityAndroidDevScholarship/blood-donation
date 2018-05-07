@@ -22,14 +22,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
 import com.udacity.nanodegree.blooddonation.R;
-import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.constants.SharedPrefConstants;
 import com.udacity.nanodegree.blooddonation.storage.SharedPreferenceManager;
 import com.udacity.nanodegree.blooddonation.util.permission.AppPermissionsUtil;
 
 import java.lang.ref.WeakReference;
-
-import timber.log.Timber;
 
 
 /**
@@ -54,9 +51,8 @@ public class LocationUtil {
     private LocationCallback mLocationCallback;
     private FusedLocationProviderClient mFusedLocationClient;
 
-    public <T extends AppCompatActivity> LocationUtil(T activity, LocationListener listener, SharedPreferenceManager sharedPreferenceManager) {
+    public <T extends AppCompatActivity> LocationUtil(T activity, SharedPreferenceManager sharedPreferenceManager) {
         mActivity = new WeakReference<>(activity);
-        mListener = new WeakReference<>(listener);
 
 
         mPreferenceManager = sharedPreferenceManager;
@@ -88,7 +84,10 @@ public class LocationUtil {
      * Method to fetch location for sign up. This type of request returns accurate location with
      * city/locality string.
      */
-    public void fetchLocationForSignUp() {
+    public void fetchApproximateLocation(LocationListener listener) {
+
+        mListener = new WeakReference<>(listener);
+
 
         String neverAskMessage = mActivity.get().getString(R.string.msg_never_ask_sign_up);
         String rationaleMessage = mActivity.get().getString(R.string.msg_sign_up_location_message);
@@ -101,7 +100,9 @@ public class LocationUtil {
      * Method to fetch location for creating blood request. This type of request returns a really
      * precise location with complete address.
      */
-    public void fetchLocationForBloodRequest() {
+    public void fetchPreciseLocation(LocationListener listener) {
+
+        mListener = new WeakReference<>(listener);
 
         String neverAskMessage = mActivity.get().getString(R.string.msg_never_ask_blood_request);
         String rationaleMessage = mActivity.get().getString(R.string.msg_blood_request_location_message);
