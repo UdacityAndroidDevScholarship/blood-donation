@@ -11,7 +11,8 @@ buildscript {
             'leak_canary'     :  '1.5.4',
             'timber'          : '4.7.0',
             'play_services'   : '15.0.0',
-            'geo_fire'        : '2.3.1'
+            'geo_fire'        : '2.3.1',
+            'gson'            : '2.8.4'
     ]
 
 
@@ -68,6 +69,9 @@ buildscript {
                     'play_services':[
                         'location':"com.google.android.gms:play-services-location:${versions.play_services}",
                         'maps':"com.google.android.gms:play-services-maps:${versions.play_services}"
+                    ],
+                    'gson':[
+                            'gson': "com.google.code.gson:gson:${versions.gson}"
                     ]
             ],
 

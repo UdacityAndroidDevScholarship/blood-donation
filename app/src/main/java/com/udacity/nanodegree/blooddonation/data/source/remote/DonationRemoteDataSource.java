@@ -8,6 +8,7 @@ import com.udacity.nanodegree.blooddonation.constants.FireBaseConstants;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
+import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.RequestDialogPresenter;
 
 /**

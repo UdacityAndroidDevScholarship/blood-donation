@@ -4,7 +4,7 @@ android {
   compileSdkVersion buildConfig.compileSdk
 
   defaultConfig {
-    applicationId "com.udacity.nanodegree.blooddonation"
+    applicationId "com.udacity.nanodegree.blooddonationn"
     minSdkVersion buildConfig.minSdk
     targetSdkVersion buildConfig.targetSdk
     versionCode buildConfig.version.code
@@ -90,6 +90,9 @@ dependencies {
 
   // PinView // TODO: move to project level gradle
   implementation 'com.github.GoodieBag:Pinview:v1.3'
+
+  implementation deps.google.gson.gson
+
 
   testImplementation deps.junit
 

@@ -10,10 +10,8 @@ import com.udacity.nanodegree.blooddonation.App;
  */
 public final class SharedPreferenceManager {
 
-    private final String NAME = "com.udacity.nanodegree.blooddonation";
-
     private static SharedPreferenceManager INSTANCE;
-
+    private final String NAME = "com.udacity.nanodegree.blooddonation";
     private SharedPreferences mSharedPreferences;
 
     private SharedPreferenceManager() {
@@ -57,4 +55,5 @@ public final class SharedPreferenceManager {
     public Boolean getBoolean(String key) {
         return mSharedPreferences.getBoolean(key, false);
     }
+
 }
