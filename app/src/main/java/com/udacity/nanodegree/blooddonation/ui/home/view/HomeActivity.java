@@ -36,6 +36,7 @@ import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
+import com.udacity.nanodegree.blooddonation.ui.about.AboutActivity;
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter;
 import com.udacity.nanodegree.blooddonation.util.location.LocationUtil;
@@ -204,8 +205,8 @@ public class HomeActivity extends BaseActivity
                 Toast.makeText(this, "Map Theme", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_about:
-                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
-                break;
+Intent about = new Intent(HomeActivity.this, AboutActivity.class);
+        startActivity(about);                break;
             case R.id.action_sign_out:
                 logout();
                 break;
