@@ -27,9 +27,12 @@ public class HomeActivityPresenter
 
     private ValueEventListener mUserDetailsValueEventListener;
     private ValueEventListener mUserRequestDetailsValueEventListener;
+    private ValueEventListener mDonorDetailsValueEventListener;
 
     private DatabaseReference mUserDetailDabaseReference;
     private DatabaseReference mUserRequestDetailsDatabaseRef;
+    private DatabaseReference mDonorDetailsDatabaseRef;
+
 
     private User mUser;
     private ReceiverDonorRequestType mReceiverDonorRequestType;
@@ -63,16 +66,40 @@ public class HomeActivityPresenter
 
         createUserDetailsValueEventListener();
         createUserRequestDetailsValueEventListener();
+        createDonorDetailsValueEventListener();
 
         mUserDetailDabaseReference = mFireBaseDataBase.getReference()
                 .child(FireBaseConstants.USERS)
                 .child(mFireBaseAuth.getUid());
 
         mUserRequestDetailsDatabaseRef = mFireBaseDataBase.getReference()
-                .child(FireBaseConstants.RECEIVER)
-                .child(mFireBaseAuth.getUid());
+                .child(FireBaseConstants.RECEIVER);
+
+
+        mDonorDetailsDatabaseRef = mFireBaseDataBase.getReference()
+                .child(FireBaseConstants.DONOR);
+
 
         mUserDetailDabaseReference.addListenerForSingleValueEvent(mUserDetailsValueEventListener);
+    }
+
+    private void createDonorDetailsValueEventListener() {
+        mDonorDetailsValueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //todo Add logic
+
+                mView.showHideLoader(false);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+                mView.showHideLoader(false);
+
+            }
+        };
     }
 
     private void createUserDetailsValueEventListener() {
@@ -97,10 +124,14 @@ public class HomeActivityPresenter
         mUserRequestDetailsValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //todo modify for list of data.
                 if (dataSnapshot.exists()) {
                     mReceiverDonorRequestType = dataSnapshot.getValue(ReceiverDonorRequestType.class);
                 }
                 updateCameraAfterGettingUserRequestDetails();
+
+                mDonorDetailsDatabaseRef.addListenerForSingleValueEvent(mDonorDetailsValueEventListener);
             }
 
             @Override
@@ -130,8 +161,7 @@ public class HomeActivityPresenter
     querytAtLocation(new GeoLocation(latLng.latitude, latLng.longitude), 1);
   }*/
 
-    private void updateCameraAfterGettingUserRequestDetails() {
-        mView.showHideLoader(false);
+    synchronized private void updateCameraAfterGettingUserRequestDetails() {
         LatLng latLng;
         if (mReceiverDonorRequestType != null) {
             latLng = new LatLng(mReceiverDonorRequestType.getLocation().getLatitude(),
