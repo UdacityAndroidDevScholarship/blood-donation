@@ -1,5 +1,8 @@
 package com.udacity.nanodegree.blooddonation.ui.home.presenter;
 
+import android.support.annotation.NonNull;
+import android.util.ArrayMap;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +39,9 @@ public class HomeActivityPresenter
 
     private User mUser;
     private ReceiverDonorRequestType mReceiverDonorRequestType;
+
+    private ArrayMap<String, User> mDonors;
+    private ArrayMap<String, User> mReceivers;
 
     //private GeoFire geoFire;
     //private GeoQuery geoQuery;
@@ -125,18 +131,26 @@ public class HomeActivityPresenter
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                //todo modify for list of data.
-                if (dataSnapshot.exists()) {
-                    mReceiverDonorRequestType = dataSnapshot.getValue(ReceiverDonorRequestType.class);
+
+                for (DataSnapshot receiver : dataSnapshot.getChildren()) {
+                    if (receiver.exists()) {
+                        User user = receiver.getValue(User.class);
+                        if (user != null) {
+                            mReceivers.put(receiver.getKey(), user);
+                            updateCameraAfterGettingUserRequestDetails(user, false);
+                        }
+
+                    }
                 }
-                updateCameraAfterGettingUserRequestDetails();
+
 
                 mDonorDetailsDatabaseRef.addListenerForSingleValueEvent(mDonorDetailsValueEventListener);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                updateCameraAfterGettingUserRequestDetails();
+                mDonorDetailsDatabaseRef.addListenerForSingleValueEvent(mDonorDetailsValueEventListener);
+
             }
         };
     }
@@ -161,8 +175,15 @@ public class HomeActivityPresenter
     querytAtLocation(new GeoLocation(latLng.latitude, latLng.longitude), 1);
   }*/
 
-    synchronized private void updateCameraAfterGettingUserRequestDetails() {
+    synchronized private void updateCameraAfterGettingUserRequestDetails(@NonNull User user, boolean isDonor) {
         LatLng latLng;
+
+
+        latLng = new LatLng(user.latitude, user.longitude);
+        if (isDonor)
+            mView.addDonorMarker();
+
+
         if (mReceiverDonorRequestType != null) {
             latLng = new LatLng(mReceiverDonorRequestType.getLocation().getLatitude(),
                     mReceiverDonorRequestType.getLocation().getLongitude());

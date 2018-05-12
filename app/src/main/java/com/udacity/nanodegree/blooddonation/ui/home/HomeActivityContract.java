@@ -31,9 +31,7 @@ public interface HomeActivityContract {
 
         void openCreateRequestDialog(@NonNull User user);
 
-        void addRequestMarker(ReceiverDonorRequestType receiverDonorRequestType);
-
-        void addDonorMarker(ReceiverDonorRequestType receiverDonorRequestType);
+        void addMarker(@NonNull User user, boolean isDonor);
 
         void showHideLoader(boolean isActive);
 

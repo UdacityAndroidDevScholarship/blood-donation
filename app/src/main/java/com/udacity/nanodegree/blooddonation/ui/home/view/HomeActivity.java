@@ -205,8 +205,9 @@ public class HomeActivity extends BaseActivity
                 Toast.makeText(this, "Map Theme", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_about:
-Intent about = new Intent(HomeActivity.this, AboutActivity.class);
-        startActivity(about);                break;
+                Intent about = new Intent(HomeActivity.this, AboutActivity.class);
+                startActivity(about);
+                break;
             case R.id.action_sign_out:
                 logout();
                 break;
@@ -277,29 +278,13 @@ Intent about = new Intent(HomeActivity.this, AboutActivity.class);
     }
 
     @Override
-    public void addRequestMarker(ReceiverDonorRequestType receiverDonorRequestType) {
-        removeMarkers();
-        LatLng latLng = new LatLng(receiverDonorRequestType.getLocation().getLatitude(),
-                receiverDonorRequestType.getLocation().getLongitude());
-        mRequestMarker = mMap.addMarker(new MarkerOptions().position(latLng)
-                .title("Request")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-
-        updateCamera(latLng);
-
-        //mPresenter.queryGeoFire(latLng, receiverDonorRequestType.getbGp());
-    }
-
-    @Override
-    public void addDonorMarker(ReceiverDonorRequestType receiverDonorRequestType) {
-        removeMarkers();
-        LatLng latLng = new LatLng(receiverDonorRequestType.getLocation().getLatitude(),
-                receiverDonorRequestType.getLocation().getLongitude());
+    synchronized public void addMarker(@NonNull User user, boolean isDonor) {
+        LatLng latLng = new LatLng(user.latitude, user.longitude);
         mDonorMarker = mMap.addMarker(new MarkerOptions().position(latLng)
-                .title("Donor")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-
-        updateCamera(latLng);
+                .title(user.fName)
+                .icon(BitmapDescriptorFactory
+                        .defaultMarker(isDonor ? BitmapDescriptorFactory.HUE_GREEN : BitmapDescriptorFactory.HUE_RED)));
+        mDonorMarker.setTag(user);
     }
 
     // Google Map callbacks

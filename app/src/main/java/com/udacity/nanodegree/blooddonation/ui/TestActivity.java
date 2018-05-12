@@ -11,7 +11,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.constants.FireBaseConstants;
+import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
+import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
+
+import java.util.function.LongFunction;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -26,6 +30,11 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("Snapshot", " Received");
+
+                while (dataSnapshot.getChildren().iterator().hasNext()){
+                    User user = dataSnapshot.getChildren().iterator().next().getValue(User.class);
+                    Log.d("User", user.fName);
+                }
             }
 
             @Override
