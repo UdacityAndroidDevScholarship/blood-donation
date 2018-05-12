@@ -2,6 +2,7 @@ package com.udacity.nanodegree.blooddonation.ui.login.view;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +14,7 @@ import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginInfo;
+import com.udacity.nanodegree.blooddonation.ui.login.model.UserPhoneNumber;
 import com.udacity.nanodegree.blooddonation.ui.login.presenter.UserLoginPresenter;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity;
 
@@ -29,6 +31,15 @@ public class UserLoginActivity extends BaseActivity implements UserLoginContract
 
   private UserLoginInfo mUserLoginInfo;
 
+  private UserPhoneNumber mUserPhoneNumber;
+
+  private Observable.OnPropertyChangedCallback mPhoneNumberChangedCallback =
+      new Observable.OnPropertyChangedCallback() {
+        public void onPropertyChanged(Observable sender, int propertyId) {
+          mUserPhoneNumber.setPhoneNumber(mUserLoginInfo.phoneNumber.get());
+        }
+      };
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
@@ -36,7 +47,10 @@ public class UserLoginActivity extends BaseActivity implements UserLoginContract
 
     mPresenter = new UserLoginPresenter(Injection.provideFireBaseAuth(),
         Injection.provideFireBaseDatabase(), Injection.getSharedPreference(), this);
+
     mUserLoginInfo = new UserLoginInfo();
+
+    mUserPhoneNumber = new UserPhoneNumber();
 
     mLoginBinding.setUserLoginInfo(mUserLoginInfo);
     mLoginBinding.setPresenter(mPresenter);
@@ -46,10 +60,20 @@ public class UserLoginActivity extends BaseActivity implements UserLoginContract
 
     mUserLoginInfo.phoneCode.set("91");
 
+    mUserPhoneNumber.setCountryName(mLoginBinding.ccCountryCode.getDefaultCountryName());
+    mUserPhoneNumber.setIso(mLoginBinding.ccCountryCode.getSelectedCountryNameCode());
+    mUserPhoneNumber.setPhoneCode(mLoginBinding.ccCountryCode.getDefaultCountryCode());
+
     mLoginBinding.ccCountryCode.setOnCountryChangeListener(
-        country -> mUserLoginInfo.phoneCode.set(country.getPhoneCode())
+        country -> {
+          mUserLoginInfo.phoneCode.set(country.getPhoneCode());
+          mUserPhoneNumber.setCountryName(country.getName());
+          mUserPhoneNumber.setIso(country.getIso());
+          mUserPhoneNumber.setPhoneCode(country.getPhoneCode());
+        }
     );
 
+    mUserLoginInfo.phoneNumber.addOnPropertyChangedCallback(mPhoneNumberChangedCallback);
     mPresenter.onCreate();
   }
 
@@ -65,6 +89,7 @@ public class UserLoginActivity extends BaseActivity implements UserLoginContract
 
   @Override protected void onDestroy() {
     super.onDestroy();
+    mUserLoginInfo.phoneNumber.removeOnPropertyChangedCallback(mPhoneNumberChangedCallback);
     mPresenter.onDestroy();
   }
 
@@ -75,7 +100,9 @@ public class UserLoginActivity extends BaseActivity implements UserLoginContract
   }
 
   @Override public void launchUserDetailsScreen() {
+    mUserPhoneNumber.saveToSharedPreferences(Injection.getSharedPreference());
     Intent intent = new Intent(this, UserDetailActivity.class);
+    intent.putExtra(UserPhoneNumber.EXTRA_USER_PHONE_NUMBER, mUserPhoneNumber);
     finish();
     startActivity(intent);
   }
@@ -139,7 +166,7 @@ public class UserLoginActivity extends BaseActivity implements UserLoginContract
 
   @Override public void setResendButtonTimerCount(long secondsRemaining) {
     mLoginBinding.btResendCode.setText(
-        String.format(Locale.ENGLISH, getString(R.string.resend_code_timer), secondsRemaining));
+        String.format(Locale.ENGLISH, getString(R.string.user_login_resend_code_timer), secondsRemaining));
   }
 
   @Override public void setVerifyScreenPhoneNumber(String phoneNumber) {
@@ -150,7 +177,7 @@ public class UserLoginActivity extends BaseActivity implements UserLoginContract
     new AlertDialog.Builder(this)
         .setMessage(
             String.format(
-                getString(R.string.msg_currently_verifying_number),
+                getString(R.string.user_login_msg_currently_verifying_number),
                 mUserLoginInfo.phoneCode.get(), mUserLoginInfo.phoneNumber.get()))
         .setCancelable(false)
         .setPositiveButton(android.R.string.yes,

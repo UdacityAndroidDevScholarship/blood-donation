@@ -1,7 +1,6 @@
 package com.udacity.nanodegree.blooddonation;
 
 import android.app.Application;
-
 import com.squareup.leakcanary.LeakCanary;
 import com.udacity.nanodegree.blooddonation.util.timber.ReleaseTree;
 import timber.log.Timber;
@@ -36,7 +35,7 @@ public class App extends Application {
     Timber.plant(new Timber.DebugTree() {
       // Adding the linenumber to the tag
       @Override protected String createStackElementTag(StackTraceElement element) {
-        return super.createStackElementTag(element) + ":" + element.getLineNumber();
+        return "BDA_" + super.createStackElementTag(element) + ":" + element.getLineNumber();
       }
     });
   }

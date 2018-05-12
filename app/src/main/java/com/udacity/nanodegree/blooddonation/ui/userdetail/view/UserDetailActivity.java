@@ -2,130 +2,172 @@ package com.udacity.nanodegree.blooddonation.ui.userdetail.view;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
+import android.support.design.widget.TextInputLayout;
+import android.view.View;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete.IntentBuilder;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.common.picker.DatePickerFragment;
 import com.udacity.nanodegree.blooddonation.databinding.ActivityUserDetailsBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity;
+import com.udacity.nanodegree.blooddonation.ui.login.model.UserPhoneNumber;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.UserDetailContract;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.presenter.UserDetailPresenter;
-import com.udacity.nanodegree.blooddonation.util.location.LocationUtil;
 
+import static com.udacity.nanodegree.blooddonation.constants.Constants.PLACE_AUTOCOMPLETE_REQUEST_CODE;
 
 /**
  * Created by riteshksingh on Apr, 2018
  */
-public class UserDetailActivity extends BaseActivity implements UserDetailContract.View, LocationUtil.LocationListener {
+public class UserDetailActivity extends BaseActivity implements UserDetailContract.View {
 
+  private UserDetailContract.Presenter mPresenter;
+  private ActivityUserDetailsBinding mActivityUserDetailsBinding;
+  private UserDetail mUserDetail;
+  private AutocompleteFilter.Builder autocompleteFilterBuilderCity;
 
-    private UserDetailContract.Presenter mPresenter;
-    private ActivityUserDetailsBinding mActivityUserDetailsBinding;
-    private UserDetail mUserDetail;
-    private LocationUtil mLocationUtil;
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    mPresenter.handleActivityResult(this, requestCode, resultCode, data);
+  }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-        mLocationUtil.onResolutionResult(requestCode, resultCode, data);
+    mPresenter =
+        new UserDetailPresenter(this, Injection.provideFireBaseAuth(),
+            Injection.getSharedPreference(),
+            Injection.providesDataRepo());
+    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_details);
+    mActivityUserDetailsBinding = (ActivityUserDetailsBinding) mBinding;
+    mUserDetail = new UserDetail();
 
-        super.onActivityResult(requestCode, resultCode, data);
+    mActivityUserDetailsBinding.setPresenter(mPresenter);
+    mActivityUserDetailsBinding.setUserDetail(mUserDetail);
 
+    autocompleteFilterBuilderCity =
+        new AutocompleteFilter.Builder().setTypeFilter(AutocompleteFilter.TYPE_FILTER_CITIES);
+
+    if (getIntent() != null && getIntent().hasExtra(UserPhoneNumber.EXTRA_USER_PHONE_NUMBER)) {
+      UserPhoneNumber userPhoneNumber =
+          getIntent().getParcelableExtra(UserPhoneNumber.EXTRA_USER_PHONE_NUMBER);
+      mUserDetail.getPhoneNumber()
+          .set(String.format("+%s-%s", userPhoneNumber.getPhoneCode(),
+              userPhoneNumber.getPhoneNumber()));
+      mUserDetail.getCountry().set(userPhoneNumber.getCountryName());
+      mActivityUserDetailsBinding.tietUserDetailsCountry.setText(userPhoneNumber.getCountryName());
+
+      autocompleteFilterBuilderCity.setCountry(userPhoneNumber.getIso());
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    mPresenter.onCreate();
+  }
 
-        mPresenter =
-                new UserDetailPresenter(this, Injection.provideFireBaseAuth(), Injection.getSharedPreference(),
-                        Injection.providesDataRepo());
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_details);
-        mActivityUserDetailsBinding = (ActivityUserDetailsBinding) mBinding;
-        mUserDetail = new UserDetail();
-        mActivityUserDetailsBinding.setPresenter(mPresenter);
-        mActivityUserDetailsBinding.setUserdetail(mUserDetail);
-        mActivityUserDetailsBinding.etFirstName.setOnEditorActionListener((v, actionId, event) -> {
-            mActivityUserDetailsBinding.etLastName.requestFocus();
-            return true;
-        });
-        getSupportActionBar().setTitle(R.string.user_profile);
-        initSpinner();
+  @Override
+  protected void onStart() {
+    super.onStart();
+    mPresenter.onStart();
+  }
 
+  @Override
+  protected void onStop() {
+    super.onStop();
+    mPresenter.onStop();
+  }
 
-        mLocationUtil = new LocationUtil(this, Injection.getSharedPreference());
-        mLocationUtil.fetchApproximateLocation(this);
-        mPresenter.onCreate();
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    mPresenter.onDestroy();
+  }
+
+  @Override public void showDatePickerDialog() {
+    DatePickerFragment datePickerFragment =
+        DatePickerFragment.newInstance(mUserDetail.getBirthdayInMillis());
+    datePickerFragment.show(getSupportFragmentManager(), "datePickerFragment");
+  }
+
+  @Override public void startCityPickerActivity() {
+    try {
+      Intent placeAutoCompleteIntent = new IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+          .setFilter(autocompleteFilterBuilderCity.build())
+          .build(this);
+
+      startActivityForResult(placeAutoCompleteIntent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+    } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+      e.printStackTrace();
     }
+  }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mPresenter.onStart();
+  @Override public void setUserDetailCityAndState(String city, String state) {
+    mUserDetail.getCity().set(city);
+    mUserDetail.getState().set(state);
+  }
+
+  @Override public void showTextInputError(int resId, int message) {
+
+    TextInputLayout textInputLayout = findViewById(resId);
+
+    textInputLayout.setErrorEnabled(true);
+    textInputLayout.setError(getString(message));
+  }
+
+  @Override public void setCreateAccountProgressVisibility(boolean isVisible) {
+    if (isVisible) {
+      mActivityUserDetailsBinding.cmlCreateAccount.revealFrom(mActivityUserDetailsBinding.tvCreateAccount.getWidth() / 2f,
+          mActivityUserDetailsBinding.tvCreateAccount.getHeight() / 2f,
+          mActivityUserDetailsBinding.tvCreateAccount.getWidth() / 2f,
+          mActivityUserDetailsBinding.tvCreateAccount.getHeight() / 2f).setListener(
+          () -> {
+            mActivityUserDetailsBinding.tvCreateAccount.setVisibility(View.GONE);
+            mActivityUserDetailsBinding.pbCreateAccount.setVisibility(View.VISIBLE);
+          }).start();
+    } else {
+      mActivityUserDetailsBinding.tvCreateAccount.setVisibility(View.VISIBLE);
+      mActivityUserDetailsBinding.pbCreateAccount.setVisibility(View.GONE);
+      mActivityUserDetailsBinding.cmlCreateAccount.reverse();
     }
+  }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mPresenter.onStop();
-    }
+  @Override public void clearAllTextInputErrors() {
+    mActivityUserDetailsBinding.tilUserDetailsFullName.setErrorEnabled(false);
+    mActivityUserDetailsBinding.tilUserDetailsFullName.setError(null);
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.onDestroy();
-        mLocationUtil.onDestroy();
-    }
+    mActivityUserDetailsBinding.tilUserDetailsBirthday.setErrorEnabled(false);
+    mActivityUserDetailsBinding.tilUserDetailsBirthday.setError(null);
 
-    private void initSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood_group,
-                android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mActivityUserDetailsBinding.bloodGroupDropDown.setAdapter(adapter);
-    }
+    mActivityUserDetailsBinding.tilUserDetailsEmail.setErrorEnabled(false);
+    mActivityUserDetailsBinding.tilUserDetailsEmail.setError(null);
 
-    @Override
-    public void showDatePickerDialog() {
-        DialogFragment dialogFragment = DatePickerFragment.newInstance(mUserDetail.dob);
-        dialogFragment.show(getSupportFragmentManager(), "datefragment");
-    }
+    mActivityUserDetailsBinding.tilUserDetailsAddress.setErrorEnabled(false);
+    mActivityUserDetailsBinding.tilUserDetailsAddress.setError(null);
 
-    @Override
-    public void getLastLocation() {
-        mLocationUtil.fetchApproximateLocation(this);
-    }
+    mActivityUserDetailsBinding.tilUserDetailsCity.setErrorEnabled(false);
+    mActivityUserDetailsBinding.tilUserDetailsCity.setError(null);
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mLocationUtil.onPermissionResult(requestCode, permissions, grantResults);
-    }
+    mActivityUserDetailsBinding.tilUserDetailsState.setErrorEnabled(false);
+    mActivityUserDetailsBinding.tilUserDetailsState.setError(null);
+  }
 
-    @Override
-    public void launchHomeScreen() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        finish();
-        startActivity(intent);
-    }
+  @Override
+  public void launchHomeScreen() {
+    Intent intent = new Intent(this, HomeActivity.class);
+    finish();
+    startActivity(intent);
+  }
 
-    @Override
-    public void generalResponse(int responseId) {
-        Toast.makeText(this, responseId, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onLocationReceived(@NonNull Location location, @NonNull String addressString) {
-        mUserDetail.latitiude.set(location.getLatitude());
-        mUserDetail.longitude.set(location.getLongitude());
-        mActivityUserDetailsBinding.tvLocationPicker.setText(addressString);
-
-    }
+  @Override
+  public void generalResponse(int responseId) {
+    showSnackBar(getString(responseId), findViewById(R.id.coordinator_layout));
+  }
 }

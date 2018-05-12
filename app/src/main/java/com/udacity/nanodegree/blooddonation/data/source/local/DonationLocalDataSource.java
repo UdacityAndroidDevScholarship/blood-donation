@@ -27,11 +27,13 @@ public class DonationLocalDataSource implements DonationDataSource {
     return INSTANCE;
   }
 
-  @Override public void saveNewUser(String userId, User user) {
+  @Override public void saveNewUser(String userId, User user,
+      OnSaveCompletedListener completionListener) {
     throw new UnsupportedOperationException("Not supported");
   }
 
-  @Override public void saveReceiverDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
+  @Override public void saveReceiverDetails(String userId,
+      ReceiverDonorRequestType receiverDonorRequestType) {
 
   }
 

@@ -1,5 +1,9 @@
 package com.udacity.nanodegree.blooddonation.ui.userdetail;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.IdRes;
+import android.support.annotation.StringRes;
 import com.udacity.nanodegree.blooddonation.base.BasePresenter;
 import com.udacity.nanodegree.blooddonation.base.BaseView;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
@@ -8,20 +12,29 @@ import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
  * Created by riteshksingh on Apr, 2018
  */
 public interface UserDetailContract {
-    interface Presenter extends BasePresenter {
-        void onCreateNowClick(UserDetail userDetail);
+  interface Presenter extends BasePresenter {
+    void onCreateNowClick(UserDetail userDetail);
 
-        void onDobButtonClick();
+    void onSelectBirthdayClick();
 
-        void onLocationClick();
-    }
+    void onSelectCityClick();
 
-    interface View extends BaseView {
-        void showDatePickerDialog();
+    void handleActivityResult(Context context, int requestCode, int resultCode, Intent data);
+  }
 
-        void getLastLocation();
+  interface View extends BaseView {
+    void showDatePickerDialog();
 
-        void launchHomeScreen();
+    void startCityPickerActivity();
 
-    }
+    void setUserDetailCityAndState(String city, String state);
+
+    void clearAllTextInputErrors();
+
+    void showTextInputError(@IdRes int resId, @StringRes int message);
+
+    void setCreateAccountProgressVisibility(boolean isVisible);
+
+    void launchHomeScreen();
+  }
 }

@@ -17,4 +17,15 @@
     <item name="android:windowFullscreen">true</item>
   </style>
 
+  <style name="CustomRadioButton" parent="@style/Base.Widget.AppCompat.CompoundButton.RadioButton">
+    <item name="android:button">@drawable/radio_button_icon</item>
+    <item name="android:animateLayoutChanges">true</item>
+  </style>
+
+  <style name="EditTextField">
+    <item name="android:textSize">16.0sp</item>
+    <item name="android:textColor">@drawable/edittextbox_text_color</item>
+    <item name="android:textColorHint">@color/colorTextHintText</item>
+    <item name="android:ellipsize">end</item>
+  </style>
 </resources>
