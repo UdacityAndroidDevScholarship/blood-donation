@@ -68,8 +68,9 @@
     <string name="map_theme">Map Theme</string>
     <string name="about">About</string>
     <string name="user_details">User Details</string>
-    <string name="donor">donor</string>
-    <string name="receiver">receiver</string>
+    <string name="donor">Donor</string>
+    <string name="receiver">Receiver</string>
+    <string name="blood_request">Blood Request</string>
 
     <!-- RequestDialogFragment -->
     <string name="submit">Submit</string>

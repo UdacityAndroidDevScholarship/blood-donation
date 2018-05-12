@@ -1,41 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-  <data>
-    <variable
-        name="presenter"
-        type="com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract.Presenter"
-        />
-  </data>
+    <data>
 
-  <android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="#efefef"
-      tools:context=".ui.home.view.HomeActivity"
-      >
+        <variable
+            name="presenter"
+            type="com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract.Presenter" />
+    </data>
 
-    <include
-        layout="@layout/content_main"
-        bind:presenter="@{presenter}"
-        />
+    <android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#efefef"
+        tools:context=".ui.home.view.HomeActivity">
 
-    <!-- Adding bottom sheet after main content -->
-    <include layout="@layout/donor_sheet"/>
+        <include
+            layout="@layout/content_main"
+            bind:presenter="@{presenter}" />
 
-    <include layout="@layout/receiver_sheet"/>
+        <!-- Adding bottom sheet after main content -->
+        <include layout="@layout/donor_sheet" />
 
-    <ProgressBar
-        android:id="@+id/pb_loader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        android:visibility="gone"
-        tools:visibility="visible"
-        />
+        <include layout="@layout/receiver_sheet" />
 
-  </android.support.design.widget.CoordinatorLayout>
+        <ProgressBar
+            android:id="@+id/pb_loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/dp_16"
+            android:indeterminate="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </android.support.design.widget.CoordinatorLayout>
 </layout>
