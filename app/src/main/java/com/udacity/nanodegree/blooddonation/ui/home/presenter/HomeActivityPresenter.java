@@ -1,9 +1,7 @@
 package com.udacity.nanodegree.blooddonation.ui.home.presenter;
 
-import android.support.annotation.NonNull;
-import android.util.ArrayMap;
+import android.support.v4.util.ArrayMap;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,6 +14,8 @@ import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
 import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
+
+import java.util.ArrayList;
 
 /**
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
@@ -40,8 +40,9 @@ public class HomeActivityPresenter
     private User mUser;
     private ReceiverDonorRequestType mReceiverDonorRequestType;
 
-    private ArrayMap<String, User> mDonors;
-    private ArrayMap<String, User> mReceivers;
+
+    private ArrayMap<String, ReceiverDonorRequestType> mDonors; // Created for future purposes.
+    private ArrayMap<String, ReceiverDonorRequestType> mReceivers; // Created for future purposes.
 
     //private GeoFire geoFire;
     //private GeoQuery geoQuery;
@@ -70,6 +71,11 @@ public class HomeActivityPresenter
     @Override
     public void onCreate() {
 
+        mView.showHideLoader(false);
+
+        mDonors= new ArrayMap<>();
+        mReceivers = new ArrayMap<>();
+
         createUserDetailsValueEventListener();
         createUserRequestDetailsValueEventListener();
         createDonorDetailsValueEventListener();
@@ -93,7 +99,18 @@ public class HomeActivityPresenter
         mDonorDetailsValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //todo Add logic
+
+                ArrayList<ReceiverDonorRequestType> donors = new ArrayList<>();
+                for (DataSnapshot donor : dataSnapshot.getChildren()) {
+                    if (donor.exists()) {
+                        ReceiverDonorRequestType request = donor.getValue(ReceiverDonorRequestType.class);
+                        if (request != null)
+                            donors.add(request);
+
+                    }
+                }
+
+                mView.addDonorMarkers(donors);
 
                 mView.showHideLoader(false);
 
@@ -115,13 +132,14 @@ public class HomeActivityPresenter
                 if (dataSnapshot.exists()) {
                     mUser = dataSnapshot.getValue(User.class);
                 }
-                mUserRequestDetailsDatabaseRef.addListenerForSingleValueEvent(
+                mUserRequestDetailsDatabaseRef.addValueEventListener(
                         mUserRequestDetailsValueEventListener);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                mUserRequestDetailsDatabaseRef.addValueEventListener(
+                        mUserRequestDetailsValueEventListener);
             }
         };
     }
@@ -131,91 +149,42 @@ public class HomeActivityPresenter
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                ArrayList<ReceiverDonorRequestType> receivers = new ArrayList<>();
 
                 for (DataSnapshot receiver : dataSnapshot.getChildren()) {
                     if (receiver.exists()) {
-                        User user = receiver.getValue(User.class);
-                        if (user != null) {
-                            mReceivers.put(receiver.getKey(), user);
-                            updateCameraAfterGettingUserRequestDetails(user, false);
+                        ReceiverDonorRequestType request = receiver.getValue(ReceiverDonorRequestType.class);
+                        if (request != null) {
+                            receivers.add(request);
                         }
-
                     }
                 }
+                mView.addReceiverMarkers(receivers);
 
-
-                mDonorDetailsDatabaseRef.addListenerForSingleValueEvent(mDonorDetailsValueEventListener);
+                mDonorDetailsDatabaseRef.addValueEventListener(mDonorDetailsValueEventListener);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                mDonorDetailsDatabaseRef.addListenerForSingleValueEvent(mDonorDetailsValueEventListener);
+                mDonorDetailsDatabaseRef.addValueEventListener(mDonorDetailsValueEventListener);
 
             }
         };
     }
 
-  /*private void querytAtLocation(GeoLocation geoLocation, int radius) {
-    // Query at 1 km
-    geoQuery = geoFire.queryAtLocation(geoLocation, radius);
-  }*/
-
-  /*@Override public void queryGeoFire(LatLng latLng) {
-    geoFire = new GeoFire(
-        mFireBaseDataBase.getReference().child(FireBaseConstants.DONOR).child(mUser.bloodGroup));
-
-    querytAtLocation(new GeoLocation(latLng.latitude, latLng.longitude), 1);
-  }*/
-
-  /*@Override public void queryGeoFire(LatLng latLng, String bgp) {
-    geoFire =
-        new GeoFire(mFireBaseDataBase.getReference().child(FireBaseConstants.DONOR).child(bgp));
-
-    // Query at 1 km
-    querytAtLocation(new GeoLocation(latLng.latitude, latLng.longitude), 1);
-  }*/
-
-    synchronized private void updateCameraAfterGettingUserRequestDetails(@NonNull User user, boolean isDonor) {
-        LatLng latLng;
-
-
-        latLng = new LatLng(user.latitude, user.longitude);
-        if (isDonor)
-            mView.addDonorMarker();
-
-
-        if (mReceiverDonorRequestType != null) {
-            latLng = new LatLng(mReceiverDonorRequestType.getLocation().getLatitude(),
-                    mReceiverDonorRequestType.getLocation().getLongitude());
-            mView.addRequestMarker(mReceiverDonorRequestType);
-        } else {
-            latLng = new LatLng(mUser.latitude, mUser.longitude);
-        }
-        mView.updateCamera(latLng);
-
-        //queryGeoFire(latLng);
-        //geoQuery.addGeoQueryEventListener(this);
-    }
-
     @Override
     public void onStart() {
-    /*if (geoQuery != null) {
-      geoQuery.removeAllListeners();
-      geoQuery.addGeoQueryEventListener(this);
-    }*/
     }
 
     @Override
     public void onStop() {
-    /*if (geoQuery != null) {
-      geoQuery.removeAllListeners();
-    }*/
     }
 
     @Override
     public void onDestroy() {
         mUserDetailDabaseReference.removeEventListener(mUserDetailsValueEventListener);
         mUserRequestDetailsDatabaseRef.removeEventListener(mUserRequestDetailsValueEventListener);
+        mDonorDetailsDatabaseRef.removeEventListener(mDonorDetailsValueEventListener);
     }
 
     @Override

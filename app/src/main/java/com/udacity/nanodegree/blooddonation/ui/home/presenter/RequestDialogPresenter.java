@@ -1,6 +1,5 @@
 package com.udacity.nanodegree.blooddonation.ui.home.presenter;
 
-import com.firebase.geofire.GeoLocation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.udacity.nanodegree.blooddonation.data.model.Location;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
@@ -49,38 +48,29 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
     }
 
     private void prepareReceiverDonorRequestType(RequestDetails requestDetails) {
-        Location location = new Location(requestDetails.latitude.get(), requestDetails.longitude.get());
-        receiverDonorRequestType = new ReceiverDonorRequestType();
-        receiverDonorRequestType.setLocation(location);
-        receiverDonorRequestType.setPurpose(requestDetails.purpose.get());
-        receiverDonorRequestType.setbGp(requestDetails.bloodGroup.get());
+
+        receiverDonorRequestType = new ReceiverDonorRequestType(new Location(requestDetails.latitude.get(), requestDetails.longitude.get()),
+                requestDetails.bloodGroup.get(),
+                requestDetails.bloodGroup.get(),
+                mUser.fName,
+                mUser.lName,
+                mFirebaseAuth.getCurrentUser().getPhoneNumber());
     }
 
     private void saveReceiverDetailsInDb(RequestDetails requestDetails) {
         prepareReceiverDonorRequestType(requestDetails);
         mDataRepo.saveReceiverDetails(mFirebaseAuth.getCurrentUser().getUid(),
                 receiverDonorRequestType);
-        mView.dismissDialog(true, receiverDonorRequestType);
+        mView.dismissDialog(mFirebaseAuth.getUid(), true, receiverDonorRequestType);
     }
 
     private void saveDonorDetails(RequestDetails requestDetails) {
 
         requestDetails.bloodGroup.set(mUser.bloodGroup);
         prepareReceiverDonorRequestType(requestDetails);
-        mDataRepo.saveDonorDetails(mFirebaseAuth.getCurrentUser().getUid(),
-                requestDetails.bloodGroup.get(),
-                new GeoLocation(requestDetails.latitude.get(), requestDetails.longitude.get()),
-                new ISaveDonorDetails() {
-                    @Override
-                    public void success() {
-                        mView.dismissDialog(false, receiverDonorRequestType);
-                    }
-
-                    @Override
-                    public void fail() {
-                        mView.dismissDialog(false, receiverDonorRequestType);
-                    }
-                });
+        ;
+        mDataRepo.saveDonorDetails(mFirebaseAuth.getCurrentUser().getUid(), receiverDonorRequestType);
+        mView.dismissDialog(mFirebaseAuth.getUid(), false, receiverDonorRequestType);
     }
 
     @Override
@@ -98,9 +88,4 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
         mView.getLastLocation();
     }
 
-    public interface ISaveDonorDetails {
-        void success();
-
-        void fail();
-    }
 }
