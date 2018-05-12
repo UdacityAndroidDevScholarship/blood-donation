@@ -45,31 +45,31 @@ public class MyProfileActivity extends AppCompatActivity {
                     Iterator<DataSnapshot> userDataIterator = dataSnapshot.getChildren().iterator();
                     while (userDataIterator.hasNext()) {
 
-                        DataSnapshot nextSnapShaot = userDataIterator.next();
+                        DataSnapshot nextSnapShot = userDataIterator.next();
 
-                        if (nextSnapShaot.getKey().equals("bloodGroup")) {
-                            tv_blood_group.setText(nextSnapShaot.getValue().toString());
+                        if (nextSnapShot.getKey().equals("bloodGroup")) {
+                            tv_blood_group.setText(nextSnapShot.getValue().toString());
                         }
-                        else if (nextSnapShaot.getKey().equals("dob")) {
-                            tv_dob.setText(nextSnapShaot.getValue().toString());
+                        else if (nextSnapShot.getKey().equals("dob")) {
+                            tv_dob.setText(nextSnapShot.getValue().toString());
                         }
-                        else if (nextSnapShaot.getKey().equals("email")) {
-                            tv_emailid.setText(nextSnapShaot.getValue().toString());
+                        else if (nextSnapShot.getKey().equals("email")) {
+                            tv_emailid.setText(nextSnapShot.getValue().toString());
                         }
-                        else if (nextSnapShaot.getKey().equals("fName")) {
-                            tv_name.setText(nextSnapShaot.getValue().toString());
+                        else if (nextSnapShot.getKey().equals("fName")) {
+                            tv_name.setText(nextSnapShot.getValue().toString());
                         }
-                        else if (nextSnapShaot.getKey().equals("gender")) {
-                            tv_gender.setText(nextSnapShaot.getValue().toString());
+                        else if (nextSnapShot.getKey().equals("gender")) {
+                            tv_gender.setText(nextSnapShot.getValue().toString());
                         }
-                        else if (nextSnapShaot.getKey().equals("lName")) {
-                            tv_name.setText(tv_name.getText()+" "+nextSnapShaot.getValue().toString());
+                        else if (nextSnapShot.getKey().equals("lName")) {
+                            tv_name.setText(tv_name.getText()+" "+nextSnapShot.getValue().toString());
                         }
-                        else if (nextSnapShaot.getKey().equals("latitude")) {
-                            tv_location.setText(nextSnapShaot.getValue().toString());
+                        else if (nextSnapShot.getKey().equals("latitude")) {
+                            tv_location.setText(nextSnapShot.getValue().toString());
                         }
-                        else if (nextSnapShaot.getKey().equals("longitude")) {
-                            tv_location.setText(tv_location.getText()+":"+nextSnapShaot.getValue().toString());
+                        else if (nextSnapShot.getKey().equals("longitude")) {
+                            tv_location.setText(tv_location.getText()+":"+nextSnapShot.getValue().toString());
                         }
 
                     }
