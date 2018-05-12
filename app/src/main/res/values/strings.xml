@@ -64,6 +64,7 @@
 
     <!-- HomeActivity -->
     <string name="sign_out">Sign Out</string>
+    <string name="my_profile">My Profile</string>
     <string name="map_theme">Map Theme</string>
     <string name="about">About</string>
     <string name="user_details">User Details</string>
