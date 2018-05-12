@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,7 +27,6 @@ import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.DatabaseError;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
@@ -41,8 +38,7 @@ import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter;
 import com.udacity.nanodegree.blooddonation.util.location.LocationUtil;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
@@ -60,12 +56,10 @@ public class HomeActivity extends BaseActivity
     private BottomSheetBehavior<LinearLayout> donorBehavior;
     private BottomSheetBehavior<LinearLayout> receiverBehaviour;
 
-    private Marker mRequestMarker;
-    private Marker mDonorMarker;
-
     private LocationUtil mLocationUtil;
 
-    private Map<String, Marker> markers;
+    private ArrayList<Marker> donorMarkers;
+    private ArrayList<Marker> receiverMarkers;
 
 
     @Override
@@ -106,11 +100,8 @@ public class HomeActivity extends BaseActivity
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragement_maps);
         mapFragment.getMapAsync(this);
 
-        showHideLoader(true);
-
-        markers = new HashMap<>();
-
-        mPresenter.onCreate();
+        donorMarkers = new ArrayList<>();
+        receiverMarkers = new ArrayList<>();
 
         mLocationUtil = new LocationUtil(this, Injection.getSharedPreference());
     }
@@ -130,10 +121,10 @@ public class HomeActivity extends BaseActivity
     protected void onStop() {
         super.onStop();
         mPresenter.onStop();
-        for (Marker marker : markers.values()) {
-            marker.remove();
-        }
-        markers.clear();
+
+        removeOldMarkers(donorMarkers);
+        removeOldMarkers(receiverMarkers);
+
     }
 
     @Override
@@ -205,8 +196,9 @@ public class HomeActivity extends BaseActivity
                 Toast.makeText(this, "Map Theme", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_about:
-Intent about = new Intent(HomeActivity.this, AboutActivity.class);
-        startActivity(about);                break;
+                Intent about = new Intent(HomeActivity.this, AboutActivity.class);
+                startActivity(about);
+                break;
             case R.id.action_sign_out:
                 logout();
                 break;
@@ -215,13 +207,6 @@ Intent about = new Intent(HomeActivity.this, AboutActivity.class);
         return super.onOptionsItemSelected(item);
     }
 
-    /*@Override
-    public void setSearchCircle(@NonNull LatLng latLng) {
-        searchCircle = mMap.addCircle(new CircleOptions().center(latLng).radius(1000));
-        searchCircle.setFillColor(Color.argb(66, 255, 0, 255));
-        searchCircle.setStrokeColor(Color.argb(66, 0, 0, 0));
-        updateCamera(latLng);
-    }*/
 
     @Override
     public void updateCamera(@Nullable LatLng latLng) {
@@ -255,51 +240,46 @@ Intent about = new Intent(HomeActivity.this, AboutActivity.class);
     }
 
     @Override
-    public void onRequestDialogDismissed(boolean isReceiver,
+    public void onRequestDialogDismissed(@NonNull String uid, boolean isReceiver,
                                          ReceiverDonorRequestType receiverDonorRequestType) {
-        if (isReceiver) {
-            addRequestMarker(receiverDonorRequestType);
-            //mPresenter.onBloodRequest(requestDetails);
-            return;
-        }
-        //mPresenter.onDonateRequest(requestDetails);
-        addDonorMarker(receiverDonorRequestType);
+
+        addMarker(receiverDonorRequestType, !isReceiver);
+        updateCamera(new LatLng(receiverDonorRequestType.getLocation().getLatitude(),
+                receiverDonorRequestType.getLocation().getLongitude()));
+
+
     }
 
-    private void removeMarkers() {
-        if (mRequestMarker != null) {
-            mRequestMarker.remove();
-        }
+    @Override
+    synchronized public void addMarker(@NonNull ReceiverDonorRequestType request, boolean isDonor) {
 
-        if (mDonorMarker != null) {
-            mDonorMarker.remove();
+
+        LatLng latLng = new LatLng(request.getLocation().getLatitude(), request.getLocation().getLongitude());
+        Marker marker = mMap.addMarker(new MarkerOptions().position(latLng)
+                .title(String.format("%s (%s)", getString(isDonor ? R.string.donor : R.string.blood_request), request.getbGp()))
+                .icon(BitmapDescriptorFactory
+                        .defaultMarker(isDonor ? BitmapDescriptorFactory.HUE_GREEN : BitmapDescriptorFactory.HUE_RED)));
+        marker.setTag(request);
+
+        if (isDonor)
+            donorMarkers.add(marker);
+        else receiverMarkers.add(marker);
+    }
+
+    @Override
+    public void addDonorMarkers(ArrayList<ReceiverDonorRequestType> donors) {
+        removeOldMarkers(donorMarkers);
+        for (ReceiverDonorRequestType donor : donors) {
+            addMarker(donor, true);
         }
     }
 
     @Override
-    public void addRequestMarker(ReceiverDonorRequestType receiverDonorRequestType) {
-        removeMarkers();
-        LatLng latLng = new LatLng(receiverDonorRequestType.getLocation().getLatitude(),
-                receiverDonorRequestType.getLocation().getLongitude());
-        mRequestMarker = mMap.addMarker(new MarkerOptions().position(latLng)
-                .title("Request")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-
-        updateCamera(latLng);
-
-        //mPresenter.queryGeoFire(latLng, receiverDonorRequestType.getbGp());
-    }
-
-    @Override
-    public void addDonorMarker(ReceiverDonorRequestType receiverDonorRequestType) {
-        removeMarkers();
-        LatLng latLng = new LatLng(receiverDonorRequestType.getLocation().getLatitude(),
-                receiverDonorRequestType.getLocation().getLongitude());
-        mDonorMarker = mMap.addMarker(new MarkerOptions().position(latLng)
-                .title("Donor")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-
-        updateCamera(latLng);
+    public void addReceiverMarkers(ArrayList<ReceiverDonorRequestType> receivers) {
+        removeOldMarkers(receiverMarkers);
+        for (ReceiverDonorRequestType receiver : receivers) {
+            addMarker(receiver, false);
+        }
     }
 
     // Google Map callbacks
@@ -308,6 +288,8 @@ Intent about = new Intent(HomeActivity.this, AboutActivity.class);
         mMap = googleMap;
         mMap.setOnMarkerClickListener(this);
         mLocationUtil.fetchApproximateLocation(this);
+        mPresenter.onCreate();
+
 
     }
 
@@ -316,30 +298,20 @@ Intent about = new Intent(HomeActivity.this, AboutActivity.class);
         if (marker.getTitle() == null) {
             return false;
         }
-        if (marker.getTitle().equals("Donor")) {
+        if (marker.getTitle().contains(getString(R.string.donor))) {
             toggleBottomSheet(donorBehavior, receiverBehaviour);
-        } else if (marker.getTitle().equals("Blood Request")) {
+        } else if (marker.getTitle().contains(getString(R.string.blood_request))) {
             toggleBottomSheet(receiverBehaviour, donorBehavior);
         }
         return false;
     }
 
     @Override
-    public void putGeoKeyMarker(String key, GeoLocation location) {
-        Marker marker = mMap.addMarker(
-                new MarkerOptions().position(new LatLng(location.latitude, location.longitude))
-                        .title("Donor")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        markers.put(key, marker);
-    }
-
-    @Override
-    public void removeOldGeoMarker(String key) {
-        Marker marker = this.markers.get(key);
-        if (marker != null) {
+    synchronized public void removeOldMarkers(ArrayList<Marker> markers) {
+        for (Marker marker : markers) {
             marker.remove();
-            this.markers.remove(key);
         }
+        markers.clear();
     }
 
     private void animateMarkerTo(final Marker marker, final double lat, final double lng) {
@@ -365,23 +337,6 @@ Intent about = new Intent(HomeActivity.this, AboutActivity.class);
                 }
             }
         });
-    }
-
-    @Override
-    public void animateGeoMarker(String key, GeoLocation location) {
-        Marker marker = this.markers.get(key);
-        if (marker != null) {
-            this.animateMarkerTo(marker, location.latitude, location.longitude);
-        }
-    }
-
-    @Override
-    public void showGeoQueryErrorDialogBox(DatabaseError error) {
-        new AlertDialog.Builder(this).setTitle("Error")
-                .setMessage("There was an unexpected error querying GeoFire: " + error.getMessage())
-                .setPositiveButton(android.R.string.ok, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
     }
 
 
