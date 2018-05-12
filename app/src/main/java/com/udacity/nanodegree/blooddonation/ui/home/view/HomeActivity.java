@@ -39,7 +39,10 @@ import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.about.AboutActivity;
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter;
+import com.udacity.nanodegree.blooddonation.ui.myprofile.MyProfileActivity;
+
 import com.udacity.nanodegree.blooddonation.util.location.LocationUtil;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -201,6 +204,10 @@ public class HomeActivity extends BaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_my_profile:
+                Intent myprofile = new Intent(HomeActivity.this, MyProfileActivity.class);
+                startActivity(myprofile);
+                break;
             case R.id.action_map_theme:
                 Toast.makeText(this, "Map Theme", Toast.LENGTH_SHORT).show();
                 break;
