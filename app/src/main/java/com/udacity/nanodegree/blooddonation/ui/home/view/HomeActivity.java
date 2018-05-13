@@ -3,6 +3,7 @@ package com.udacity.nanodegree.blooddonation.ui.home.view;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,7 +69,6 @@ public class HomeActivity extends BaseActivity
     private ArrayList<Marker> donorMarkers;
     private ArrayList<Marker> receiverMarkers;
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -110,6 +111,20 @@ public class HomeActivity extends BaseActivity
         receiverMarkers = new ArrayList<>();
 
         mLocationUtil = new LocationUtil(this, Injection.getSharedPreference());
+        (mDonorSheet.findViewById(R.id.direction)).setOnClickListener(view -> {
+            com.udacity.nanodegree.blooddonation.data.model.Location location = (com.udacity.nanodegree.blooddonation.data.model.Location) view.getTag();
+            Uri gmmIntentUri = Uri.parse("google.navigation:q="+location.getLatitude()+","+location.getLongitude());
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        });
+        (mReceiver.findViewById(R.id.direction)).setOnClickListener(view -> {
+            com.udacity.nanodegree.blooddonation.data.model.Location location = (com.udacity.nanodegree.blooddonation.data.model.Location) view.getTag();
+            Uri gmmIntentUri = Uri.parse("google.navigation:q="+location.getLatitude()+","+location.getLongitude());
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        });
     }
 
     @Override
@@ -314,12 +329,14 @@ public class HomeActivity extends BaseActivity
             ((TextView)mDonorSheet.findViewById(R.id.blood_group)).setText(mReceiverDonorRequestType.getbGp());
             ((TextView)mDonorSheet.findViewById(R.id.phone)).setText(mReceiverDonorRequestType.getPhone());
             ((TextView)mDonorSheet.findViewById(R.id.purpose)).setText(mReceiverDonorRequestType.getPurpose());
+            (mDonorSheet.findViewById(R.id.direction)).setTag(mReceiverDonorRequestType.getLocation());
             toggleBottomSheet(donorBehavior, receiverBehaviour);
         } else if (marker.getTitle().contains(getString(R.string.blood_request))) {
             ((TextView)mReceiver.findViewById(R.id.name)).setText(mReceiverDonorRequestType.getfName()+" "+mReceiverDonorRequestType.getlName());
             ((TextView)mReceiver.findViewById(R.id.blood_group)).setText(mReceiverDonorRequestType.getbGp());
             ((TextView)mReceiver.findViewById(R.id.phone)).setText(mReceiverDonorRequestType.getPhone());
             ((TextView)mReceiver.findViewById(R.id.purpose)).setText(mReceiverDonorRequestType.getPurpose());
+            (mReceiver.findViewById(R.id.direction)).setTag(mReceiverDonorRequestType.getLocation());
             toggleBottomSheet(receiverBehaviour, donorBehavior);
         }
         return false;

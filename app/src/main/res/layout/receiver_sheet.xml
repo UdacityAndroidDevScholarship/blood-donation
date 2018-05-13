@@ -40,7 +40,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:autoLink="phone"
+            android:textSize="18sp" />
+        <Button
+            android:id="@+id/direction"
+            android:layout_below="@id/phone"
+            android:text="@string/get_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:textSize="18sp" />
         <TextView
             android:layout_marginTop="@dimen/dp_8"
