@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -35,6 +36,7 @@ import com.udacity.nanodegree.blooddonation.databinding.ActivityHomeBinding;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.about.AboutActivity;
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
+import com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter;
 import com.udacity.nanodegree.blooddonation.ui.myprofile.MyProfileActivity;
 
@@ -303,12 +305,21 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if (marker.getTitle() == null) {
+        if (marker.getTitle() == null || marker.getTag()==null || !(marker.getTag() instanceof ReceiverDonorRequestType)) {
             return false;
         }
+        ReceiverDonorRequestType mReceiverDonorRequestType= (ReceiverDonorRequestType) marker.getTag();
         if (marker.getTitle().contains(getString(R.string.donor))) {
+            ((TextView)mDonorSheet.findViewById(R.id.name)).setText(mReceiverDonorRequestType.getfName()+" "+mReceiverDonorRequestType.getlName());
+            ((TextView)mDonorSheet.findViewById(R.id.blood_group)).setText(mReceiverDonorRequestType.getbGp());
+            ((TextView)mDonorSheet.findViewById(R.id.phone)).setText(mReceiverDonorRequestType.getPhone());
+            ((TextView)mDonorSheet.findViewById(R.id.purpose)).setText(mReceiverDonorRequestType.getPurpose());
             toggleBottomSheet(donorBehavior, receiverBehaviour);
         } else if (marker.getTitle().contains(getString(R.string.blood_request))) {
+            ((TextView)mReceiver.findViewById(R.id.name)).setText(mReceiverDonorRequestType.getfName()+" "+mReceiverDonorRequestType.getlName());
+            ((TextView)mReceiver.findViewById(R.id.blood_group)).setText(mReceiverDonorRequestType.getbGp());
+            ((TextView)mReceiver.findViewById(R.id.phone)).setText(mReceiverDonorRequestType.getPhone());
+            ((TextView)mReceiver.findViewById(R.id.purpose)).setText(mReceiverDonorRequestType.getPurpose());
             toggleBottomSheet(receiverBehaviour, donorBehavior);
         }
         return false;
