@@ -5,14 +5,18 @@ buildscript {
     ext.versions = [
             'supportLibrary'  : '27.1.1',
             'constraintLayout': '1.1.0',
-            'firebase'        : '15.0.0',
+            'firebase'        : '15.0.2',
             'testRunner'      : '1.0.1',
             'espressoCore'    : '3.0.1',
             'leak_canary'     :  '1.5.4',
             'timber'          : '4.7.0',
             'play_services'   : '15.0.0',
             'geo_fire'        : '2.3.1',
-            'gson'            : '2.8.4'
+            'gson'            : '2.8.4',
+            'fcm'             : '15.0.2',
+            'firebase_auth'   : '15.1.0',
+            'firebase_database':'15.0.0'
+
     ]
 
 
@@ -62,10 +66,10 @@ buildscript {
 
             'google' : [
                     'firebase': [
-                            'auth': "com.google.firebase:firebase-auth:${versions.firebase}",
-                            'database':"com.google.firebase:firebase-database:${versions.firebase}",
+                            'auth': "com.google.firebase:firebase-auth:${versions.firebase_auth}",
+                            'database':"com.google.firebase:firebase-database:${versions.firebase_database}",
                             'geo_fire':"com.firebase:geofire-android:${versions.geo_fire}",
-                            'cloud_messaging':"com.google.firebase:firebase-messaging:${versions.firebase}"
+                            'cloud_messaging':"com.google.firebase:firebase-messaging:${versions.fcm}"
                     ],
                     'play_services':[
                         'location':"com.google.android.gms:play-services-location:${versions.play_services}",
