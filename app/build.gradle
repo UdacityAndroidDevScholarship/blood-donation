@@ -94,6 +94,8 @@ dependencies {
 
     implementation deps.google.gson.gson
 
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
 
     testImplementation deps.junit
 

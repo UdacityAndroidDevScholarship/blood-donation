@@ -1,75 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.myprofile.MyProfileActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_background"
+        app:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:src="@drawable/ripple_effect"
+                android:id="@+id/btnClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:background="@drawable/ic_arrow_back_white_24dp"
+                android:contentDescription="@null" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
+                android:gravity="center"
+                android:text="@string/my_profile"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp" />
+
+            <ImageButton
+                android:src="@drawable/ripple_effect"
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ic_mode_edit_white_24dp"
+                android:contentDescription="@null" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/my_pic"
+                android:layout_width="@dimen/dp_150dp"
+                android:layout_height="@dimen/dp_150dp"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/dummyimage"
+                app:civ_border_color="#707070"
+                app:civ_border_width="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/my_blood_group"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bloodgroup_border"
+                android:paddingBottom="2dp"
+                android:paddingEnd="@dimen/dp_8"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingTop="2dp"
+                android:textColor="#EA2D4F"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/my_pic"
+                app:layout_constraintEnd_toEndOf="@+id/my_pic"
+                app:layout_constraintStart_toStartOf="@+id/my_pic"
+                app:layout_constraintTop_toBottomOf="@+id/my_pic"
+                app:layout_constraintVertical_bias="0.542"
+                tools:text="B +" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.design.widget.AppBarLayout>
 
     <ImageView
-        android:id="@+id/my_display_picture"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:id="@+id/imageView4"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_150dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/donatecounter"
+        app:layout_constraintBottom_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintEnd_toEndOf="@+id/appBarLayout"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="@+id/appBarLayout"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        android:contentDescription="@null" />
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_150dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintEnd_toEndOf="@+id/appBarLayout"
+        app:layout_constraintHorizontal_bias="0.91"
+        app:layout_constraintStart_toStartOf="@+id/appBarLayout"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:srcCompat="@drawable/requestcounter"
+        android:contentDescription="@null" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="@dimen/dp_150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@id/imageView3"
+        app:layout_constraintStart_toEndOf="@id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:srcCompat="@drawable/heartbeat"
+        android:contentDescription="@null" />
 
     <TextView
-        android:id="@+id/my_blood_group"
+        android:id="@+id/my_donation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/my_display_picture"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:text=""
-        android:textSize="40sp" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="0 Times"
+        android:textColor="#EA2D4F"
+        app:layout_constraintBottom_toBottomOf="@id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="@id/imageView4"
+        app:layout_constraintTop_toTopOf="@id/imageView4"
+        app:layout_constraintVertical_bias="0.786" />
+
+    <TextView
+        android:id="@+id/my_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="0 Times"
+        android:textColor="#EA2D4F"
+        app:layout_constraintBottom_toBottomOf="@id/imageView3"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="@id/imageView3"
+        app:layout_constraintTop_toTopOf="@id/imageView3"
+        app:layout_constraintVertical_bias="0.786" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="336dp" />
 
     <TextView
         android:id="@+id/my_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/my_blood_group"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text=""
-        android:textSize="20sp" />
-
-
-    <TextView
-        android:id="@+id/my_emailid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/my_name"
-        android:layout_centerHorizontal="true"
-        android:text=""
-        android:textSize="15sp" />
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        tools:text="Sahil Kumar"
+        android:textColor="#525252"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline" />
 
     <TextView
-        android:id="@+id/my_gender"
+        android:id="@+id/my_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/my_emailid"
-        android:layout_centerHorizontal="true"
-        android:text=""
-        android:textSize="15sp" />
+        android:layout_marginTop="22dp"
+        android:gravity="center"
+        tools:text="xdsahil@gmail.com"
+        android:textColor="#525252"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_name" />
 
     <TextView
-        android:id="@+id/my_dob"
+        android:id="@+id/my_mob"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/my_gender"
-        android:layout_centerHorizontal="true"
-        android:text=""
-        android:textSize="15sp" />
+        android:layout_marginTop="22dp"
+        android:gravity="center"
+        tools:text="7987036365"
+        android:textColor="#525252"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_email" />
 
     <TextView
         android:id="@+id/my_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/my_dob"
-        android:layout_centerHorizontal="true"
-        android:text=""
-        android:textSize="15sp" />
-</RelativeLayout>
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="22dp"
+        android:gravity="center"
+        tools:text="26.2227976:78.211832"
+        android:textColor="#525252"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_mob"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</android.support.constraint.ConstraintLayout>

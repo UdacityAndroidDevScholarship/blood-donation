@@ -53,6 +53,7 @@
         android:label="About"/>
       
     <activity android:name=".ui.myprofile.MyProfileActivity"
+        android:theme="@style/AppTheme.NoActionBar"
         android:screenOrientation="portrait"
         android:parentActivityName=".ui.home.view.HomeActivity"
         android:label="My Profile"/>
