@@ -64,7 +64,8 @@ buildscript {
                     'firebase': [
                             'auth': "com.google.firebase:firebase-auth:${versions.firebase}",
                             'database':"com.google.firebase:firebase-database:${versions.firebase}",
-                            'geo_fire':"com.firebase:geofire-android:${versions.geo_fire}"
+                            'geo_fire':"com.firebase:geofire-android:${versions.geo_fire}",
+                            'cloud_messaging':"com.google.firebase:firebase-messaging:${versions.firebase}"
                     ],
                     'play_services':[
                         'location':"com.google.android.gms:play-services-location:${versions.play_services}",

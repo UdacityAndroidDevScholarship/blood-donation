@@ -4,7 +4,7 @@ android {
     compileSdkVersion buildConfig.compileSdk
 
     defaultConfig {
-        applicationId "com.udacity.nanodegree.blooddonation"
+        applicationId "com.udacity.nanodegree.blooddonationn"
         minSdkVersion buildConfig.minSdk
         targetSdkVersion buildConfig.targetSdk
         versionCode buildConfig.version.code
@@ -93,6 +93,9 @@ dependencies {
     implementation 'com.github.GoodieBag:Pinview:v1.3'
 
     implementation deps.google.gson.gson
+
+    implementation deps.google.firebase.cloud_messaging
+
 
 
     testImplementation deps.junit
