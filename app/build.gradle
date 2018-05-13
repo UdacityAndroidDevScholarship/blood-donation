@@ -12,6 +12,7 @@ android {
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     vectorDrawables.useSupportLibrary = true
+    multiDexEnabled true
   }
 
   buildTypes {
@@ -57,7 +58,7 @@ dependencies {
   implementation deps.android.support.appcompatV7
 
   // Support Design
-  implementation deps.android.support.design
+  api deps.android.support.design
 
   // Constraint layout
   implementation deps.android.support.constraintLayout
@@ -96,6 +97,9 @@ dependencies {
 
   implementation deps.google.gson.gson
 
+  api 'com.android.support:multidex:1.0.3'
+
+ // implementation 'com.google.android.material:material:1.0.0-alpha1'
 
   testImplementation deps.junit
 

@@ -1,6 +1,7 @@
 package com.udacity.nanodegree.blooddonation;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 import com.squareup.leakcanary.LeakCanary;
 import com.udacity.nanodegree.blooddonation.util.timber.ReleaseTree;
 import timber.log.Timber;
@@ -8,7 +9,7 @@ import timber.log.Timber;
 /**
  * Created by riteshksingh on Apr, 2018
  */
-public class App extends Application {
+public class App extends MultiDexApplication {
 
   private static App INSTANCE;
 

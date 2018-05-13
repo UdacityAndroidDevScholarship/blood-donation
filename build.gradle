@@ -3,7 +3,7 @@
 buildscript {
 
   ext.versions = [
-      'supportLibrary': '27.1.1',
+      'supportLibrary': '28.0.0-alpha1',
       'constraintLayout': '1.1.0',
       'firebase': '15.0.0',
       'firebase_auth': '15.1.0',
@@ -18,7 +18,7 @@ buildscript {
 
 
   ext.buildConfig = [
-      'compileSdk': 27,
+      'compileSdk': 'android-P',
       'targetSdk': 27,
       'minSdk': 16,
       'isSnapshot': false,
@@ -120,7 +120,9 @@ allprojects {
   configurations.all {
     resolutionStrategy.eachDependency { details ->
       if (details.requested.group == 'com.android.support') {
-        details.useVersion versions.supportLibrary
+        if (!details.requested.name.startsWith('multidex')) {
+          details.useVersion versions.supportLibrary
+        }
       }
     }
   }
