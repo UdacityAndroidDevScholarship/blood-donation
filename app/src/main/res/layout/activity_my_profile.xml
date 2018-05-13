@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/my_display_picture"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/splash_icon_height_width"
+        android:layout_height="@dimen/splash_icon_height_width"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/my_display_picture"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="@dimen/dp_22"
         android:text=""
         android:textSize="40sp" />
 
