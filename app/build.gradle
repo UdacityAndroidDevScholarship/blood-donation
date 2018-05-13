@@ -93,6 +93,9 @@ dependencies {
 
   implementation deps.google.gson.gson
 
+  //CardView
+  implementation deps.android.support.cardView
+
 
   testImplementation deps.junit
 

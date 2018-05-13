@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
@@ -85,19 +86,7 @@ public class SplashScreenActivity extends BaseActivity {
                         mAnimatorSet.start();
                     }
                 });
-        mAppVersionView.getViewTreeObserver()
-                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        mAppVersionView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        AnimatorSet mAnimatorSet = new AnimatorSet();
-                        mAnimatorSet.playTogether(ObjectAnimator.ofFloat(mAppVersionView, "alpha", 0, 1, 1, 1),
-                                ObjectAnimator.ofFloat(mAppVersionView, "scaleX", 0.3f, 1.05f, 0.9f, 1),
-                                ObjectAnimator.ofFloat(mAppVersionView, "scaleY", 0.3f, 1.05f, 0.9f, 1));
-                        mAnimatorSet.setDuration(1500);
-                        mAnimatorSet.start();
-                    }
-                });
+
         mAppLogoView.getViewTreeObserver()
                 .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override

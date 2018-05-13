@@ -53,6 +53,7 @@ buildscript {
                             'annotations'     : "com.android.support:support-annotations:${versions.supportLibrary}",
                             'constraintLayout': "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
                             'design'          : "com.android.support:design:${versions.supportLibrary}",
+                            'cardView'        : "com.android.support:cardview-v7:${versions.supportLibrary}",
                             'test'            : [
                                     'runner'      : "com.android.support.test:runner:${versions.testRunner}",
                                     'espressoCore': "com.android.support.test.espresso:espresso-core:${versions.espressoCore}"

@@ -1,20 +1,36 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-  <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-  </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
-  <style name="AppTheme.NoActionBar" parent="AppTheme">
-    <item name="windowActionBar">false</item>
-    <item name="windowNoTitle">true</item>
-  </style>
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
-  <style name="AppTheme.NoActionBar.FullScreen" parent="AppTheme.NoActionBar">
-    <item name="android:windowFullscreen">true</item>
-  </style>
+    <style name="AppTheme.NoActionBar.FullScreen" parent="AppTheme.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!--User details-->
+    <style name="UserDetailsComponentsStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+        <item name="colorControlActivated" tools:targetApi="lollipop">@color/colorPrimary</item>
+        <item name="colorControlNormal">@android:color/darker_gray</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <!--Splash theme-->
+    <style name="AppTheme.Splash" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
 
 </resources>

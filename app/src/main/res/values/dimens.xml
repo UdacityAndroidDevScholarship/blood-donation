@@ -30,4 +30,8 @@
     <dimen name="dp_36">36dp</dimen>
     <dimen name="sp_32">32sp</dimen>
 
+    <!--User login-->
+    <dimen name="login_card_spacing_top">24dp</dimen>
+    <dimen name="login_card_spacing_bottom">24dp</dimen>
+
 </resources>
