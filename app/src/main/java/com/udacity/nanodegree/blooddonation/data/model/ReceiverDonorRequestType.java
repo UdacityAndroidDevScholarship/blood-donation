@@ -1,64 +1,37 @@
 package com.udacity.nanodegree.blooddonation.data.model;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.PropertyName;
+
 /**
  * Created by Kautilya on 25-04-2018.
  */
-public class ReceiverDonorRequestType {
+@SuppressWarnings("WeakerAccess") @IgnoreExtraProperties public class ReceiverDonorRequestType {
 
-    Location location;
-    String bGp;
-    String purpose;
-    String fullName;
-    String phone;
+  @PropertyName("request_location")
+  public Location location;
 
-    public ReceiverDonorRequestType() {
-    }
+  @PropertyName("blood_group")
+  public String bloodGroup;
 
-    public ReceiverDonorRequestType(Location location, String bGp, String purpose, String fullName, String phone) {
-        this.location = location;
-        this.bGp = bGp;
-        this.purpose = purpose;
-        this.phone = phone;
-    }
+  @PropertyName("purpose")
+  public String purpose;
 
-    public String getFullName() {
-        return fullName;
-    }
+  @PropertyName("full_name")
+  public String fullName;
 
-    public ReceiverDonorRequestType setFullName(String fullName) {
-        this.fullName = fullName;
-        return this;
-    }
+  @PropertyName("phone_number")
+  public String phoneNumber;
 
-    public String getPhone() {
-        return phone;
-    }
+  public ReceiverDonorRequestType() {
+  }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public String getbGp() {
-        return bGp;
-    }
-
-    public void setbGp(String bGp) {
-        this.bGp = bGp;
-    }
-
-    public String getPurpose() {
-        return purpose;
-    }
-
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
+  public ReceiverDonorRequestType(Location location, String bloodGroup, String purpose, String fullName,
+      String phoneNumber) {
+    this.location = location;
+    this.bloodGroup = bloodGroup;
+    this.purpose = purpose;
+    this.fullName = fullName;
+    this.phoneNumber = phoneNumber;
+  }
 }

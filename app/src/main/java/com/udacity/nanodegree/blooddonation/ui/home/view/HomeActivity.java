@@ -267,19 +267,19 @@ public class HomeActivity extends BaseActivity
       ReceiverDonorRequestType receiverDonorRequestType) {
 
     addMarker(receiverDonorRequestType, !isReceiver);
-    updateCamera(new LatLng(receiverDonorRequestType.getLocation().getLatitude(),
-        receiverDonorRequestType.getLocation().getLongitude()));
+    updateCamera(new LatLng(receiverDonorRequestType.location.latitude,
+        receiverDonorRequestType.location.longitude));
   }
 
   @Override
   synchronized public void addMarker(@NonNull ReceiverDonorRequestType request, boolean isDonor) {
 
     LatLng latLng =
-        new LatLng(request.getLocation().getLatitude(), request.getLocation().getLongitude());
+        new LatLng(request.location.latitude, request.location.longitude);
     Marker marker = mMap.addMarker(new MarkerOptions().position(latLng)
         .title(
             String.format("%s (%s)", getString(isDonor ? R.string.donor : R.string.blood_request),
-                request.getbGp()))
+                request.bloodGroup))
         .icon(BitmapDescriptorFactory
             .defaultMarker(
                 isDonor ? BitmapDescriptorFactory.HUE_GREEN : BitmapDescriptorFactory.HUE_RED)));
