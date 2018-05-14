@@ -18,6 +18,7 @@ import com.udacity.nanodegree.blooddonation.storage.SharedPreferenceManager;
 import com.udacity.nanodegree.blooddonation.ui.login.UserLoginContract;
 import com.udacity.nanodegree.blooddonation.util.NetworkUtil;
 import com.udacity.nanodegree.blooddonation.util.Util;
+import com.udacity.nanodegree.blooddonation.util.ValidationUtil;
 import timber.log.Timber;
 
 import java.lang.ref.WeakReference;
@@ -80,15 +81,15 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
         mView.get().setProceedProgressVisibility(false);
 
         if (e instanceof FirebaseAuthInvalidCredentialsException) {
-          mView.get().generalResponse(R.string.msg_invalid_phone_number);
+          mView.get().generalResponse(R.string.user_login_error_msg_invalid_phone_number);
           mView.get().showPhoneNumberLayout();
           Timber.e(e);
         } else if (e instanceof FirebaseTooManyRequestsException) {
-          mView.get().generalResponse(R.string.msg_sms_verification_limit_exceeded);
+          mView.get().generalResponse(R.string.user_login_error_msg_sms_verification_limit_exceeded);
           mView.get().showPhoneNumberLayout();
           Timber.e(e);
         } else {
-          mView.get().generalResponse(R.string.msg_encountered_an_unexpected_error);
+          mView.get().generalResponse(R.string.user_login_error_msg_unexpected_error);
           Timber.e(e);
         }
       }
@@ -147,7 +148,7 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
       public void onCancelled(DatabaseError databaseError) {
         mView.get().setVerifyProgressVisibility(false);
         mView.get().showVerifyOtpLayout();
-        mView.get().generalResponse(R.string.msg_encountered_an_unexpected_error);
+        mView.get().generalResponse(R.string.user_login_error_msg_unexpected_error);
 
         Timber.e(databaseError.getMessage());
       }
@@ -156,11 +157,11 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
 
   private void onSignInSuccess(User user) {
 
-    if (Util.isValidUser(user) == 0) {
+    if (ValidationUtil.validateUserDetails(user) != null) {
+      mView.get().launchUserDetailsScreen();
+    } else {
       mSharedPreferenceManager.put(SharedPrefConstants.IS_USER_DETAILS_ENTERED, true);
       mView.get().launchHomeScreen();
-    } else {
-      mView.get().launchUserDetailsScreen();
     }
   }
 
@@ -173,9 +174,9 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
             } else {
               mView.get().setVerifyProgressVisibility(false);
               if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                mView.get().generalResponse(R.string.msg_invalid_verification_code);
+                mView.get().generalResponse(R.string.user_login_error_msg_invalid_verification_code);
               } else {
-                mView.get().generalResponse(R.string.msg_encountered_an_unexpected_error);
+                mView.get().generalResponse(R.string.user_login_error_msg_unexpected_error);
               }
             }
           }
@@ -201,17 +202,17 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
 
       isVerificationInProgress = true;
     } else {
-      mView.get().generalResponse(R.string.msg_verification_already_in_progress);
+      mView.get().generalResponse(R.string.user_login_msg_verification_already_in_progress);
     }
   }
 
   @Override public void onProceedButtonClick(String phoneNumber, String phoneCode) {
 
     if (NetworkUtil.isOnline()) {
-      if (Util.isValidPhoneNumber(phoneNumber) && !TextUtils.isEmpty(phoneCode)) {
+      if (ValidationUtil.isValidPhoneNumber(phoneNumber) && !TextUtils.isEmpty(phoneCode)) {
         verifyPhoneNumber(Util.getPhoneNumberWithPlus(phoneNumber, phoneCode));
       } else {
-        mView.get().generalResponse(R.string.msg_invalid_phone_number);
+        mView.get().generalResponse(R.string.user_login_error_msg_invalid_phone_number);
       }
     } else {
       mView.get().generalResponse(R.string.msg_no_internet_connection);
@@ -222,12 +223,12 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
     if (!TextUtils.isEmpty(otp)) {
       verifyPhoneNumberWithOTP(otp);
     } else {
-      mView.get().generalResponse(R.string.msg_invalid_otp);
+      mView.get().generalResponse(R.string.user_login_msg_invalid_otp);
     }
   }
 
   @Override public void onResendCodeButtonClick() {
-    mView.get().generalResponse(R.string.msg_otp_has_been_sent);
+    mView.get().generalResponse(R.string.user_login_msg_otp_has_been_sent);
     verifyPhoneNumber(mPhoneNumber);
   }
 

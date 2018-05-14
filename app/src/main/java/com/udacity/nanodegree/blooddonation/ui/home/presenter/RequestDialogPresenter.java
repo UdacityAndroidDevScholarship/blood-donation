@@ -52,8 +52,7 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
         receiverDonorRequestType = new ReceiverDonorRequestType(new Location(requestDetails.latitude.get(), requestDetails.longitude.get()),
                 requestDetails.bloodGroup.get(),
                 requestDetails.purpose.get(),
-                mUser.fName,
-                mUser.lName,
+                mUser.fullName,
                 mFirebaseAuth.getCurrentUser().getPhoneNumber());
     }
 
@@ -66,7 +65,7 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
 
     private void saveDonorDetails(RequestDetails requestDetails) {
 
-        requestDetails.bloodGroup.set(mUser.bloodGroup);
+       // requestDetails.bloodGroup.set(mUser.bloodGroup);
         prepareReceiverDonorRequestType(requestDetails);
         ;
         mDataRepo.saveDonorDetails(mFirebaseAuth.getCurrentUser().getUid(), receiverDonorRequestType);

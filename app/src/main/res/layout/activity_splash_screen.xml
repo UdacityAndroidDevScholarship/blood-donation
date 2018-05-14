@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_app_icon"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginTop="@dimen/default_space_small"
         android:text="@string/app_name"
         android:textColor="@color/material_red_500"
         android:textSize="@dimen/splash_app_name_text_size"/>

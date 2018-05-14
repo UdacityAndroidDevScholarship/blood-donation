@@ -15,4 +15,13 @@
   <color name="colorButtonBrandFillDisabled">#ffbdbdbd</color>
   <color name="colorButtonBrandFillFocused">@color/colorPrimaryDark</color>
   <color name="colorButtonBrandFillPressed">@color/colorPrimaryDark</color>
+
+  <color name="colorFillPrimary">#ff212121</color>
+  <color name="colorFillSecondary">#ff757575</color>
+
+  <color name="colorDivider">#ffeeeeee</color>
+  <color name="colorTextHintText">#ff9e9e9e</color>
+  <color name="colorTextSecondary">@color/colorFillSecondary</color>
+  <color name="colorTextPrimary">@color/colorFillPrimary</color>
+  <color name="colorTextPrimaryDark">@color/material_red_500</color>
 </resources>

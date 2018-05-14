@@ -33,7 +33,7 @@ public class TestActivity extends AppCompatActivity {
 
                 while (dataSnapshot.getChildren().iterator().hasNext()){
                     User user = dataSnapshot.getChildren().iterator().next().getValue(User.class);
-                    Log.d("User", user.fName);
+                    Log.d("User", user.fullName);
                 }
             }
 

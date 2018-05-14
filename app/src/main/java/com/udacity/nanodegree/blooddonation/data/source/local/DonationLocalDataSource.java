@@ -9,34 +9,34 @@ import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
  */
 public class DonationLocalDataSource implements DonationDataSource {
 
-    private static DonationLocalDataSource INSTANCE;
+  private static DonationLocalDataSource INSTANCE;
 
-    private DonationLocalDataSource() {
-    }
+  private DonationLocalDataSource() {
+  }
 
-    public static DonationDataSource getInstance() {
+  public static DonationDataSource getInstance() {
+    if (INSTANCE == null) {
+      synchronized (DonationLocalDataSource.class) {
         if (INSTANCE == null) {
-            synchronized (DonationLocalDataSource.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new DonationLocalDataSource();
-                }
-            }
+          INSTANCE = new DonationLocalDataSource();
         }
-        return INSTANCE;
+      }
     }
+    return INSTANCE;
+  }
 
-    @Override
-    public void saveNewUser(String userId, User user) {
-        throw new UnsupportedOperationException("Not supported");
-    }
+  @Override public void saveNewUser(String userId, User user,
+      OnSaveCompletedListener completionListener) {
+    throw new UnsupportedOperationException("Not supported");
+  }
 
-    @Override
-    public void saveReceiverDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
+  @Override public void saveReceiverDetails(String userId,
+      ReceiverDonorRequestType receiverDonorRequestType) {
+    throw new UnsupportedOperationException("Not supported");
+  }
 
-    }
-
-    @Override
-    public void saveDonorDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
-
-    }
+  @Override
+  public void saveDonorDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
+    throw new UnsupportedOperationException("Not supported");
+  }
 }

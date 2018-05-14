@@ -1,38 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
-    <data>
+  <data>
+    <variable
+        name="presenter"
+        type="com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract.Presenter"
+        />
+  </data>
 
-        <variable
-            name="presenter"
-            type="com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract.Presenter" />
-    </data>
+  <android.support.design.widget.CoordinatorLayout
+      android:id="@+id/coordinator_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
 
-    <android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#efefef"
-        tools:context=".ui.home.view.HomeActivity">
+        android:layout_height="wrap_content"
+        >
 
-        <include
-            layout="@layout/content_main"
-            bind:presenter="@{presenter}" />
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?attr/colorPrimary"
+          android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+          app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+          app:title="@string/app_name"
+          app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
+          app:titleTextColor="@android:color/white"
+          />
+    </android.support.design.widget.AppBarLayout>
 
-        <!-- Adding bottom sheet after main content -->
-        <include layout="@layout/donor_sheet" />
+    <include
+        layout="@layout/content_main"
+        android:id="@+id/content_main"
+        bind:presenter="@{presenter}"
+        />
 
-        <include layout="@layout/receiver_sheet" />
+    <!-- Adding bottom sheet after main content -->
+    <include
+        layout="@layout/donor_sheet"
+        android:id="@+id/donor_sheet_binding"
+        />
+
+    <include
+        layout="@layout/receiver_sheet"
+        android:id="@+id/receiver_sheet_binding"
+        />
 
         <ProgressBar
             android:id="@+id/pb_loader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_margin="@dimen/dp_16"
+            android:layout_margin="@dimen/default_space"
             android:indeterminate="true"
             android:visibility="gone"
             tools:visibility="visible" />
 
-    </android.support.design.widget.CoordinatorLayout>
+  </android.support.design.widget.CoordinatorLayout>
 </layout>

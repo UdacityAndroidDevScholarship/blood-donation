@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:padding="@dimen/dp_16">
+        android:padding="@dimen/default_space">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/default_space"
                 android:text="@string/i_want_to"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintStart_toStartOf="@+id/tv_location_picker" />
@@ -45,10 +45,10 @@
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/default_space"
                 android:background="@drawable/edit_text_border"
                 android:entries="@array/blood_request"
-                android:padding="@dimen/dp_16"
+                android:padding="@dimen/default_space"
                 app:observableString="@{requestDetails.requestType}"
                 app:setPos="@{true}"
                 tools:listitem="@layout/support_simple_spinner_dropdown_item" />
@@ -62,7 +62,7 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/default_space"
                     android:text="@string/select_blood_group"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -72,10 +72,10 @@
                     style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/default_space"
                     android:background="@drawable/edit_text_border"
                     android:entries="@array/blood_group"
-                    android:padding="@dimen/dp_16"
+                    android:padding="@dimen/default_space"
                     app:observableString="@{requestDetails.bloodGroup}"
                     tools:listitem="@layout/support_simple_spinner_dropdown_item" />
             </LinearLayout>
@@ -84,7 +84,7 @@
                 android:id="@+id/et_purpose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/default_space"
                 android:background="@drawable/edit_text_border"
                 android:gravity="start"
                 android:hint="@string/txt_purpose"
@@ -92,7 +92,7 @@
                 android:maxLength="150"
                 android:maxLines="4"
                 android:minLines="4"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/default_space_small"
                 android:text="@{requestDetails.purpose}"
                 app:binding="@{requestDetails.purpose}" />
 
@@ -100,13 +100,13 @@
                 android:id="@+id/tv_location_picker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/default_space"
                 android:background="@drawable/edit_text_border"
                 android:drawableEnd="@drawable/ic_location_on_red_24dp"
                 android:drawableRight="@drawable/ic_location_on_red_24dp"
                 android:hint="@string/hint_location"
                 android:onClick="@{()->presenter.onLocationClick()}"
-                android:padding="@dimen/dp_30" />
+                android:padding="@dimen/default_space_30" />
 
             <Button
                 android:id="@+id/submit"
@@ -114,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/default_space"
                 android:onClick="@{()->presenter.onSubmitButtonClick(requestDetails)}"
                 android:text="@string/submit" />
 

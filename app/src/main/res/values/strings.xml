@@ -1,65 +1,75 @@
 <resources>
-    <string name="app_name">Blood Donation</string>
+  <string name="app_name">Blood Donation</string>
 
-    <!--LoginScreen Activity-->
+  <!--LoginScreen Activity-->
 
-    <string name="hi">Hi.</string>
-    <string name="lets_get_started">Let\'s Get Started</string>
-    <string name="hint_phone_number">Phone Number</string>
-    <string name="proceed">PROCEED</string>
+  <string name="user_login_hi">Hi.</string>
+  <string name="user_login_lets_get_started">Let\'s Get Started</string>
+  <string name="user_login_hint_phone_number">Phone Number</string>
+  <string name="user_login_proceed">PROCEED</string>
 
-    <string name="wait_for_auto_verify">Waiting to automatically detect an SMS sent to you mobile number</string>
-    <string name="enter_6_digit_code">Enter 6 - Digit code</string>
-    <string name="didn_t_receive_the_code">Didn\'t receive the code?</string>
+  <string name="user_login_wait_for_auto_verify">Waiting to automatically detect an SMS sent to you mobile number</string>
+  <string name="user_login_enter_6_digit_code">Enter 6 - Digit code</string>
+  <string name="user_login_didn_t_receive_the_code">Didn\'t receive the code?</string>
 
-    <string name="msg_invalid_phone_number">Invalid Phone Number!</string>
-    <string name="msg_verification_already_in_progress">Please wait! Verification already in progress.</string>
-    <string name="msg_otp_has_been_sent">An OTP has been sent to your phone number.</string>
-    <string name="msg_encountered_an_unexpected_error">We have encountered an unexpected error while verifying your phone number!</string>
-    <string name="msg_invalid_verification_code">Invalid verification code!</string>
-    <string name="msg_sms_verification_limit_exceeded">Oops! You have exceeded the maximum limit for SMS verification, please try again later.</string>
-    <string name="msg_currently_verifying_number">Currently we are verifying the phone number:\n\n+%1$s-%2$s\n\nwould you like to edit the number?</string>
+  <string name="user_login_error_msg_invalid_phone_number">Invalid Phone Number!</string>
+  <string name="user_login_msg_verification_already_in_progress">Please wait! Verification already in progress.</string>
+  <string name="user_login_msg_otp_has_been_sent">An OTP has been sent to your phone number.</string>
+  <string name="user_login_error_msg_unexpected_error">We have encountered an unexpected error while verifying your phone number!</string>
+  <string name="user_login_error_msg_invalid_verification_code">Invalid verification code!</string>
+  <string name="user_login_error_msg_sms_verification_limit_exceeded">Oops! You have exceeded the maximum limit for SMS verification, please try again later.</string>
+  <string name="user_login_msg_currently_verifying_number">Currently we are verifying the phone number:\n\n+%1$s-%2$s\n\nwould you like to edit the number?</string>
 
-    <string name="resend_code_timer">RESEND CODE (%ds)</string>
+  <string name="user_login_resend_code_timer">RESEND CODE (%ds)</string>
 
+  <string name="user_login_verify">Verify</string>
+  <string name="user_login_title_verification">Verification</string>
+  <string name="user_login_resend_code">Resend Code</string>
+  <string name="user_login_msg_invalid_otp">OTP cannot be empty.</string>
 
-    <string name="msg_no_internet_connection">No internet connection!</string>
-    <string name="msg_please_wait">Please Wait.</string>
-
-
-    <!--LoginScreen Activity-->
-    <string name="enter_phone_number">Enter phone number</string>
-    <string name="iam_in">I am in</string>
-    <string name="verify_mobile_number">Verify mobile number.OTP has been sent"</string>
-    <string name="verify">Verify</string>
-    <string name="verification">Verification</string>
-    <string name="verify_phone_number">VERIFY PHONE NUMBER</string>
-    <string name="otp_sent_text">OTP has been sent to %1$s.</string>
-    <string name="hint_otp">OTP</string>
-    <string name="countdown">%1$d seconds left!</string>
-    <string name="resend_code">Resend Code</string>
+  <string name="msg_no_internet_connection">No internet connection!</string>
+  <string name="msg_please_wait">Please Wait.</string>
 
 
-    <!--UserDetailActivity-->
-    <string name="user_profile">Profile</string>
-    <string name="hint_first_name">First Name</string>
-    <string name="hint_last_name">Last Name</string>
-    <string name="hint_birth_date">Select Birth Date</string>
-    <string name="hint_location">Select Your Location</string>
-    <string name="create_now">Create Now</string>
-    <string name="hint_email">Email</string>
-    <string name="gender_male">Male</string>
-    <string name="gender">Gender</string>
-    <string name="gender_female">Female</string>
-    <string name="date_hint">Select date</string>
-    <string name="msg_sign_up_location_message">Your current location is required to sign you up so that you can get benefit of our loved community by sharing with them where you are.</string>
-    <string name="msg_never_ask_sign_up">Sign up process cannot be completed without location access. Please navigate to application settings -> Permissions and grant location permission.</string>
-    <string name="msg_first_name_empty">First name cannot be empty.</string>
-    <string name="msg_last_name_empty">Last name cannot be empty.</string>
-    <string name="msg_email_empty">Email cannot be empty.</string>
-    <string name="msg_invalid_email">Please enter a valid email address.</string>
-    <string name="msg_invalid_age">Please select your date of birth.</string>
-    <string name="msg_invalid_location">Your location is not yet selected.</string>
+  <!--UserDetailActivity-->
+  <string name="user_details_error_msg_photo_prepare">We have encountered an unexpected while preparing photo for the upload!</string>
+  <string name="user_details_error_msg_photo_upload">We have encountered an unexpected while uploading you profile photo!</string>
+  <string name="user_details_error_msg_unexpected">We have encountered an unexpected error while creating you account!</string>
+  <string name="user_details_error_msg_pick_city">An unexpected error while choosing city, please try again! </string>
+
+  <string name="user_details_error_msg_full_name">Full name cannot be empty!</string>
+  <string name="user_details_error_msg_birthday">Birthday cannot be empty!</string>
+  <string name="user_details_error_msg_state">State cannot be empty!</string>
+  <string name="user_details_error_msg_city">City cannot be empty!</string>
+  <string name="user_details_error_msg_address">Address cannot be empty!</string>
+  <string name="user_details_error_msg_email">Email cannot be empty!</string>
+  <!--//  <string name="user_details_error_msg_email_invalid">Invalid email address!</string>-->
+
+  <string name="user_details_error_msg_empty_field">Please fill out all the details!</string>
+  <string name="user_details_error_msg_invalid_email">Invalid email address!</string>
+  <string name="user_details_gender_male">Male</string>
+  <string name="user_details_full_name">Full Name</string>
+  <string name="user_details_gender">Gender</string>
+  <string name="user_details_gender_female">Female</string>
+  <string name="user_details_birthday">Birthday</string>
+  <string name="user_details_mobile_number">Mobile Number</string>
+  <string name="user_details_email">Email</string>
+  <string name="user_details_address_area_and_street">Address (Area and Street)</string>
+  <string name="user_details_country">Country</string>
+  <string name="user_details_landmark_optional">Landmark (Optional)</string>
+  <string name="user_details_pincode">Pincode</string>
+  <string name="user_details_city">City</string>
+  <string name="user_details_state">State</string>
+  <string name="user_details_action_create_account">CREATE ACCOUNT</string>
+
+
+  <!--Misc-->
+
+  <string name="hint_location">Select Your Location</string>
+
+  <string name="msg_sign_up_location_message">Your current location is required to sign you up so that you can get benefit of our loved community by sharing with them where you are.</string>
+  <string name="msg_never_ask_sign_up">Sign up process cannot be completed without location access. Please navigate to application settings -> Permissions and grant location permission.</string>
+
 
 
     <!-- HomeActivity -->
@@ -84,16 +94,17 @@
     <string name="msg_never_ask_blood_request">Your current location is required for creating blood request. Please navigate to application settings -> Permissions and grant location permission.</string>
 
 
-    <!-- General -->
-    <string name="txt_open_settings">Open Settings</string>
-    <string name="msg_location_permission_title">Location Permission Required.</string>
-    <string name="cancel">Cancel</string>
-    <string name="ok">OK</string>
-    <string name="msg_empty_user">Could not find user details.</string>
-    <string name="msg_invalid_phone">Please enter a valid phone number.</string>
-    <string name="msg_something_went_wrong">Something went wrong!</string>
-    <string name="msg_invalid_code">Invalid verification code.</string>
-    <string name="msg_invalid_otp">OTP cannot be empty.</string>
-    <string name="app_about">This is a free Blood Donation Mobile Application which helps needful patients to search for blood donors in their city or area and request for blood donation.Connecting blood donors and needy reduces time which increases the possibility of saving lives and also eliminates the shortage of blood.</string>
+  <!-- General -->
+  <string name="txt_open_settings">Open Settings</string>
+  <string name="msg_location_permission_title">Location Permission Required.</string>
+  <string name="cancel">Cancel</string>
+  <string name="ok">OK</string>
+  <string name="user_detail_error_msg_empty_user">Could not find user details.</string>
+
+
+  <string name="app_about">This is a free Blood Donation Mobile Application which helps needful patients to search for blood donors in their city or area and request for blood donation.Connecting blood donors and needy reduces time which increases the possibility of saving lives and also eliminates the shortage of blood.</string>
+
+
+
 
 </resources>

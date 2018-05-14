@@ -11,7 +11,7 @@ import com.udacity.nanodegree.blooddonation.App;
 public final class SharedPreferenceManager {
 
     private static SharedPreferenceManager INSTANCE;
-    private final String NAME = "com.udacity.nanodegree.blooddonation";
+    private static final String NAME = "com.udacity.nanodegree.blooddonation";
     private SharedPreferences mSharedPreferences;
 
     private SharedPreferenceManager() {

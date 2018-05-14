@@ -9,9 +9,14 @@ import com.udacity.nanodegree.blooddonation.ui.home.presenter.RequestDialogPrese
  * Created by riteshksingh on Apr, 2018
  */
 public interface DonationDataSource {
-  void saveNewUser(String userId, User user);
+  void saveNewUser(String userId, User user,
+      OnSaveCompletedListener completionListener);
 
   void saveReceiverDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType);
 
   void saveDonorDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType);
+
+  interface OnSaveCompletedListener {
+    void onCompleted(boolean isSuccessful);
+  }
 }

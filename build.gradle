@@ -2,132 +2,152 @@
 
 buildscript {
 
-    ext.versions = [
-            'supportLibrary'  : '27.1.1',
-            'constraintLayout': '1.1.0',
-            'firebase'        : '15.0.0',
-            'testRunner'      : '1.0.1',
-            'espressoCore'    : '3.0.1',
-            'leak_canary'     :  '1.5.4',
-            'timber'          : '4.7.0',
-            'play_services'   : '15.0.0',
-            'geo_fire'        : '2.3.1',
-            'gson'            : '2.8.4'
-    ]
+  ext.versions = [
+      'supportLibrary': '28.0.0-alpha1',
+      'multidex': '1.0.3',
+      'constraintLayout': '1.1.0',
+      'firebase': '15.0.0',
+      'firebase_auth': '15.1.0',
+      'testRunner': '1.0.1',
+      'espressoCore': '3.0.1',
+      'leak_canary': '1.5.4',
+      'timber': '4.7.0',
+      'play_services': '15.0.0',
+      'geo_fire': '2.3.1',
+      'gson': '2.8.4',
+      'countrycodepicker': '2.1.5',
+      'pinView': 'v1.3',
+      'circleimageview': '2.2.0',
+      'androidImageCropper': '2.7.0'
+  ]
 
 
-    ext.buildConfig = [
-            'compileSdk': 27,
-            'targetSdk' : 27,
-            'minSdk'    : 16,
-            'isSnapshot': false,
+  ext.buildConfig = [
+      'compileSdk': 'android-P',
+      'targetSdk': 27,
+      'minSdk': 16,
+      'isSnapshot': false,
 
-            'version'   : [
-                    'major'     : 1,
-                    'minor'     : 0,
-                    'patch'     : 0,
-                    'classifier': null, // dev, beta, alpha etc.
-            ]
-    ]
+      'version': [
+          'major': 1,
+          'minor': 0,
+          'patch': 0,
+          'classifier': null, // dev, beta, alpha etc.
+      ]
+  ]
 
-    String versionName = "${buildConfig.version.major}.${buildConfig.version.minor}.${buildConfig.version.patch}"
+  String versionName = "${buildConfig.version.major}.${buildConfig.version.minor}.${buildConfig.version.patch}"
 
-    if (buildConfig.version.classifier == null) {
-        if (buildConfig.isSnapshot) {
-            buildConfig.version.classifier = 'SNAPSHOT'
-        }
+  if (buildConfig.version.classifier == null) {
+    if (buildConfig.isSnapshot) {
+      buildConfig.version.classifier = 'SNAPSHOT'
     }
+  }
 
-    if (buildConfig.version.classifier != null) {
-        versionName += "-" + buildConfig.version.classifier
-    }
+  if (buildConfig.version.classifier != null) {
+    versionName += "-" + buildConfig.version.classifier
+  }
 
-    ext.buildConfig.version['name'] = versionName
-    ext.buildConfig.version['code'] = buildConfig.version.major * 100000 + buildConfig.version.minor * 10000 + buildConfig.version.patch * 100
+  ext.buildConfig.version['name'] = versionName
+  ext.buildConfig.version['code'] = buildConfig.version.major * 100000 +
+      buildConfig.version.minor *
+      10000 +
+      buildConfig.version.patch *
+      100
 
 
-    ext.deps = [
-            'android': [
-                    'support': [
-                            'appcompatV7'     : "com.android.support:appcompat-v7:${versions.supportLibrary}",
-                            'annotations'     : "com.android.support:support-annotations:${versions.supportLibrary}",
-                            'constraintLayout': "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
-                            'design'          : "com.android.support:design:${versions.supportLibrary}",
-                            'test'            : [
-                                    'runner'      : "com.android.support.test:runner:${versions.testRunner}",
-                                    'espressoCore': "com.android.support.test.espresso:espresso-core:${versions.espressoCore}"
-                            ]
-                    ],
-            ],
+  ext.deps = [
+      'android': [
+          'support': [
+              'appcompatV7': "com.android.support:appcompat-v7:${versions.supportLibrary}",
+              'annotations': "com.android.support:support-annotations:${versions.supportLibrary}",
+              'constraintLayout': "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
+              'design': "com.android.support:design:${versions.supportLibrary}",
+              'multidex': "com.android.support:multidex:${versions.multidex}",
+              'test': [
+                  'runner': "com.android.support.test:runner:${versions.testRunner}",
+                  'espressoCore': "com.android.support.test.espresso:espresso-core:${versions.espressoCore}"
+              ]
+          ],
+      ],
 
-            'google' : [
-                    'firebase': [
-                            'auth': "com.google.firebase:firebase-auth:${versions.firebase}",
-                            'database':"com.google.firebase:firebase-database:${versions.firebase}",
-                            'geo_fire':"com.firebase:geofire-android:${versions.geo_fire}"
-                    ],
-                    'play_services':[
-                        'location':"com.google.android.gms:play-services-location:${versions.play_services}",
-                        'maps':"com.google.android.gms:play-services-maps:${versions.play_services}"
-                    ],
-                    'gson':[
-                            'gson': "com.google.code.gson:gson:${versions.gson}"
-                    ]
-            ],
+      'google': [
+          'firebase': [
+              'auth': "com.google.firebase:firebase-auth:${versions.firebase_auth}",
+              'database': "com.google.firebase:firebase-database:${versions.firebase}",
+              'storage': "com.google.firebase:firebase-storage:${versions.firebase}",
+              'geo_fire': "com.firebase:geofire-android:${versions.geo_fire}"
+          ],
+          'play_services': [
+              'location': "com.google.android.gms:play-services-location:${versions.play_services}",
+              'maps': "com.google.android.gms:play-services-maps:${versions.play_services}",
+              'places': "com.google.android.gms:play-services-places:${versions.play_services}"
+          ],
+          'gson': [
+              'gson': "com.google.code.gson:gson:${versions.gson}"
+          ]
+      ],
 
-            'square':[
-                'leackcanary':[
-                    'debug':"com.squareup.leakcanary:leakcanary-android:${versions.leak_canary}",
-                    'release':"com.squareup.leakcanary:leakcanary-android-no-op:${versions.leak_canary}"
-                ]
-            ],
+      'square': [
+          'leackcanary': [
+              'debug': "com.squareup.leakcanary:leakcanary-android:${versions.leak_canary}",
+              'release': "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leak_canary}"
+          ]
+      ],
 
-            'other':[
-                'timber':"com.jakewharton.timber:timber:${versions.timber}"
-            ],
+      'other': [
+          'timber': "com.jakewharton.timber:timber:${versions.timber}",
+          'countrycodepicker': "com.github.joielechong:countrycodepicker:${versions.countrycodepicker}",
+          'pinView': "com.github.GoodieBag:Pinview:${versions.pinView}",
+          'circleimageview': "de.hdodenhof:circleimageview:${versions.circleimageview}",
+          'androidImageCropper': "com.theartofdev.edmodo:android-image-cropper:${versions.androidImageCropper}"
+      ],
 
-            'junit'  : 'junit:junit:4.12'
-    ]
+      'junit': 'junit:junit:4.12'
+  ]
 
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
+  repositories {
+    google()
+    jcenter()
+  }
+  dependencies {
 
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha13'
-        classpath 'com.google.gms:google-services:3.2.1'
+    classpath 'com.android.tools.build:gradle:3.2.0-alpha14'
+    classpath 'com.google.gms:google-services:3.2.1'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-
-    }
+    // NOTE: Do not place your application dependencies here; they belong
+    // in the individual module build.gradle files
+  }
 }
 
 allprojects {
-    repositories {
-        google()
-        jcenter()
-        maven { url "https://jitpack.io" }
-    }
+  repositories {
+    google()
+    jcenter()
+    maven { url "https://jitpack.io" }
+  }
 
-    // Force all of the primary support libraries to use the same version.
-    configurations.all {
-        resolutionStrategy.eachDependency { details ->
-            if (details.requested.group == 'com.android.support') {
-                details.useVersion versions.supportLibrary
-            }
+  // Force all of the primary support libraries to use the same version.
+  configurations.all {
+    resolutionStrategy.eachDependency { details ->
+      if (details.requested.group == 'com.android.support') {
+        if (!details.requested.name.startsWith('multidex')) {
+          details.useVersion versions.supportLibrary
         }
+      }
     }
+  }
 }
 
 task clean(type: Delete) {
-    delete rootProject.buildDir
+  delete rootProject.buildDir
 }
 
 def propOrThrow(String name) {
-    if (hasProperty(name))
-        return getProperty(name)
-    else
-        throw new GradleException("Can't find property `$name`, make sure you have added them to the global 'gradle.properties' file")
+  if (hasProperty(name)) {
+    return getProperty(name)
+  } else {
+    throw new GradleException(
+        "Can't find property `$name`, make sure you have added them to the global 'gradle.properties' file")
+  }
 }
