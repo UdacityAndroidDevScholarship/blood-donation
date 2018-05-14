@@ -142,16 +142,14 @@ public class HomeActivity extends BaseActivity
     protected void onStop() {
         super.onStop();
         mPresenter.onStop();
-
-        removeOldMarkers(donorMarkers);
-        removeOldMarkers(receiverMarkers);
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
+        removeOldMarkers(donorMarkers);
+        removeOldMarkers(receiverMarkers);
     }
 
     private void setDonorBehaviorBottomSheetCallBack() {
