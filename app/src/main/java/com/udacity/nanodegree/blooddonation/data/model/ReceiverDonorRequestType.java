@@ -5,34 +5,60 @@ package com.udacity.nanodegree.blooddonation.data.model;
  */
 public class ReceiverDonorRequestType {
 
-  Location location;
-  String bGp;
-  String purpose;
+    Location location;
+    String bGp;
+    String purpose;
+    String fullName;
+    String phone;
 
-  public ReceiverDonorRequestType() {
-  }
+    public ReceiverDonorRequestType() {
+    }
 
-  public Location getLocation() {
-    return location;
-  }
+    public ReceiverDonorRequestType(Location location, String bGp, String purpose, String fullName, String phone) {
+        this.location = location;
+        this.bGp = bGp;
+        this.purpose = purpose;
+        this.phone = phone;
+    }
 
-  public void setLocation(Location location) {
-    this.location = location;
-  }
+    public String getFullName() {
+        return fullName;
+    }
 
-  public String getbGp() {
-    return bGp;
-  }
+    public ReceiverDonorRequestType setFullName(String fullName) {
+        this.fullName = fullName;
+        return this;
+    }
 
-  public void setbGp(String bGp) {
-    this.bGp = bGp;
-  }
+    public String getPhone() {
+        return phone;
+    }
 
-  public String getPurpose() {
-    return purpose;
-  }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-  public void setPurpose(String purpose) {
-    this.purpose = purpose;
-  }
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public String getbGp() {
+        return bGp;
+    }
+
+    public void setbGp(String bGp) {
+        this.bGp = bGp;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
 }

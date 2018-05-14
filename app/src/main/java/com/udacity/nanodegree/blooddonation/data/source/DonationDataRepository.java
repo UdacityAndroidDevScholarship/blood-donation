@@ -42,8 +42,8 @@ public class DonationDataRepository implements DonationDataSource {
     mRemoteDataSource.saveReceiverDetails(userId, receiverDonorRequestType);
   }
 
-  @Override public void saveDonorDetails(String uid, String bgp, GeoLocation geoLocation,
-      RequestDialogPresenter.ISaveDonorDetails iSaveDonorDetails) {
-    mRemoteDataSource.saveDonorDetails(uid, bgp, geoLocation, iSaveDonorDetails);
+  @Override
+  public void saveDonorDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
+    mRemoteDataSource.saveDonorDetails(userId, receiverDonorRequestType);
   }
 }

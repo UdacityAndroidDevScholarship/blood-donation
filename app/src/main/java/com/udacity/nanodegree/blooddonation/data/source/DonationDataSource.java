@@ -15,8 +15,7 @@ public interface DonationDataSource {
 
   void saveReceiverDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType);
 
-  void saveDonorDetails(String uid, String bgp, GeoLocation geoLocation,
-      RequestDialogPresenter.ISaveDonorDetails iSaveDonorDetails);
+  void saveDonorDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType);
 
   interface OnSaveCompletedListener {
     void onCompleted(boolean isSuccessful);
