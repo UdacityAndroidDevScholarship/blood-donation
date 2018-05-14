@@ -4,6 +4,7 @@ buildscript {
 
   ext.versions = [
       'supportLibrary': '28.0.0-alpha1',
+      'multidex': '1.0.3',
       'constraintLayout': '1.1.0',
       'firebase': '15.0.0',
       'firebase_auth': '15.1.0',
@@ -13,7 +14,11 @@ buildscript {
       'timber': '4.7.0',
       'play_services': '15.0.0',
       'geo_fire': '2.3.1',
-      'gson': '2.8.4'
+      'gson': '2.8.4',
+      'countrycodepicker': '2.1.5',
+      'pinView': 'v1.3',
+      'circleimageview': '2.2.0',
+      'androidImageCropper': '2.7.0'
   ]
 
 
@@ -58,6 +63,7 @@ buildscript {
               'annotations': "com.android.support:support-annotations:${versions.supportLibrary}",
               'constraintLayout': "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
               'design': "com.android.support:design:${versions.supportLibrary}",
+              'multidex': "com.android.support:multidex:${versions.multidex}",
               'test': [
                   'runner': "com.android.support.test:runner:${versions.testRunner}",
                   'espressoCore': "com.android.support.test.espresso:espresso-core:${versions.espressoCore}"
@@ -69,6 +75,7 @@ buildscript {
           'firebase': [
               'auth': "com.google.firebase:firebase-auth:${versions.firebase_auth}",
               'database': "com.google.firebase:firebase-database:${versions.firebase}",
+              'storage': "com.google.firebase:firebase-storage:${versions.firebase}",
               'geo_fire': "com.firebase:geofire-android:${versions.geo_fire}"
           ],
           'play_services': [
@@ -89,7 +96,11 @@ buildscript {
       ],
 
       'other': [
-          'timber': "com.jakewharton.timber:timber:${versions.timber}"
+          'timber': "com.jakewharton.timber:timber:${versions.timber}",
+          'countrycodepicker': "com.github.joielechong:countrycodepicker:${versions.countrycodepicker}",
+          'pinView': "com.github.GoodieBag:Pinview:${versions.pinView}",
+          'circleimageview': "de.hdodenhof:circleimageview:${versions.circleimageview}",
+          'androidImageCropper': "com.theartofdev.edmodo:android-image-cropper:${versions.androidImageCropper}"
       ],
 
       'junit': 'junit:junit:4.12'

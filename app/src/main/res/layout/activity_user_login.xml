@@ -275,7 +275,7 @@
               android:layout_marginRight="@dimen/default_space_small"
               android:layout_marginTop="@dimen/default_space_small"
               android:onClick="@{() -> presenter.onResendCodeButtonClick()}"
-              android:text="@string/resend_code"
+              android:text="@string/user_login_resend_code"
               android:textAllCaps="false"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toEndOf="@+id/tv_not_received"
@@ -308,7 +308,7 @@
               android:focusable="true"
               android:gravity="center"
               android:onClick="@{() -> presenter.onVerifyOtpButtonClick(userLoginInfo.otp)}"
-              android:text="@string/verify"
+              android:text="@string/user_login_verify"
               android:textAllCaps="true"
               android:textColor="@android:color/white"
               />

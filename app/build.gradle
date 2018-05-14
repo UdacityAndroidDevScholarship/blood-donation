@@ -69,9 +69,12 @@ dependencies {
   // Realtime database
   implementation deps.google.firebase.database
 
+  // Firebase Storage
+  implementation deps.google.firebase.storage
+
   //Country code picker
-  // https://android-arsenal.com/details/1/5753 // TODO: move to project level gradle
-  implementation 'com.github.joielechong:countrycodepicker:2.1.5'
+  // https://android-arsenal.com/details/1/5753
+  implementation deps.other.countrycodepicker
 
   // Leak canary
   debugImplementation deps.square.leackcanary.debug
@@ -92,14 +95,16 @@ dependencies {
   // Google Places
   implementation deps.google.play_services.places
 
-  // PinView // TODO: move to project level gradle
-  implementation 'com.github.GoodieBag:Pinview:v1.3'
+  // PinView
+  implementation deps.other.pinView
 
   implementation deps.google.gson.gson
 
-  api 'com.android.support:multidex:1.0.3'
+  api deps.android.support.multidex
 
- // implementation 'com.google.android.material:material:1.0.0-alpha1'
+  implementation deps.other.circleimageview
+
+  implementation deps.other.androidImageCropper
 
   testImplementation deps.junit
 

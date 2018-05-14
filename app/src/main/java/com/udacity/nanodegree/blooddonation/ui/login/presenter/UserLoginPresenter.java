@@ -223,7 +223,7 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
     if (!TextUtils.isEmpty(otp)) {
       verifyPhoneNumberWithOTP(otp);
     } else {
-      mView.get().generalResponse(R.string.msg_invalid_otp);
+      mView.get().generalResponse(R.string.user_login_msg_invalid_otp);
     }
   }
 

@@ -10,6 +10,10 @@ import com.udacity.nanodegree.blooddonation.ui.userdetail.model.UserDetail;
  * Created by riteshksingh on Apr, 2018
  */
 @SuppressWarnings("WeakerAccess") @IgnoreExtraProperties public class User {
+
+  @PropertyName("photo_url")
+  public String profilePhotoUrl;
+
   @PropertyName("full_name")
   public String fullName;
 

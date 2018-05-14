@@ -149,7 +149,7 @@ public class UserLoginActivity extends BaseActivity implements UserLoginContract
   }
 
   @Override public void showVerifyOtpLayout() {
-    setTitle(getString(R.string.verification));
+    setTitle(getString(R.string.user_login_title_verification));
 
     mLoginBinding.layoutVerification.setVisibility(View.VISIBLE);
     mLoginBinding.layoutRegistration.setVisibility(View.GONE);
@@ -158,7 +158,7 @@ public class UserLoginActivity extends BaseActivity implements UserLoginContract
   @Override public void setResendButtonEnabled(boolean isEnabled) {
     if (isEnabled) {
       mLoginBinding.btResendCode.setEnabled(true);
-      mLoginBinding.btResendCode.setText(R.string.resend_code);
+      mLoginBinding.btResendCode.setText(R.string.user_login_resend_code);
     } else {
       mLoginBinding.btResendCode.setEnabled(false);
     }

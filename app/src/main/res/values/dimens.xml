@@ -11,9 +11,9 @@
   <dimen name="default_space_big">24dp</dimen>
   <dimen name="default_space_very_tiny">-2dp</dimen>
 
-  <dimen name="dimen_text_100">100dp</dimen>
-  <dimen name="dimen_text_150">150dp</dimen>
-  <dimen name="dimen_text_30">30dp</dimen>
+  <dimen name="default_space_100">100dp</dimen>
+  <dimen name="default_space_150">150dp</dimen>
+  <dimen name="default_space_30">30dp</dimen>
 
   <dimen name="default_pull_space_big">-24dp</dimen>
   <dimen name="default_pull_space_medium">-20dp</dimen>
@@ -34,11 +34,12 @@
   <dimen name="dimen_text_title">20sp</dimen>
 
   <!--Splash screen-->
-  <dimen name="splash_icon_height_width">@dimen/dimen_text_100</dimen>
-  <dimen name="splash_icon_margin_top">@dimen/dimen_text_150</dimen>
+  <dimen name="splash_icon_height_width">@dimen/default_space_100</dimen>
+  <dimen name="splash_icon_margin_top">@dimen/default_space_150</dimen>
   <dimen name="splash_app_version_text_size">@dimen/sp_15</dimen>
-  <dimen name="splash_app_version_margin_bottom">@dimen/dimen_text_30</dimen>
+  <dimen name="splash_app_version_margin_bottom">@dimen/default_space_30</dimen>
   <dimen name="splash_app_name_text_size">@dimen/dimen_text_title</dimen>
+
   <dimen name="sp_24">24sp</dimen>
   <dimen name="dp_32">32dp</dimen>
   <dimen name="sp_16">16sp</dimen>

@@ -32,6 +32,53 @@
           tools:context=".UserDetailsActivity"
           >
 
+        <ProgressBar
+            android:id="@+id/pb_user_details_photo_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_space_small"
+            android:layout_marginEnd="@dimen/default_space_small"
+            android:layout_marginStart="@dimen/default_space_small"
+            android:layout_marginTop="@dimen/default_space_small"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/civ_user_details_profile_image"
+            app:layout_constraintEnd_toEndOf="@+id/civ_user_details_profile_image"
+            app:layout_constraintStart_toStartOf="@+id/civ_user_details_profile_image"
+            app:layout_constraintTop_toTopOf="@+id/civ_user_details_profile_image"
+            style="?android:attr/progressBarStyle"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_user_details_choose_profile_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_space_small"
+            android:layout_marginStart="@dimen/default_space_small"
+            android:layout_marginTop="64dp"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="@{() -> presenter.onPickPhotoClick()}"
+            app:fabSize="mini"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/civ_user_details_profile_image"
+            app:srcCompat="@drawable/ic_add_white_24dp"
+            />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_user_details_profile_image"
+            android:layout_width="@dimen/default_space_100"
+            android:layout_height="@dimen/default_space_100"
+            android:layout_marginEnd="@dimen/default_space_small"
+            android:layout_marginStart="@dimen/default_space_small"
+            android:layout_marginTop="@dimen/default_space_small"
+            app:civ_border_color="@color/colorAccent"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:photoPicked="@{userDetail.isPhotoPicked}"
+            app:userGender="@{userDetail.isMale}"
+            tools:src="@drawable/ic_gender_male"
+            />
         <android.support.design.widget.TextInputLayout
             android:id="@+id/til_user_details_full_name"
             android:layout_width="@dimen/default_space_none"
@@ -39,11 +86,12 @@
             android:layout_marginBottom="@dimen/default_space_small"
             android:layout_marginEnd="@dimen/default_space_small"
             android:layout_marginStart="@dimen/default_space_small"
-            android:layout_marginTop="@dimen/default_space"
+            android:layout_marginTop="@dimen/default_space_small"
             app:layout_constraintBottom_toTopOf="@+id/tv_user_details_label_gender"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fab_user_details_choose_profile_photo"
+            style="@style/Widget.Design.TextInputLayout"
             >
 
           <android.support.design.widget.TextInputEditText
@@ -141,6 +189,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_centerVertical="true"
+              style="@style/Widget.Design.TextInputLayout"
               >
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/tiet_user_details_birthday"
@@ -172,6 +221,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rl_user_profile_birthday"
+            style="@style/Widget.Design.TextInputLayout"
             >
 
           <android.support.design.widget.TextInputEditText
@@ -197,6 +247,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_user_details_phone_number"
+            style="@style/Widget.Design.TextInputLayout"
             >
 
           <android.support.design.widget.TextInputEditText
@@ -221,6 +272,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_user_details_email"
+            style="@style/Widget.Design.TextInputLayout"
             >
 
           <android.support.design.widget.TextInputEditText
@@ -246,6 +298,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_user_details_country"
+            style="@style/Widget.Design.TextInputLayout"
             >
 
           <android.support.design.widget.TextInputEditText
@@ -272,6 +325,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_user_details_address"
+            style="@style/Widget.Design.TextInputLayout"
             >
 
           <android.support.design.widget.TextInputEditText
@@ -296,6 +350,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_user_details_landmark"
+            style="@style/Widget.Design.TextInputLayout"
             >
 
           <android.support.design.widget.TextInputEditText
@@ -320,6 +375,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_user_details_pincode"
+            style="@style/Widget.Design.TextInputLayout"
             >
 
           <android.support.design.widget.TextInputEditText
@@ -346,6 +402,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_user_details_city"
+            style="@style/Widget.Design.TextInputLayout"
             >
 
           <android.support.design.widget.TextInputEditText

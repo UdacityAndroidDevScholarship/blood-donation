@@ -18,9 +18,15 @@ public class UserDetail {
   private ObservableString country = new ObservableString();
   private ObservableString pinCode = new ObservableString();
   private ObservableString state = new ObservableString();
+  private ObservableBoolean isPhotoPicked = new ObservableBoolean();
 
   public UserDetail() {
     isMale.set(true);
+    isPhotoPicked.set(false);
+  }
+
+  public ObservableBoolean getIsPhotoPicked() {
+    return isPhotoPicked;
   }
 
   public ObservableString getPinCode() {

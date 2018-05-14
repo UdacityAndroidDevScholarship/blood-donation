@@ -106,7 +106,7 @@
                 android:drawableRight="@drawable/ic_location_on_red_24dp"
                 android:hint="@string/hint_location"
                 android:onClick="@{()->presenter.onLocationClick()}"
-                android:padding="@dimen/dimen_text_30" />
+                android:padding="@dimen/default_space_30" />
 
             <Button
                 android:id="@+id/submit"

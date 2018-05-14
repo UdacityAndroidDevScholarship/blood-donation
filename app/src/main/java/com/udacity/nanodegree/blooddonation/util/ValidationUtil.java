@@ -30,29 +30,31 @@ public class ValidationUtil {
     }
 
     if (TextUtils.isEmpty(user.fullName)) {
-      return new Pair<>(R.id.til_user_details_full_name, R.string.user_detail_error_msg_full_name);
+      return new Pair<>(R.id.til_user_details_full_name, R.string.user_details_error_msg_full_name);
     }
 
     if (TextUtils.isEmpty(user.birthdayInMillis)) {
-      return new Pair<>(R.id.til_user_details_birthday, R.string.user_detail_error_msg_birthday);
+      return new Pair<>(R.id.til_user_details_birthday, R.string.user_details_error_msg_birthday);
     }
 
     if (TextUtils.isEmpty(user.email)) {
-      return new Pair<>(R.id.til_user_details_email, R.string.user_detail_error_msg_email);
-    } else if (!isValidEmail(user.email)) {
+      return new Pair<>(R.id.til_user_details_email, R.string.user_details_error_msg_email);
+    }
+
+    if (!isValidEmail(user.email)) {
       return new Pair<>(R.id.til_user_details_email, R.string.user_details_error_msg_invalid_email);
     }
 
     if (TextUtils.isEmpty(user.address)) {
-      return new Pair<>(R.id.til_user_details_address, R.string.user_detail_error_msg_address);
+      return new Pair<>(R.id.til_user_details_address, R.string.user_details_error_msg_address);
     }
 
     if (TextUtils.isEmpty(user.city)) {
-      return new Pair<>(R.id.til_user_details_city, R.string.user_detail_error_msg_city);
+      return new Pair<>(R.id.til_user_details_city, R.string.user_details_error_msg_city);
     }
 
     if (TextUtils.isEmpty(user.state)) {
-      return new Pair<>(R.id.til_user_details_state, R.string.user_detail_error_msg_state);
+      return new Pair<>(R.id.til_user_details_state, R.string.user_details_error_msg_state);
     }
 
     return null;
