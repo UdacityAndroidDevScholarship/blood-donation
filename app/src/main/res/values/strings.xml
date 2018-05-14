@@ -1,6 +1,31 @@
 <resources>
     <string name="app_name">Blood Donation</string>
 
+    <!--LoginScreen Activity-->
+
+    <string name="hi">Hi.</string>
+    <string name="lets_get_started">Let\'s Get Started</string>
+    <string name="hint_phone_number">Phone Number</string>
+    <string name="proceed">PROCEED</string>
+
+    <string name="wait_for_auto_verify">Waiting to automatically detect an SMS sent to you mobile number</string>
+    <string name="enter_6_digit_code">Enter 6 - Digit code</string>
+    <string name="didn_t_receive_the_code">Didn\'t receive the code?</string>
+
+    <string name="msg_invalid_phone_number">Invalid Phone Number!</string>
+    <string name="msg_verification_already_in_progress">Please wait! Verification already in progress.</string>
+    <string name="msg_otp_has_been_sent">An OTP has been sent to your phone number.</string>
+    <string name="msg_encountered_an_unexpected_error">We have encountered an unexpected error while verifying your phone number!</string>
+    <string name="msg_invalid_verification_code">Invalid verification code!</string>
+    <string name="msg_sms_verification_limit_exceeded">Oops! You have exceeded the maximum limit for SMS verification, please try again later.</string>
+    <string name="msg_currently_verifying_number">Currently we are verifying the phone number:\n\n+%1$s-%2$s\n\nwould you like to edit the number?</string>
+
+    <string name="resend_code_timer">RESEND CODE (%ds)</string>
+
+
+    <string name="msg_no_internet_connection">No internet connection!</string>
+    <string name="msg_please_wait">Please Wait.</string>
+
 
     <!--LoginScreen Activity-->
     <string name="enter_phone_number">Enter phone number</string>
@@ -39,11 +64,13 @@
 
     <!-- HomeActivity -->
     <string name="sign_out">Sign Out</string>
+    <string name="my_profile">My Profile</string>
     <string name="map_theme">Map Theme</string>
     <string name="about">About</string>
     <string name="user_details">User Details</string>
-    <string name="donor">donor</string>
-    <string name="receiver">receiver</string>
+    <string name="donor">Donor</string>
+    <string name="receiver">Receiver</string>
+    <string name="blood_request">Blood Request</string>
 
     <!-- RequestDialogFragment -->
     <string name="submit">Submit</string>
@@ -67,6 +94,6 @@
     <string name="msg_something_went_wrong">Something went wrong!</string>
     <string name="msg_invalid_code">Invalid verification code.</string>
     <string name="msg_invalid_otp">OTP cannot be empty.</string>
-
+    <string name="app_about">This is a free Blood Donation Mobile Application which helps needful patients to search for blood donors in their city or area and request for blood donation.Connecting blood donors and needy reduces time which increases the possibility of saving lives and also eliminates the shortage of blood.</string>
 
 </resources>

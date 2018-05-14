@@ -4,11 +4,8 @@ import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
 import android.support.v4.util.Pair;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
+import android.widget.*;
+import com.goodiebag.pinview.Pinview;
 import com.udacity.nanodegree.blooddonation.R;
 
 /**

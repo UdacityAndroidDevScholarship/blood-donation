@@ -11,6 +11,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -21,10 +22,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
 import com.udacity.nanodegree.blooddonation.R;
-import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.constants.SharedPrefConstants;
 import com.udacity.nanodegree.blooddonation.storage.SharedPreferenceManager;
 import com.udacity.nanodegree.blooddonation.util.permission.AppPermissionsUtil;
+
+import java.lang.ref.WeakReference;
 
 
 /**
@@ -37,8 +39,8 @@ public class LocationUtil {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1002;
     private final Geocoder mGeocoder;
     private boolean mIsLocationCallbackAdded;
-    private BaseActivity mActivity;
-    private LocationListener mListener;
+    private WeakReference<AppCompatActivity> mActivity;
+    private WeakReference<LocationListener> mListener;
     /**
      * if false: City/locality is returned.
      * if true: Complete Address is returned.
@@ -49,9 +51,8 @@ public class LocationUtil {
     private LocationCallback mLocationCallback;
     private FusedLocationProviderClient mFusedLocationClient;
 
-    public LocationUtil(BaseActivity activity, LocationListener listener, SharedPreferenceManager sharedPreferenceManager) {
-        mActivity = activity;
-        mListener = listener;
+    public <T extends AppCompatActivity> LocationUtil(T activity, SharedPreferenceManager sharedPreferenceManager) {
+        mActivity = new WeakReference<>(activity);
 
 
         mPreferenceManager = sharedPreferenceManager;
@@ -63,11 +64,10 @@ public class LocationUtil {
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
-
                 if (locationResult != null && locationResult.getLastLocation() != null) {
                     Location location = locationResult.getLastLocation();
                     new FetchPlaceTask(mGeocoder, location, mIsAddressRequired, addressString -> {
-                        mListener.onLocationReceived(location, addressString);
+                        mListener.get().onLocationReceived(location, addressString);
                         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
                         mIsLocationCallbackAdded = false;
 
@@ -77,17 +77,20 @@ public class LocationUtil {
             }
         };
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mActivity);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mActivity.get());
     }
 
     /**
      * Method to fetch location for sign up. This type of request returns accurate location with
      * city/locality string.
      */
-    public void fetchLocationForSignUp() {
+    public void fetchApproximateLocation(LocationListener listener) {
 
-        String neverAskMessage = mActivity.getString(R.string.msg_never_ask_sign_up);
-        String rationaleMessage = mActivity.getString(R.string.msg_sign_up_location_message);
+        mListener = new WeakReference<>(listener);
+
+
+        String neverAskMessage = mActivity.get().getString(R.string.msg_never_ask_sign_up);
+        String rationaleMessage = mActivity.get().getString(R.string.msg_sign_up_location_message);
 
         fetchLocation(neverAskMessage, rationaleMessage, false);
 
@@ -97,10 +100,12 @@ public class LocationUtil {
      * Method to fetch location for creating blood request. This type of request returns a really
      * precise location with complete address.
      */
-    public void fetchLocationForBloodRequest() {
+    public void fetchPreciseLocation(LocationListener listener) {
 
-        String neverAskMessage = mActivity.getString(R.string.msg_never_ask_blood_request);
-        String rationaleMessage = mActivity.getString(R.string.msg_blood_request_location_message);
+        mListener = new WeakReference<>(listener);
+
+        String neverAskMessage = mActivity.get().getString(R.string.msg_never_ask_blood_request);
+        String rationaleMessage = mActivity.get().getString(R.string.msg_blood_request_location_message);
 
         fetchLocation(neverAskMessage, rationaleMessage, true);
 
@@ -109,41 +114,41 @@ public class LocationUtil {
     public void fetchLocation(String neverAskMessage, String rationaleMessage, boolean isCompleteAddressRequired) {
         mIsAddressRequired = isCompleteAddressRequired;
         //Permission is granted.
-        if (AppPermissionsUtil.checkIfLocationPermissionIsGiven(mActivity))
+        if (AppPermissionsUtil.checkIfLocationPermissionIsGiven(mActivity.get()))
             createLocationRequest();
         else {
             // Never Ask scenario
             if (mPreferenceManager.getBoolean(SharedPrefConstants.IS_LOCATION_PERMISSION_DIALOG_SHOWN)
-                    && !AppPermissionsUtil.shouldShowPermissionRationaleForLocation(mActivity)) {
+                    && !AppPermissionsUtil.shouldShowPermissionRationaleForLocation(mActivity.get())) {
 
 
-                new AlertDialog.Builder(mActivity)
+                new AlertDialog.Builder(mActivity.get())
                         .setTitle(R.string.msg_location_permission_title)
                         .setMessage(neverAskMessage)
-                        .setPositiveButton(mActivity.getString(R.string.txt_open_settings), ((dialog, which) -> {
+                        .setPositiveButton(mActivity.get().getString(R.string.txt_open_settings), ((dialog, which) -> {
                             dialog.dismiss();
                             Intent intent = new Intent();
                             intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            Uri uri = Uri.fromParts("package", mActivity.getPackageName(), null);
+                            Uri uri = Uri.fromParts("package", mActivity.get().getPackageName(), null);
                             intent.setData(uri);
-                            mActivity.startActivity(intent);
-                        })).setNegativeButton(mActivity.getString(R.string.cancel), ((dialog, which) -> dialog.dismiss()))
+                            mActivity.get().startActivity(intent);
+                        })).setNegativeButton(mActivity.get().getString(R.string.cancel), ((dialog, which) -> dialog.dismiss()))
                         .create().show();
 
-            } else if (AppPermissionsUtil.shouldShowPermissionRationaleForLocation(mActivity)) {
+            } else if (AppPermissionsUtil.shouldShowPermissionRationaleForLocation(mActivity.get())) {
                 // Permission has been denied once.
-                new AlertDialog.Builder(mActivity)
+                new AlertDialog.Builder(mActivity.get())
                         .setTitle(R.string.msg_location_permission_title)
                         .setMessage(rationaleMessage)
-                        .setPositiveButton(mActivity.getString(R.string.ok), (dialog, which) -> {
+                        .setPositiveButton(mActivity.get().getString(R.string.ok), (dialog, which) -> {
                             dialog.dismiss();
-                            AppPermissionsUtil.requestForLocationPermission(mActivity, LOCATION_PERMISSION_REQUEST_CODE);
+                            AppPermissionsUtil.requestForLocationPermission(mActivity.get(), LOCATION_PERMISSION_REQUEST_CODE);
 
                         })
-                        .setNegativeButton(mActivity.getString(R.string.cancel), ((dialog, which) -> dialog.dismiss()))
+                        .setNegativeButton(mActivity.get().getString(R.string.cancel), ((dialog, which) -> dialog.dismiss()))
                         .create().show();
             } else //Ask for permission
-                AppPermissionsUtil.requestForLocationPermission(mActivity, LOCATION_PERMISSION_REQUEST_CODE);
+                AppPermissionsUtil.requestForLocationPermission(mActivity.get(), LOCATION_PERMISSION_REQUEST_CODE);
         }
 
 
@@ -160,7 +165,7 @@ public class LocationUtil {
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(mLocationRequest);
 
-        SettingsClient settingsClient = LocationServices.getSettingsClient(mActivity);
+        SettingsClient settingsClient = LocationServices.getSettingsClient(mActivity.get());
         settingsClient.checkLocationSettings(builder.build()).
                 addOnSuccessListener(locationSettingsResponse -> getLocation())
                 .addOnFailureListener(e -> {
@@ -173,7 +178,7 @@ public class LocationUtil {
                         ResolvableApiException resolvable = (ResolvableApiException) e;
 
                         try {
-                            resolvable.startResolutionForResult(mActivity, LOCATION_SETTINGS_REQUEST_CODE);
+                            resolvable.startResolutionForResult(mActivity.get(), LOCATION_SETTINGS_REQUEST_CODE);
                         } catch (IntentSender.SendIntentException e1) {
                             e1.printStackTrace();
                         }
@@ -212,9 +217,10 @@ public class LocationUtil {
     }
 
     public void onDestroy() {
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-        mIsLocationCallbackAdded = false;
-
+        if (mIsLocationCallbackAdded) {
+            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+            mIsLocationCallbackAdded = false;
+        }
     }
 
     public interface LocationListener {

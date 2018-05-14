@@ -20,5 +20,14 @@
     <dimen name="splash_app_version_text_size">@dimen/sp_15</dimen>
     <dimen name="splash_app_version_margin_bottom">@dimen/dp_30</dimen>
     <dimen name="splash_app_name_text_size">@dimen/sp_20</dimen>
+  <dimen name="sp_24">24sp</dimen>
+    <dimen name="dp_32">32dp</dimen>
+    <dimen name="sp_16">16sp</dimen>
+    <dimen name="dp_64">64dp</dimen>
+    <dimen name="dp_48">48dp</dimen>
+    <dimen name="dp_120">120dp</dimen>
+    <dimen name="dp_280">280dp</dimen>
+    <dimen name="dp_36">36dp</dimen>
+    <dimen name="sp_32">32sp</dimen>
 
 </resources>
