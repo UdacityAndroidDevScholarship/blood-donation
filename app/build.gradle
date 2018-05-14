@@ -12,6 +12,7 @@ android {
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     vectorDrawables.useSupportLibrary = true
+    multiDexEnabled true
   }
 
   buildTypes {
@@ -57,7 +58,7 @@ dependencies {
   implementation deps.android.support.appcompatV7
 
   // Support Design
-  implementation deps.android.support.design
+  api deps.android.support.design
 
   // Constraint layout
   implementation deps.android.support.constraintLayout
@@ -68,9 +69,12 @@ dependencies {
   // Realtime database
   implementation deps.google.firebase.database
 
+  // Firebase Storage
+  implementation deps.google.firebase.storage
+
   //Country code picker
-  // https://android-arsenal.com/details/1/5753 // TODO: move to project level gradle
-  implementation 'com.github.joielechong:countrycodepicker:2.1.5'
+  // https://android-arsenal.com/details/1/5753
+  implementation deps.other.countrycodepicker
 
   // Leak canary
   debugImplementation deps.square.leackcanary.debug
@@ -85,14 +89,22 @@ dependencies {
   // Geo-fire
   implementation deps.google.firebase.geo_fire
 
-  // Map
+  // Google Map
   implementation deps.google.play_services.maps
 
-  // PinView // TODO: move to project level gradle
-  implementation 'com.github.GoodieBag:Pinview:v1.3'
+  // Google Places
+  implementation deps.google.play_services.places
+
+  // PinView
+  implementation deps.other.pinView
 
   implementation deps.google.gson.gson
 
+  api deps.android.support.multidex
+
+  implementation deps.other.circleimageview
+
+  implementation deps.other.androidImageCropper
 
   testImplementation deps.junit
 

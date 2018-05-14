@@ -138,9 +138,9 @@ public class HomeActivityPresenter
                     mReceiverDonorRequestType.getLocation().getLongitude());
             mView.addRequestMarker(mReceiverDonorRequestType);
         } else {
-            latLng = new LatLng(mUser.latitude, mUser.longitude);
+           // latLng = new LatLng(mUser.latitude, mUser.longitude);
         }
-        mView.updateCamera(latLng);
+        //mView.updateCamera(latLng);
 
         //queryGeoFire(latLng);
         //geoQuery.addGeoQueryEventListener(this);

@@ -8,7 +8,6 @@ import com.udacity.nanodegree.blooddonation.constants.FireBaseConstants;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
-import com.udacity.nanodegree.blooddonation.injection.Injection;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.RequestDialogPresenter;
 
 /**
@@ -35,11 +34,18 @@ public class DonationRemoteDataSource implements DonationDataSource {
     return INSTANCE;
   }
 
-  @Override public void saveNewUser(String userId, User user) {
-    mFirebaseDatabase.getReference().child(FireBaseConstants.USERS).child(userId).setValue(user);
+  @Override
+  public void saveNewUser(String userId, User user, OnSaveCompletedListener completionListener) {
+    mFirebaseDatabase.getReference()
+        .child(FireBaseConstants.USERS)
+        .child(userId)
+        .setValue(user)
+        .addOnCompleteListener(
+            task -> completionListener.onCompleted(task.isSuccessful()));
   }
 
-  @Override public void saveReceiverDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
+  @Override public void saveReceiverDetails(String userId,
+      ReceiverDonorRequestType receiverDonorRequestType) {
     mFirebaseDatabase.getReference()
         .child(FireBaseConstants.RECEIVER)
         .child(userId)

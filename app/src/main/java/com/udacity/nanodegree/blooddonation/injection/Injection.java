@@ -2,6 +2,7 @@ package com.udacity.nanodegree.blooddonation.injection;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataRepository;
 import com.udacity.nanodegree.blooddonation.data.source.DonationDataSource;
 import com.udacity.nanodegree.blooddonation.data.source.local.DonationLocalDataSource;
@@ -21,6 +22,10 @@ final public class Injection {
 
   public static FirebaseDatabase provideFireBaseDatabase() {
     return FirebaseDatabase.getInstance();
+  }
+
+  public static FirebaseStorage provideFireBaseStorage() {
+    return FirebaseStorage.getInstance();
   }
 
   public static SharedPreferenceManager getSharedPreference() {

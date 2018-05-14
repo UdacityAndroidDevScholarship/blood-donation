@@ -32,11 +32,13 @@ public class DonationDataRepository implements DonationDataSource {
     return INSTANCE;
   }
 
-  @Override public void saveNewUser(String userId, User user) {
-    mRemoteDataSource.saveNewUser(userId, user);
+  @Override public void saveNewUser(String userId, User user,
+      OnSaveCompletedListener completionListener) {
+    mRemoteDataSource.saveNewUser(userId, user, completionListener);
   }
 
-  @Override public void saveReceiverDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
+  @Override public void saveReceiverDetails(String userId,
+      ReceiverDonorRequestType receiverDonorRequestType) {
     mRemoteDataSource.saveReceiverDetails(userId, receiverDonorRequestType);
   }
 

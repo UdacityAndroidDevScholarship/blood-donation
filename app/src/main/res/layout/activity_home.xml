@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
   <data>
@@ -10,22 +12,47 @@
         />
   </data>
 
-  <android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+  <android.support.design.widget.CoordinatorLayout
+      android:id="@+id/coordinator_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="#efefef"
-      tools:context=".ui.home.view.HomeActivity"
       >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?attr/colorPrimary"
+          android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+          app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+          app:title="@string/app_name"
+          app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
+          app:titleTextColor="@android:color/white"
+          />
+    </android.support.design.widget.AppBarLayout>
 
     <include
         layout="@layout/content_main"
+        android:id="@+id/content_main"
         bind:presenter="@{presenter}"
         />
 
     <!-- Adding bottom sheet after main content -->
-    <include layout="@layout/donor_sheet"/>
+    <include
+        layout="@layout/donor_sheet"
+        android:id="@+id/donor_sheet_binding"
+        />
 
-    <include layout="@layout/receiver_sheet"/>
+    <include
+        layout="@layout/receiver_sheet"
+        android:id="@+id/receiver_sheet_binding"
+        />
 
     <ProgressBar
         android:id="@+id/pb_loader"

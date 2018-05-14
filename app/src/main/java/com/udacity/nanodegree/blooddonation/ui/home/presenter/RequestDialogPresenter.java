@@ -65,7 +65,7 @@ public class RequestDialogPresenter implements RequestDialogContract.Presenter {
 
     private void saveDonorDetails(RequestDetails requestDetails) {
 
-        requestDetails.bloodGroup.set(mUser.bloodGroup);
+       // requestDetails.bloodGroup.set(mUser.bloodGroup);
         prepareReceiverDonorRequestType(requestDetails);
         mDataRepo.saveDonorDetails(mFirebaseAuth.getCurrentUser().getUid(),
                 requestDetails.bloodGroup.get(),

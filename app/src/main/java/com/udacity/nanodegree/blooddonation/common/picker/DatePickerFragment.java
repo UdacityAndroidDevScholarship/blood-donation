@@ -25,7 +25,7 @@ public class DatePickerFragment extends DialogFragment
         DatePickerFragment datePickerFragment = new DatePickerFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable(KEY, observableString);
+        args.putParcelable(KEY, observableString);
         datePickerFragment.setArguments(args);
 
         return datePickerFragment;
@@ -34,7 +34,7 @@ public class DatePickerFragment extends DialogFragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        observableString = (ObservableString) getArguments().getSerializable(KEY);
+        observableString = getArguments().getParcelable(KEY);
     }
 
     @NonNull

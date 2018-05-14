@@ -5,8 +5,8 @@ import android.databinding.ObservableBoolean;
 import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.*;
-import com.goodiebag.pinview.Pinview;
 import com.udacity.nanodegree.blooddonation.R;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by riteshksingh on Apr, 2018
@@ -73,5 +73,18 @@ public class BindingAdapters {
   @BindingAdapter({ "app:onClick" })
   public static void bindOnClick(View view, final Runnable runnable) {
     view.setOnClickListener(v -> runnable.run());
+  }
+
+  @BindingAdapter(value = { "userGender", "photoPicked" }, requireAll = true)
+  public static void bindProfileCircleImage(CircleImageView circleImageView,
+      ObservableBoolean isMale, ObservableBoolean isPhotoPicked) {
+    if (isPhotoPicked.get()) {
+      return;
+    }
+    if (isMale.get()) {
+      circleImageView.setImageResource(R.drawable.ic_gender_male);
+    } else {
+      circleImageView.setImageResource(R.drawable.ic_gender_female);
+    }
   }
 }
