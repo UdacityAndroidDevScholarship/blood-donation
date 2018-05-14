@@ -54,15 +54,15 @@
         android:id="@+id/receiver_sheet_binding"
         />
 
-    <ProgressBar
-        android:id="@+id/pb_loader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        android:visibility="gone"
-        tools:visibility="visible"
-        />
+        <ProgressBar
+            android:id="@+id/pb_loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/default_space"
+            android:indeterminate="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
   </android.support.design.widget.CoordinatorLayout>
 </layout>

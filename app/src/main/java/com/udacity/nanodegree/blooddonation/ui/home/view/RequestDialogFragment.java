@@ -93,9 +93,9 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     }
 
     @Override
-    public void dismissDialog(boolean isReceiver, ReceiverDonorRequestType receiverDonorRequestType) {
+    public void dismissDialog(@NonNull String uid, boolean isReceiver, ReceiverDonorRequestType receiverDonorRequestType) {
         IRequestDialogFragmentListener listener = (IRequestDialogFragmentListener) getActivity();
-        listener.onRequestDialogDismissed(isReceiver, receiverDonorRequestType);
+        listener.onRequestDialogDismissed(uid, isReceiver, receiverDonorRequestType);
         dismiss();
     }
 
@@ -144,6 +144,6 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     }
 
     public interface IRequestDialogFragmentListener {
-        void onRequestDialogDismissed(boolean isReceiver, ReceiverDonorRequestType receiverDonorRequestType);
+        void onRequestDialogDismissed(@NonNull String uid, boolean isReceiver, ReceiverDonorRequestType receiverDonorRequestType);
     }
 }

@@ -3,8 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_my_profile"
+        android:title="@string/my_profile"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_map_theme"
         android:title="@string/map_theme"
+        android:visible="false"
         app:showAsAction="never" />
 
     <item
