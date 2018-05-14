@@ -1,7 +1,6 @@
 package com.udacity.nanodegree.blooddonation.data.source;
 
 import com.firebase.geofire.GeoLocation;
-import com.google.firebase.database.DatabaseReference;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.model.User;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.RequestDialogPresenter;
