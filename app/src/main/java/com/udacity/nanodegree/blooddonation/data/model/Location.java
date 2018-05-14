@@ -14,6 +14,9 @@ import com.google.firebase.database.PropertyName;
   @PropertyName("lon")
   public double longitude;
 
+  public Location() {
+  }
+
   public Location(double latitude, double longitude) {
     this.latitude = latitude;
     this.longitude = longitude;
