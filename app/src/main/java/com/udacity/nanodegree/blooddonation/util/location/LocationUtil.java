@@ -21,6 +21,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.maps.model.LatLng;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.constants.SharedPrefConstants;
 import com.udacity.nanodegree.blooddonation.storage.SharedPreferenceManager;
@@ -66,8 +67,9 @@ public class LocationUtil {
                 super.onLocationResult(locationResult);
                 if (locationResult != null && locationResult.getLastLocation() != null) {
                     Location location = locationResult.getLastLocation();
-                    new FetchPlaceTask(mGeocoder, location, mIsAddressRequired, addressString -> {
-                        mListener.get().onLocationReceived(location, addressString);
+                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    new FetchPlaceTask(mGeocoder, latLng, mIsAddressRequired, addressString -> {
+                        mListener.get().onLocationReceived(latLng, addressString);
                         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
                         mIsLocationCallbackAdded = false;
 
@@ -109,6 +111,13 @@ public class LocationUtil {
 
         fetchLocation(neverAskMessage, rationaleMessage, true);
 
+    }
+
+    public void fetchPlaceName(LocationListener listener, LatLng location) {
+        mListener = new WeakReference<>(listener);
+
+        new FetchPlaceTask(mGeocoder, location, true, addressString ->
+                mListener.get().onLocationReceived(location, addressString));
     }
 
     public void fetchLocation(String neverAskMessage, String rationaleMessage, boolean isCompleteAddressRequired) {
@@ -224,7 +233,7 @@ public class LocationUtil {
     }
 
     public interface LocationListener {
-        void onLocationReceived(@NonNull Location location, @NonNull String addressString);
+        void onLocationReceived(@NonNull LatLng location, @NonNull String addressString);
     }
 
 }

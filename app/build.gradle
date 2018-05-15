@@ -94,6 +94,9 @@ dependencies {
 
     implementation deps.google.gson.gson
 
+    implementation deps.google.firebase.cloud_messaging
+
+
 
     testImplementation deps.junit
 

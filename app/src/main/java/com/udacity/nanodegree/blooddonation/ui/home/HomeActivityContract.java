@@ -28,7 +28,7 @@ public interface HomeActivityContract {
 
         void updateCamera(@Nullable LatLng position);
 
-        void openCreateRequestDialog(@NonNull User user);
+        void openCreateRequestDialog(@NonNull User user, @Nullable LatLng location);
 
         void addDonorMarkers(ArrayList<ReceiverDonorRequestType> donors);
 
@@ -49,6 +49,13 @@ public interface HomeActivityContract {
          * Action to perform on pressing add button.
          */
         void onAddClicked();
+
+        /**
+         * Method to create blood request for custom location.
+         *
+         * @param location
+         */
+        void createRequestDialogForCustomLocation(@NonNull LatLng location);
 
         /**
          * Action to perform on current location click.

@@ -1,6 +1,7 @@
 package com.udacity.nanodegree.blooddonation.data.source.remote;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.udacity.nanodegree.blooddonation.constants.FireBaseConstants;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.model.User;
@@ -37,6 +38,9 @@ public class DonationRemoteDataSource implements DonationDataSource {
 
     @Override
     public void saveReceiverDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
+
+        receiverDonorRequestType.setInstanceId(FirebaseInstanceId.getInstance().getToken());
+
         mFirebaseDatabase.getReference()
                 .child(FireBaseConstants.RECEIVER)
                 .child(userId)
@@ -45,6 +49,8 @@ public class DonationRemoteDataSource implements DonationDataSource {
 
     @Override
     public void saveDonorDetails(String userId, ReceiverDonorRequestType receiverDonorRequestType) {
+
+        receiverDonorRequestType.setInstanceId(FirebaseInstanceId.getInstance().getToken());
 
         mFirebaseDatabase.getReference()
                 .child(FireBaseConstants.DONOR)

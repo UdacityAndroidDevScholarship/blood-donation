@@ -1,7 +1,9 @@
 package com.udacity.nanodegree.blooddonation.ui.home.presenter;
 
+import android.support.annotation.NonNull;
 import android.support.v4.util.ArrayMap;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -65,7 +67,15 @@ public class HomeActivityPresenter
         if (mUser == null)
             mView.generalResponse(R.string.msg_please_wait);
         else
-            mView.openCreateRequestDialog(mUser);
+            mView.openCreateRequestDialog(mUser, null);
+    }
+
+    @Override
+    public void createRequestDialogForCustomLocation(@NonNull LatLng location) {
+        if (mUser == null)
+            mView.generalResponse(R.string.msg_please_wait);
+        else
+            mView.openCreateRequestDialog(mUser, location);
     }
 
     @Override
@@ -73,7 +83,7 @@ public class HomeActivityPresenter
 
         mView.showHideLoader(false);
 
-        mDonors= new ArrayMap<>();
+        mDonors = new ArrayMap<>();
         mReceivers = new ArrayMap<>();
 
         createUserDetailsValueEventListener();

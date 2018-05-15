@@ -11,6 +11,7 @@ public class ReceiverDonorRequestType {
     String fName;
     String lName;
     String phone;
+    String instanceId;
 
     public ReceiverDonorRequestType() {
     }
@@ -22,6 +23,14 @@ public class ReceiverDonorRequestType {
         this.fName = fName;
         this.lName = lName;
         this.phone = phone;
+    }
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
     }
 
     public String getfName() {
