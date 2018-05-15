@@ -3,6 +3,7 @@ package com.udacity.nanodegree.blooddonation.ui.home.view;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -37,9 +39,7 @@ import com.udacity.nanodegree.blooddonation.ui.about.AboutActivity;
 import com.udacity.nanodegree.blooddonation.ui.home.HomeActivityContract;
 import com.udacity.nanodegree.blooddonation.ui.home.presenter.HomeActivityPresenter;
 import com.udacity.nanodegree.blooddonation.ui.myprofile.MyProfileActivity;
-
 import com.udacity.nanodegree.blooddonation.util.location.LocationUtil;
-
 
 import java.util.ArrayList;
 
@@ -64,7 +64,6 @@ public class HomeActivity extends BaseActivity
 
     private ArrayList<Marker> donorMarkers;
     private ArrayList<Marker> receiverMarkers;
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -108,6 +107,20 @@ public class HomeActivity extends BaseActivity
         receiverMarkers = new ArrayList<>();
 
         mLocationUtil = new LocationUtil(this, Injection.getSharedPreference());
+        (mDonorSheet.findViewById(R.id.direction)).setOnClickListener(view -> {
+            com.udacity.nanodegree.blooddonation.data.model.Location location = (com.udacity.nanodegree.blooddonation.data.model.Location) view.getTag();
+            Uri gmmIntentUri = Uri.parse("google.navigation:q=" + location.getLatitude() + "," + location.getLongitude());
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        });
+        (mReceiver.findViewById(R.id.direction)).setOnClickListener(view -> {
+            com.udacity.nanodegree.blooddonation.data.model.Location location = (com.udacity.nanodegree.blooddonation.data.model.Location) view.getTag();
+            Uri gmmIntentUri = Uri.parse("google.navigation:q=" + location.getLatitude() + "," + location.getLongitude());
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        });
     }
 
     @Override
@@ -125,16 +138,14 @@ public class HomeActivity extends BaseActivity
     protected void onStop() {
         super.onStop();
         mPresenter.onStop();
-
-        removeOldMarkers(donorMarkers);
-        removeOldMarkers(receiverMarkers);
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
+        removeOldMarkers(donorMarkers);
+        removeOldMarkers(receiverMarkers);
     }
 
     private void setDonorBehaviorBottomSheetCallBack() {
@@ -227,7 +238,7 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public void fetchCurrentLocation() {
-        mLocationUtil.fetchApproximateLocation(this);
+        mLocationUtil.fetchPreciseLocation(this);
     }
 
     public void toggleBottomSheet(BottomSheetBehavior<LinearLayout> sheetBehavior,
@@ -303,12 +314,23 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if (marker.getTitle() == null) {
+        if (marker.getTitle() == null || marker.getTag() == null || !(marker.getTag() instanceof ReceiverDonorRequestType)) {
             return false;
         }
+        ReceiverDonorRequestType mReceiverDonorRequestType = (ReceiverDonorRequestType) marker.getTag();
         if (marker.getTitle().contains(getString(R.string.donor))) {
+            ((TextView) mDonorSheet.findViewById(R.id.name)).setText(mReceiverDonorRequestType.getfName() + " " + mReceiverDonorRequestType.getlName());
+            ((TextView) mDonorSheet.findViewById(R.id.blood_group)).setText(mReceiverDonorRequestType.getbGp());
+            ((TextView) mDonorSheet.findViewById(R.id.phone)).setText(mReceiverDonorRequestType.getPhone());
+            ((TextView) mDonorSheet.findViewById(R.id.purpose)).setText(mReceiverDonorRequestType.getPurpose());
+            (mDonorSheet.findViewById(R.id.direction)).setTag(mReceiverDonorRequestType.getLocation());
             toggleBottomSheet(donorBehavior, receiverBehaviour);
         } else if (marker.getTitle().contains(getString(R.string.blood_request))) {
+            ((TextView) mReceiver.findViewById(R.id.name)).setText(mReceiverDonorRequestType.getfName() + " " + mReceiverDonorRequestType.getlName());
+            ((TextView) mReceiver.findViewById(R.id.blood_group)).setText(mReceiverDonorRequestType.getbGp());
+            ((TextView) mReceiver.findViewById(R.id.phone)).setText(mReceiverDonorRequestType.getPhone());
+            ((TextView) mReceiver.findViewById(R.id.purpose)).setText(mReceiverDonorRequestType.getPurpose());
+            (mReceiver.findViewById(R.id.direction)).setTag(mReceiverDonorRequestType.getLocation());
             toggleBottomSheet(receiverBehaviour, donorBehavior);
         }
         return false;
@@ -355,6 +377,10 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public void onLocationReceived(@NonNull Location location, @NonNull String addressString) {
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(latLng)
+                .title(getString(R.string.you_are_here))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_my_location)));
         updateCamera(new LatLng(location.getLatitude(), location.getLongitude()));
     }
 }

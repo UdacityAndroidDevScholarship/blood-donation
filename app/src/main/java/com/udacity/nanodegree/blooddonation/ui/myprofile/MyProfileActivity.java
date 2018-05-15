@@ -22,6 +22,8 @@ import java.util.Iterator;
  */
 
 public class MyProfileActivity extends AppCompatActivity {
+    private ValueEventListener mUserProfileValueEventListener;
+    private DatabaseReference mUserProfileDabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +39,8 @@ public class MyProfileActivity extends AppCompatActivity {
         TextView tv_name=(TextView) findViewById(R.id.my_name);
         TextView tv_gender=(TextView) findViewById(R.id.my_gender);
         TextView tv_location=(TextView) findViewById(R.id.my_location);
-
-        mDatabase.child("users").child(uid).addValueEventListener(new ValueEventListener() {
+        mUserProfileDabaseReference = mDatabase.child("users").child(uid);
+        mUserProfileValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -82,7 +84,14 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+        mUserProfileDabaseReference.addValueEventListener(mUserProfileValueEventListener);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUserProfileDabaseReference.removeEventListener(mUserProfileValueEventListener);
     }
 }
