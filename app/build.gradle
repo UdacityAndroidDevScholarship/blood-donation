@@ -1,41 +1,109 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion buildConfig.compileSdk
-  defaultConfig {
-    applicationId "com.udacity.nanodegree.blooddonation"
-    minSdkVersion buildConfig.minSdk
-    targetSdkVersion buildConfig.targetSdk
-    versionCode buildConfig.version.code
-    versionName buildConfig.version.name
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-  }
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    compileSdkVersion buildConfig.compileSdk
+
+    defaultConfig {
+        applicationId "com.udacity.nanodegree.blooddonation"
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
+        versionCode buildConfig.version.code
+        versionName buildConfig.version.name
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
     }
-  }
+
+    buildTypes {
+
+        debug {
+            debuggable true
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        buildTypes.each {
+            it.resValue('string', "google_maps_key", propOrThrow('GOOGLE_MAPS_API_KEY'))
+        }
+    }
+
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+        lintConfig rootProject.file('lint.xml')
+
+        checkDependencies true
+        checkTestSources true
+        explainIssues false
+    }
+
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // Support lib
+    implementation deps.android.support.appcompatV7
 
-  // Support lib
-  implementation deps.android.support.appcompatV7
+    // Support Design
+    implementation deps.android.support.design
 
-  // Constraint layout
-  implementation deps.android.support.constraintLayout
+    // Constraint layout
+    implementation deps.android.support.constraintLayout
 
-  // Firebase Auth
-  implementation deps.google.firebase.auth
+    // Firebase Auth
+    implementation deps.google.firebase.auth
 
-  // Lear canary
-  debugImplementation deps.square.leackcanary.debug
-  releaseImplementation deps.square.leackcanary.release
+    // Realtime database
+    implementation deps.google.firebase.database
 
-  testImplementation deps.junit
+    //Country code picker
+    // https://android-arsenal.com/details/1/5753 // TODO: move to project level gradle
+    implementation 'com.github.joielechong:countrycodepicker:2.1.5'
 
-  androidTestImplementation deps.android.support.test.runner
-  androidTestImplementation deps.android.support.test.espressoCore
+    // Leak canary
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    debugImplementation deps.square.leackcanary.debug
+    releaseImplementation deps.square.leackcanary.release
+
+    // Timber - Logging library
+    implementation deps.other.timber
+
+    // Fused location
+    implementation deps.google.play_services.location
+
+    // Geo-fire
+    implementation deps.google.firebase.geo_fire
+
+    // Map
+    implementation deps.google.play_services.maps
+
+    // PinView // TODO: move to project level gradle
+    implementation 'com.github.GoodieBag:Pinview:v1.3'
+
+    implementation deps.google.gson.gson
+
+    implementation deps.google.firebase.cloud_messaging
+
+
+
+    testImplementation deps.junit
+
+    androidTestImplementation deps.android.support.test.runner
+    androidTestImplementation deps.android.support.test.espressoCore
+
 }
+
+
+apply plugin: 'com.google.gms.google-services'

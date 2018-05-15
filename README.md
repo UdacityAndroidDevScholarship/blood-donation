@@ -62,6 +62,12 @@ All persons near him i.e. *our voluntary donors* will receive notification for s
 * Now you should be able to successfully sync the project.
 ---
 
+## Cloud Functions for push notifications
+
+* Cloud functions will be used to send notifications to the donors when new blood requests as that of the donor is created.
+* The cloud functions code is being written at https://github.com/groverankush/blood_donation_functions Feel free to contribute to it.
+* To setup and test cloud functions on your local system, visit https://firebase.google.com/docs/functions/
+
 ## Contributing
 
 We welcome your contributions to this project. There are various ways to contribute:
