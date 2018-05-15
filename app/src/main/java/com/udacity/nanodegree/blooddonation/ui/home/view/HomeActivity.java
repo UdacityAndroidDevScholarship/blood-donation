@@ -2,7 +2,6 @@ package com.udacity.nanodegree.blooddonation.ui.home.view;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,7 +47,7 @@ import java.util.ArrayList;
  * Created by Ankush Grover(ankushgrover02@gmail.com) on 23/04/2018.
  */
 public class HomeActivity extends BaseActivity
-        implements HomeActivityContract.View, RequestDialogFragment.IRequestDialogFragmentListener, LocationUtil.LocationListener {
+        implements HomeActivityContract.View, RequestDialogFragment.IRequestDialogFragmentListener, LocationUtil.LocationListener, GoogleMap.OnMapLongClickListener {
 
     private static final int INITIAL_ZOOM_LEVEL = 14;
 
@@ -252,9 +251,9 @@ public class HomeActivity extends BaseActivity
     }
 
     @Override
-    public void openCreateRequestDialog(@NonNull User user) {
+    public void openCreateRequestDialog(@NonNull User user, @Nullable LatLng location) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        RequestDialogFragment requestDialogFragment = RequestDialogFragment.getInstance(user);
+        RequestDialogFragment requestDialogFragment = RequestDialogFragment.getInstance(user, location);
         requestDialogFragment.show(fragmentManager, "request_dialog");
     }
 
@@ -306,6 +305,7 @@ public class HomeActivity extends BaseActivity
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnMarkerClickListener(this);
+        mMap.setOnMapLongClickListener(this);
         mLocationUtil.fetchApproximateLocation(this);
         mPresenter.onCreate();
 
@@ -376,11 +376,16 @@ public class HomeActivity extends BaseActivity
     }
 
     @Override
-    public void onLocationReceived(@NonNull Location location, @NonNull String addressString) {
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+    public void onLocationReceived(@NonNull LatLng location, @NonNull String addressString) {
+        LatLng latLng = new LatLng(location.latitude, location.longitude);
         mMap.addMarker(new MarkerOptions().position(latLng)
                 .title(getString(R.string.you_are_here))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_my_location)));
-        updateCamera(new LatLng(location.getLatitude(), location.getLongitude()));
+        updateCamera(location);
+    }
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+        mPresenter.createRequestDialogForCustomLocation(latLng);
     }
 }

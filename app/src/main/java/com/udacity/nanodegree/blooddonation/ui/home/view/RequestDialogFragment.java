@@ -1,10 +1,8 @@
 package com.udacity.nanodegree.blooddonation.ui.home.view;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Point;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,8 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.data.model.ReceiverDonorRequestType;
 import com.udacity.nanodegree.blooddonation.data.model.User;
@@ -36,9 +33,8 @@ import com.udacity.nanodegree.blooddonation.util.location.LocationUtil;
 public class RequestDialogFragment extends DialogFragment implements RequestDialogContract.View, LocationUtil.LocationListener {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 101;
-    private static User mUser;
-    private FusedLocationProviderClient mFusedLocationClient;
-
+    private static User sUser;
+    private static LatLng sLocation;
     private RequestDetails mRequestDetails;
     private LocationUtil mLocationUtil;
     private FragmentBloodRequestBinding mFragmentBloodRequestBinding;
@@ -47,9 +43,10 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     public RequestDialogFragment() {
     }
 
-    public static RequestDialogFragment getInstance(User user) {
+    public static RequestDialogFragment getInstance(User user, @Nullable LatLng location) {
 
-        mUser = user;
+        sUser = user;
+        sLocation = location;
         return new RequestDialogFragment();
     }
 
@@ -60,12 +57,11 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
         setCancelable(true);
         mRequestDetails = new RequestDetails();
         mPresenter = new RequestDialogPresenter(this, Injection.provideFireBaseAuth(),
-                Injection.providesDataRepo(), mUser);
+                Injection.providesDataRepo(), sUser);
         mFragmentBloodRequestBinding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_blood_request, container, false);
         mFragmentBloodRequestBinding.setPresenter(mPresenter);
         mFragmentBloodRequestBinding.setRequestDetails(mRequestDetails);
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         return mFragmentBloodRequestBinding.getRoot();
     }
 
@@ -74,17 +70,13 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
         super.onViewCreated(view, savedInstanceState);
 
         mLocationUtil = new LocationUtil((AppCompatActivity) getActivity(), Injection.getSharedPreference());
-        mLocationUtil.fetchPreciseLocation(this);
-    }
+        if (sLocation == null) {
+            mFragmentBloodRequestBinding.tvLocationPicker.setOnClickListener(v -> mPresenter.onLocationClick());
+            mLocationUtil.fetchPreciseLocation(this);
+        } else
+            mLocationUtil.fetchPlaceName(this, sLocation);
 
-    @SuppressLint("MissingPermission")
-    private void getLocation() {
-        mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), location -> {
-            if (location != null) {
-                mRequestDetails.latitude.set(location.getLatitude());
-                mRequestDetails.longitude.set(location.getLongitude());
-            }
-        });
+
     }
 
     @Override
@@ -134,10 +126,10 @@ public class RequestDialogFragment extends DialogFragment implements RequestDial
     }
 
     @Override
-    public void onLocationReceived(@NonNull Location location, @NonNull String addressString) {
+    public void onLocationReceived(@NonNull LatLng location, @NonNull String addressString) {
 
-        mRequestDetails.latitude.set(location.getLatitude());
-        mRequestDetails.longitude.set(location.getLongitude());
+        mRequestDetails.latitude.set(location.latitude);
+        mRequestDetails.longitude.set(location.longitude);
 
         mFragmentBloodRequestBinding.tvLocationPicker.setText(addressString);
 

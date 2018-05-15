@@ -2,7 +2,6 @@ package com.udacity.nanodegree.blooddonation.ui.userdetail.view;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.common.picker.DatePickerFragment;
@@ -122,9 +122,9 @@ public class UserDetailActivity extends BaseActivity implements UserDetailContra
     }
 
     @Override
-    public void onLocationReceived(@NonNull Location location, @NonNull String addressString) {
-        mUserDetail.latitiude.set(location.getLatitude());
-        mUserDetail.longitude.set(location.getLongitude());
+    public void onLocationReceived(@NonNull LatLng location, @NonNull String addressString) {
+        mUserDetail.latitiude.set(location.latitude);
+        mUserDetail.longitude.set(location.longitude);
         mActivityUserDetailsBinding.tvLocationPicker.setText(addressString);
 
     }
