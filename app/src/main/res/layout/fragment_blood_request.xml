@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.udacity.nanodegree.blooddonation.util.Util" />
+        <import type="android.view.View"/>
+
+
+        <variable
+            name="presenter"
+            type="com.udacity.nanodegree.blooddonation.ui.home.RequestDialogContract.Presenter" />
+
+        <variable
+            name="requestDetails"
+            type="com.udacity.nanodegree.blooddonation.ui.home.model.RequestDetails" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:padding="@dimen/dp_16">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/i_want_to"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintStart_toStartOf="@+id/tv_location_picker" />
+
+            <Spinner
+                android:id="@+id/request_drop_down"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/edit_text_border"
+                android:entries="@array/blood_request"
+                android:padding="@dimen/dp_16"
+                app:observableString="@{requestDetails.requestType}"
+                app:setPos="@{true}"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{requestDetails.requestType.get().trim().equalsIgnoreCase(String.valueOf(0)) ? View.VISIBLE : View.GONE}"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/select_blood_group"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <!--Blood group-->
+                <Spinner
+                    android:id="@+id/blood_group_drop_down"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@drawable/edit_text_border"
+                    android:entries="@array/blood_group"
+                    android:padding="@dimen/dp_16"
+                    app:observableString="@{requestDetails.bloodGroup}"
+                    tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_purpose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/edit_text_border"
+                android:gravity="start"
+                android:hint="@string/txt_purpose"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="150"
+                android:maxLines="4"
+                android:minLines="4"
+                android:padding="@dimen/dp_8"
+                android:text="@{requestDetails.purpose}"
+                app:binding="@{requestDetails.purpose}" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_location_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/edit_text_border"
+                android:drawableEnd="@drawable/ic_location_on_red_24dp"
+                android:drawableRight="@drawable/ic_location_on_red_24dp"
+                android:hint="@string/hint_location"
+                android:padding="@dimen/dp_30" />
+
+            <Button
+                android:id="@+id/submit"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_16"
+                android:onClick="@{()->presenter.onSubmitButtonClick(requestDetails)}"
+                android:text="@string/submit" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

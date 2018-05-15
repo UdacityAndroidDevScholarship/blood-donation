@@ -7,11 +7,11 @@ import android.support.v4.app.FragmentManager;
  * Created by riteshksingh on Apr, 2018
  */
 public final class AppUtil {
-  private AppUtil() {
-  }
+    private AppUtil() {
+    }
 
-  public static void replaceFragmentInActivity(FragmentManager fragmentManager, Fragment fragment,
-      int containerId) {
-    fragmentManager.beginTransaction().replace(containerId, fragment).commit();
-  }
+    public static void replaceFragmentInActivity(FragmentManager fragmentManager, Fragment fragment,
+            int containerId) {
+        fragmentManager.beginTransaction().replace(containerId, fragment).commit();
+    }
 }

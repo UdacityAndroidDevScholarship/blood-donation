@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/my_display_picture"
+        android:layout_width="@dimen/splash_icon_height_width"
+        android:layout_height="@dimen/splash_icon_height_width"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+
+    <TextView
+        android:id="@+id/my_blood_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_display_picture"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_22"
+        android:text=""
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/my_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_blood_group"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/my_emailid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_name"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/my_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_emailid"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/my_dob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_gender"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/my_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_dob"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textSize="15sp" />
+</RelativeLayout>

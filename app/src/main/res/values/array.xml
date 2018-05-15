@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string-array name="blood_group">
+    <item>O+</item>
+    <item>O-</item>
+    <item>A+</item>
+    <item>A-</item>
+    <item>B+</item>
+    <item>B-</item>
+    <item>AB+</item>
+    <item>AB-</item>
+  </string-array>
+
+  <string-array name="blood_request">
+    <item>@string/receiver_request_type</item>
+    <item>@string/donor_request_type</item>
+  </string-array>
+
+</resources>

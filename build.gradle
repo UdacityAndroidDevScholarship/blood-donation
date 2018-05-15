@@ -4,18 +4,26 @@ buildscript {
 
     ext.versions = [
             'supportLibrary'  : '27.1.1',
-            'constraintLayout': '1.0.2',
-            'firebase'        : '12.0.1',
+            'constraintLayout': '1.1.0',
+            'firebase'        : '15.0.2',
             'testRunner'      : '1.0.1',
             'espressoCore'    : '3.0.1',
-            'leak_canary'     :  '1.5.4'
+            'leak_canary'     :  '1.5.4',
+            'timber'          : '4.7.0',
+            'play_services'   : '15.0.0',
+            'geo_fire'        : '2.3.1',
+            'gson'            : '2.8.4',
+            'fcm'             : '15.0.2',
+            'firebase_auth'   : '15.1.0',
+            'firebase_database':'15.0.0'
+
     ]
 
 
     ext.buildConfig = [
             'compileSdk': 27,
             'targetSdk' : 27,
-            'minSdk'    : 15,
+            'minSdk'    : 16,
             'isSnapshot': false,
 
             'version'   : [
@@ -48,6 +56,7 @@ buildscript {
                             'appcompatV7'     : "com.android.support:appcompat-v7:${versions.supportLibrary}",
                             'annotations'     : "com.android.support:support-annotations:${versions.supportLibrary}",
                             'constraintLayout': "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
+                            'design'          : "com.android.support:design:${versions.supportLibrary}",
                             'test'            : [
                                     'runner'      : "com.android.support.test:runner:${versions.testRunner}",
                                     'espressoCore': "com.android.support.test.espresso:espresso-core:${versions.espressoCore}"
@@ -57,7 +66,17 @@ buildscript {
 
             'google' : [
                     'firebase': [
-                            'auth': "com.google.firebase:firebase-auth:${versions.firebase}"
+                            'auth': "com.google.firebase:firebase-auth:${versions.firebase_auth}",
+                            'database':"com.google.firebase:firebase-database:${versions.firebase_database}",
+                            'geo_fire':"com.firebase:geofire-android:${versions.geo_fire}",
+                            'cloud_messaging':"com.google.firebase:firebase-messaging:${versions.fcm}"
+                    ],
+                    'play_services':[
+                        'location':"com.google.android.gms:play-services-location:${versions.play_services}",
+                        'maps':"com.google.android.gms:play-services-maps:${versions.play_services}"
+                    ],
+                    'gson':[
+                            'gson': "com.google.code.gson:gson:${versions.gson}"
                     ]
             ],
 
@@ -68,6 +87,10 @@ buildscript {
                 ]
             ],
 
+            'other':[
+                'timber':"com.jakewharton.timber:timber:${versions.timber}"
+            ],
+
             'junit'  : 'junit:junit:4.12'
     ]
 
@@ -76,10 +99,13 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
+
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha13'
+        classpath 'com.google.gms:google-services:3.2.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
     }
 }
 
@@ -87,6 +113,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 
     // Force all of the primary support libraries to use the same version.
@@ -101,4 +128,11 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+def propOrThrow(String name) {
+    if (hasProperty(name))
+        return getProperty(name)
+    else
+        throw new GradleException("Can't find property `$name`, make sure you have added them to the global 'gradle.properties' file")
 }
