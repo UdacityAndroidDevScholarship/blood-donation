@@ -35,14 +35,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <ImageView
             android:id="@+id/phone"
+            app:srcCompat="@drawable/ic_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:autoLink="phone"
-            android:textSize="18sp" />
+            android:layout_alignParentEnd="true" />
         <Button
             android:id="@+id/direction"
             android:layout_below="@id/phone"
@@ -65,7 +64,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/dp_8"
         android:background="#000000"
         android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/receiver"
