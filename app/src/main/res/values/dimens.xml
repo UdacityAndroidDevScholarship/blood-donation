@@ -30,5 +30,6 @@
     <dimen name="dp_280">280dp</dimen>
     <dimen name="dp_36">36dp</dimen>
     <dimen name="sp_32">32sp</dimen>
+    <dimen name="sp_18">18sp</dimen>
 
 </resources>
