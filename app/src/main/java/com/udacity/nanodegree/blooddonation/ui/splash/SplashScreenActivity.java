@@ -14,7 +14,6 @@ import com.udacity.nanodegree.blooddonation.R;
 import com.udacity.nanodegree.blooddonation.base.BaseActivity;
 import com.udacity.nanodegree.blooddonation.constants.SharedPrefConstants;
 import com.udacity.nanodegree.blooddonation.injection.Injection;
-import com.udacity.nanodegree.blooddonation.ui.TestActivity;
 import com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity;
 import com.udacity.nanodegree.blooddonation.ui.login.view.UserLoginActivity;
 import com.udacity.nanodegree.blooddonation.ui.userdetail.view.UserDetailActivity;
@@ -47,7 +46,6 @@ public class SplashScreenActivity extends BaseActivity {
                 }
                 finish();
                 overridePendingTransition(R.anim.enter, R.anim.exit);
-                //intent = new Intent(SplashScreenActivity.this, TestActivity.class);
 
                 startActivity(intent);
             }

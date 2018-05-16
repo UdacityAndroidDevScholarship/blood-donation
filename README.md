@@ -1,8 +1,5 @@
-# **Blood Donation App**
+![blood donation app](https://user-images.githubusercontent.com/25679263/40031419-42021df4-580d-11e8-941f-3f3b80458998.png)
 
-Hello Everyone,
-
-This application is an ongoing collaborative project made by the `Google Udacity Android Developer Scholarship Recipients`.
 
 ---
 

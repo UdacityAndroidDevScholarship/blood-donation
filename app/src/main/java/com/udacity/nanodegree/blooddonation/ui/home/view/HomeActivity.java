@@ -1,6 +1,8 @@
 package com.udacity.nanodegree.blooddonation.ui.home.view;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -119,6 +122,25 @@ public class HomeActivity extends BaseActivity
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
             startActivity(mapIntent);
+        });
+
+        mReceiver.findViewById(R.id.call).setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_CALL);
+
+            intent.setData(Uri.parse("tel:" + v.getTag()));
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE},1021);
+                return;
+            }
+            startActivity(intent);
         });
     }
 
@@ -331,6 +353,7 @@ public class HomeActivity extends BaseActivity
             ((TextView) mReceiver.findViewById(R.id.phone)).setText(mReceiverDonorRequestType.getPhone());
             ((TextView) mReceiver.findViewById(R.id.purpose)).setText(mReceiverDonorRequestType.getPurpose());
             (mReceiver.findViewById(R.id.direction)).setTag(mReceiverDonorRequestType.getLocation());
+            mReceiver.findViewById(R.id.call).setTag(mReceiverDonorRequestType.getPhone());
             toggleBottomSheet(receiverBehaviour, donorBehavior);
         }
         return false;

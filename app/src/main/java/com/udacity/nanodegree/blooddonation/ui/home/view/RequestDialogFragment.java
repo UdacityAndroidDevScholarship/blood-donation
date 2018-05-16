@@ -32,7 +32,6 @@ import com.udacity.nanodegree.blooddonation.util.location.LocationUtil;
  */
 public class RequestDialogFragment extends DialogFragment implements RequestDialogContract.View, LocationUtil.LocationListener {
 
-    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 101;
     private static User sUser;
     private static LatLng sLocation;
     private RequestDetails mRequestDetails;
