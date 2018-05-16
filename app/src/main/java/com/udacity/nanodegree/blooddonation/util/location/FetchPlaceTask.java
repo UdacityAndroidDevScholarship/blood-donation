@@ -5,6 +5,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.udacity.nanodegree.blooddonation.util.Util;
 
 import java.io.IOException;
@@ -14,14 +15,14 @@ public class FetchPlaceTask extends AsyncTask<Void, Void, String> {
 
 
     private Geocoder mGeocoder;
-    private Location mLocation;
+    private LatLng mLocation;
     private boolean mIsAddressRequired;
     private AddressParseListener mListener;
 
-    public FetchPlaceTask(Geocoder geocoder, Location location, boolean isAddressRequired, AddressParseListener listener) {
+    public FetchPlaceTask(Geocoder geocoder, LatLng location, boolean isCompleteAddressRequired, AddressParseListener listener) {
         mGeocoder = geocoder;
         mLocation = location;
-        this.mIsAddressRequired = isAddressRequired;
+        this.mIsAddressRequired = isCompleteAddressRequired;
         this.mListener = listener;
 
 
@@ -31,7 +32,7 @@ public class FetchPlaceTask extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
         try {
-            List<Address> addresses = mGeocoder.getFromLocation(mLocation.getLatitude(), mLocation.getLongitude(), 1);
+            List<Address> addresses = mGeocoder.getFromLocation(mLocation.latitude, mLocation.longitude, 1);
             if (addresses.size() > 0 && addresses.get(0) != null) {
                 Address address = addresses.get(0);
                 if (mIsAddressRequired)
@@ -51,7 +52,7 @@ public class FetchPlaceTask extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         if (s == null || s.isEmpty())
-            s = Util.convertLatLongToAddress(mLocation.getLatitude(), mLocation.getLongitude());
+            s = Util.convertLatLongToAddress(mLocation.latitude, mLocation.longitude);
         if (mListener != null)
             mListener.onAddressParsed(s);
     }

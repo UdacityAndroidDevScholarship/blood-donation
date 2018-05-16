@@ -71,6 +71,7 @@
     <string name="donor">Donor</string>
     <string name="receiver">Receiver</string>
     <string name="blood_request">Blood Request</string>
+    <string name="get_direction">Get Direction</string>
 
     <!-- RequestDialogFragment -->
     <string name="submit">Submit</string>
@@ -95,5 +96,7 @@
     <string name="msg_invalid_code">Invalid verification code.</string>
     <string name="msg_invalid_otp">OTP cannot be empty.</string>
     <string name="app_about">This is a free Blood Donation Mobile Application which helps needful patients to search for blood donors in their city or area and request for blood donation.Connecting blood donors and needy reduces time which increases the possibility of saving lives and also eliminates the shortage of blood.</string>
+    <string name="you_are_here">You are here!</string>
+
 
 </resources>

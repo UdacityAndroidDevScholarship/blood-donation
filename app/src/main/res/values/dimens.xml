@@ -8,6 +8,7 @@
     <dimen name="dp_100">100dp</dimen>
     <dimen name="dp_150dp">150dp</dimen>
     <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_22">22dp</dimen>
 
 
     <!--Sp-->

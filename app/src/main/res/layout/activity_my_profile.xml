@@ -115,6 +115,14 @@
         app:layout_constraintStart_toStartOf="@+id/appBarLayout"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         android:contentDescription="@null" />
+        android:id="@+id/my_display_picture"
+        android:layout_width="@dimen/splash_icon_height_width"
+        android:layout_height="@dimen/splash_icon_height_width"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
 
     <ImageView
         android:id="@+id/imageView3"
@@ -156,6 +164,11 @@
         app:layout_constraintStart_toStartOf="@id/imageView4"
         app:layout_constraintTop_toTopOf="@id/imageView4"
         app:layout_constraintVertical_bias="0.786" />
+        android:layout_below="@+id/my_display_picture"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_22"
+        android:text=""
+        android:textSize="40sp" />
 
     <TextView
         android:id="@+id/my_request"
