@@ -3,7 +3,8 @@
 
 ---
 ## Check v1.0
-[![screenshot_20180521002941](https://user-images.githubusercontent.com/25679263/40282526-59f1506c-5c8e-11e8-8909-7bc2f9de91c5.png)](https://www.youtube.com/watch?v=HXrusHKrLQE "Blood Donation App V1.0 - Udacity Google India Scholars")
+[![Blood_Donation_Kamal](https://user-images.githubusercontent.com/25679263/40282658-4ed4c752-5c90-11e8-94ce-c7db6c1f91ac.jpg)]
+(https://www.youtube.com/watch?v=HXrusHKrLQE "Blood Donation App V1.0 - Udacity Google India Scholars")
 
 ---
 ## How the app will work?
