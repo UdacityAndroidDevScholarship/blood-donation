@@ -13,5 +13,9 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
+	int i =3;
+	for(i<7;i++){
+		int a= 1;
+		}
     }
 }
