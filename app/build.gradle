@@ -94,6 +94,7 @@ dependencies {
 
     implementation deps.google.gson.gson
 
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation deps.google.firebase.cloud_messaging
 
 

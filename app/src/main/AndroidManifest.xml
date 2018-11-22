@@ -44,6 +44,24 @@
     YOU NEED TO ADD YOUR MAPS API KEY. Get a key from
     https://developers.google.com/maps/documentation/android-api/ -->
 
+      
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="@string/google_maps_key" />
+      
+    <activity android:name=".ui.about.AboutActivity"
+        android:screenOrientation="portrait"
+        android:parentActivityName=".ui.home.view.HomeActivity"
+        android:label="About"/>
+      
+    <activity android:name=".ui.myprofile.MyProfileActivity"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:screenOrientation="portrait"
+        android:parentActivityName=".ui.home.view.HomeActivity"
+        android:label="My Profile"/>
+</application>
+
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -79,4 +97,5 @@
             android:resource="@mipmap/ic_launcher" />
 
     </application>
+
 </manifest>

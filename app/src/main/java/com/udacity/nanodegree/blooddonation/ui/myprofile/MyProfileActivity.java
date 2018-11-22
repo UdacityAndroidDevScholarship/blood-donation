@@ -1,8 +1,10 @@
 package com.udacity.nanodegree.blooddonation.ui.myprofile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,8 +15,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.udacity.nanodegree.blooddonation.R;
+import com.udacity.nanodegree.blooddonation.ui.home.view.HomeActivity;
 
-import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -30,14 +32,16 @@ public class MyProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
         FirebaseUser currentUser=FirebaseAuth.getInstance().getCurrentUser();
+        assert currentUser != null;
         String uid=currentUser.getUid();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        ImageButton btnClose = (ImageButton) findViewById(R.id.btnClose);
+        ImageButton btnEdit = (ImageButton) findViewById(R.id.btnEdit);
         TextView tv_blood_group=(TextView) findViewById(R.id.my_blood_group);
-        TextView tv_dob=(TextView) findViewById(R.id.my_dob);
-        TextView tv_emailid=(TextView) findViewById(R.id.my_emailid);
+        TextView tv_email=(TextView) findViewById(R.id.my_email);
+        TextView tv_mob=(TextView) findViewById(R.id.my_mob);
         TextView tv_name=(TextView) findViewById(R.id.my_name);
-        TextView tv_gender=(TextView) findViewById(R.id.my_gender);
         TextView tv_location=(TextView) findViewById(R.id.my_location);
         mUserProfileDabaseReference = mDatabase.child("users").child(uid);
         mUserProfileValueEventListener = new ValueEventListener() {
@@ -52,17 +56,11 @@ public class MyProfileActivity extends AppCompatActivity {
                         if (nextSnapShot.getKey().equals("bloodGroup")) {
                             tv_blood_group.setText(nextSnapShot.getValue().toString());
                         }
-                        else if (nextSnapShot.getKey().equals("dob")) {
-                            tv_dob.setText(nextSnapShot.getValue().toString());
-                        }
                         else if (nextSnapShot.getKey().equals("email")) {
-                            tv_emailid.setText(nextSnapShot.getValue().toString());
+                            tv_email.setText(nextSnapShot.getValue().toString());
                         }
                         else if (nextSnapShot.getKey().equals("fName")) {
                             tv_name.setText(nextSnapShot.getValue().toString());
-                        }
-                        else if (nextSnapShot.getKey().equals("gender")) {
-                            tv_gender.setText(nextSnapShot.getValue().toString());
                         }
                         else if (nextSnapShot.getKey().equals("lName")) {
                             tv_name.setText(tv_name.getText()+" "+nextSnapShot.getValue().toString());
@@ -89,9 +87,18 @@ public class MyProfileActivity extends AppCompatActivity {
 
     }
 
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent back = new Intent(MyProfileActivity.this,HomeActivity.class);
+                startActivity(back);
+            }
+        });
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mUserProfileDabaseReference.removeEventListener(mUserProfileValueEventListener);
+
     }
 }

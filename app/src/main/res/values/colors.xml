@@ -15,4 +15,6 @@
   <color name="colorButtonBrandFillDisabled">#ffbdbdbd</color>
   <color name="colorButtonBrandFillFocused">@color/colorPrimaryDark</color>
   <color name="colorButtonBrandFillPressed">@color/colorPrimaryDark</color>
+
+  <color name="ripple_color">#bdbdbd</color>
 </resources>
