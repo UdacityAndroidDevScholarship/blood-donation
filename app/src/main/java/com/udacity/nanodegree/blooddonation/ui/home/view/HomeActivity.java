@@ -120,6 +120,20 @@ public class HomeActivity extends BaseActivity
             mapIntent.setPackage("com.google.android.apps.maps");
             startActivity(mapIntent);
         });
+        (mDonorSheet.findViewById(R.id.phone)).setOnClickListener(view -> {
+            String phoneNum = (String) view.getTag();
+            Uri dialIntentUri = Uri.parse("tel:"+phoneNum);
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL, dialIntentUri);
+            dialIntent.setData(dialIntentUri);
+            startActivity(dialIntent);
+        });
+        (mReceiver.findViewById(R.id.phone)).setOnClickListener(view -> {
+            String phoneNum = (String) view.getTag();
+            Uri dialIntentUri = Uri.parse("tel:"+phoneNum);
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL, dialIntentUri);
+            dialIntent.setData(dialIntentUri);
+            startActivity(dialIntent);
+        });
     }
 
     @Override
@@ -321,14 +335,14 @@ public class HomeActivity extends BaseActivity
         if (marker.getTitle().contains(getString(R.string.donor))) {
             ((TextView) mDonorSheet.findViewById(R.id.name)).setText(mReceiverDonorRequestType.getfName() + " " + mReceiverDonorRequestType.getlName());
             ((TextView) mDonorSheet.findViewById(R.id.blood_group)).setText(mReceiverDonorRequestType.getbGp());
-            ((TextView) mDonorSheet.findViewById(R.id.phone)).setText(mReceiverDonorRequestType.getPhone());
+            (mDonorSheet.findViewById(R.id.phone)).setTag(mReceiverDonorRequestType.getPhone());
             ((TextView) mDonorSheet.findViewById(R.id.purpose)).setText(mReceiverDonorRequestType.getPurpose());
             (mDonorSheet.findViewById(R.id.direction)).setTag(mReceiverDonorRequestType.getLocation());
             toggleBottomSheet(donorBehavior, receiverBehaviour);
         } else if (marker.getTitle().contains(getString(R.string.blood_request))) {
             ((TextView) mReceiver.findViewById(R.id.name)).setText(mReceiverDonorRequestType.getfName() + " " + mReceiverDonorRequestType.getlName());
             ((TextView) mReceiver.findViewById(R.id.blood_group)).setText(mReceiverDonorRequestType.getbGp());
-            ((TextView) mReceiver.findViewById(R.id.phone)).setText(mReceiverDonorRequestType.getPhone());
+            (mReceiver.findViewById(R.id.phone)).setTag(mReceiverDonorRequestType.getPhone());
             ((TextView) mReceiver.findViewById(R.id.purpose)).setText(mReceiverDonorRequestType.getPurpose());
             (mReceiver.findViewById(R.id.direction)).setTag(mReceiverDonorRequestType.getLocation());
             toggleBottomSheet(receiverBehaviour, donorBehavior);
